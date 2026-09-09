@@ -36,7 +36,6 @@
   );
 
   --font: "Outfit", "Helvetica Neue", sans-serif;
-  --font-display: "Playfair Display", "Times New Roman", serif;
   --font-mono: "Space Grotesk", ui-monospace, monospace;
   --lh-body: 1.62;
   --measure: 65ch;
