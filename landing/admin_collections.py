@@ -7,7 +7,11 @@ from django.forms import BaseModelFormSet, modelformset_factory
 
 from .admin_guidelines import get_image_hint
 from .admin_hero_slides import build_hero_slide_formset, save_hero_slide_formset
-from .admin_site_content_widgets import CmsAdminTextInputWidget, CmsAdminTextareaWidget
+from .admin_site_content_widgets import (
+    CmsAdminImageWidget,
+    CmsAdminTextInputWidget,
+    CmsAdminTextareaWidget,
+)
 from .hero_slides import ensure_default_hero_slides
 from .models import (
     AdvantageItem,
@@ -21,12 +25,10 @@ from .models import (
 
 try:
     from unfold.widgets import (
-        UnfoldAdminFileFieldWidget,
         UnfoldAdminSelectWidget,
         UnfoldBooleanWidget,
     )
 except Exception:  # pragma: no cover
-    UnfoldAdminFileFieldWidget = forms.ClearableFileInput
     UnfoldAdminSelectWidget = forms.Select
     UnfoldBooleanWidget = forms.CheckboxInput
 
@@ -98,7 +100,7 @@ class AdvantageForm(forms.ModelForm):
             "icon": UnfoldAdminSelectWidget(),
             "title": CmsAdminTextInputWidget(),
             "text": CmsAdminTextareaWidget(attrs={"rows": 3}),
-            "image": UnfoldAdminFileFieldWidget(),
+            "image": CmsAdminImageWidget(),
             "image_alt": CmsAdminTextInputWidget(),
             "cta_label": CmsAdminTextInputWidget(),
             "cta_href": CmsAdminTextInputWidget(),
@@ -232,7 +234,7 @@ class StyleForm(forms.ModelForm):
         widgets = {
             "title": CmsAdminTextInputWidget(),
             "text": CmsAdminTextareaWidget(attrs={"rows": 2}),
-            "image": UnfoldAdminFileFieldWidget(),
+            "image": CmsAdminImageWidget(),
             "image_url": CmsAdminTextInputWidget(),
             "is_active": UnfoldBooleanWidget(),
             "sort_order": forms.HiddenInput(),
@@ -320,7 +322,7 @@ class CaseForm(forms.ModelForm):
             "title": CmsAdminTextInputWidget(),
             "location": CmsAdminTextInputWidget(),
             "text": CmsAdminTextareaWidget(attrs={"rows": 3}),
-            "image": UnfoldAdminFileFieldWidget(),
+            "image": CmsAdminImageWidget(),
             "image_alt": CmsAdminTextInputWidget(),
             "tags": CmsAdminTextareaWidget(attrs={"rows": 3}),
             "is_active": UnfoldBooleanWidget(),

@@ -9,6 +9,7 @@ from django.urls import reverse
 from .admin_collections import build_section_collections, save_section_collections
 from .admin_guidelines import get_image_hint, get_text_limit_hint
 from .admin_site_content_widgets import (
+    CmsAdminImageWidget,
     CmsAdminTextInputWidget,
     CmsAdminTextareaWidget,
 )
@@ -31,9 +32,8 @@ from .privacy_text import (
 from .site_content_registry import ContentSection, get_section, iter_section_blocks
 
 try:
-    from unfold.widgets import UnfoldAdminFileFieldWidget, UnfoldBooleanWidget
+    from unfold.widgets import UnfoldBooleanWidget
 except Exception:  # pragma: no cover
-    UnfoldAdminFileFieldWidget = forms.ClearableFileInput
     UnfoldBooleanWidget = forms.CheckboxInput
 
 
@@ -89,11 +89,16 @@ class SitePageContentForm(forms.Form):
                 continue
 
             if content_type == "image":
+                image_kwargs = {
+                    "label": human,
+                    "required": False,
+                    "widget": CmsAdminImageWidget(),
+                    "help_text": get_image_hint("block_image"),
+                }
+                if block.image:
+                    image_kwargs["initial"] = block.image
                 self.fields[f"block__{page}__{key}__image"] = forms.ImageField(
-                    label=human,
-                    required=False,
-                    widget=UnfoldAdminFileFieldWidget(),
-                    help_text=get_image_hint("block_image"),
+                    **image_kwargs
                 )
                 continue
 

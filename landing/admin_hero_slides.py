@@ -4,7 +4,7 @@ from django import forms
 from django.forms import BaseModelFormSet, modelformset_factory
 
 from .admin_guidelines import get_image_hint
-from .admin_site_content_widgets import CmsAdminTextInputWidget
+from .admin_site_content_widgets import CmsAdminImageWidget, CmsAdminTextInputWidget
 from .hero_slides import ensure_default_hero_slides
 from .models import HeroSlide
 
@@ -28,7 +28,7 @@ class HeroSlideForm(forms.ModelForm):
             "sort_order",
         )
         widgets = {
-            "image": UnfoldAdminFileFieldWidget(),
+            "image": CmsAdminImageWidget(),
             "image_url": CmsAdminTextInputWidget(),
             "video": UnfoldAdminFileFieldWidget(),
             "video_url": CmsAdminTextInputWidget(),

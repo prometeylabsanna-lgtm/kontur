@@ -13,11 +13,6 @@
             <div class="site-content-editor__field">
               <label>{{ f.image.label }}</label>
               {{ f.image }}
-              {% if f.instance.image %}
-                <img class="hero-slide-row__preview" src="{{ f.instance.image.url }}" alt="">
-              {% elif f.instance.image_url %}
-                <img class="hero-slide-row__preview" src="{{ f.instance.image_url }}" alt="">
-              {% endif %}
               {% if f.image.errors %}<div class="errors">{{ f.image.errors }}</div>{% endif %}
             </div>
             <div class="site-content-editor__field">

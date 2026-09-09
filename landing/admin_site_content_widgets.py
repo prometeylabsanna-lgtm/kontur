@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+from django import forms
 from django.contrib.admin.widgets import AdminTextareaWidget, AdminTextInputWidget
 
 try:
-    from unfold.widgets import INPUT_CLASSES, TEXTAREA_CLASSES
+    from unfold.widgets import (
+        INPUT_CLASSES,
+        TEXTAREA_CLASSES,
+        UnfoldAdminImageFieldWidget,
+    )
 except Exception:  # pragma: no cover
+    UnfoldAdminImageFieldWidget = forms.ClearableFileInput
     INPUT_CLASSES = [
         "border",
         "border-base-200",
@@ -72,6 +78,16 @@ def cms_control_classes(base_classes) -> list[str]:
         if cls not in cleaned:
             cleaned.append(cls)
     return cleaned
+
+
+class CmsAdminImageWidget(UnfoldAdminImageFieldWidget):
+    """File input з компактним thumbnail лише для вже завантажених Media."""
+
+    template_name = "admin/landing/widgets/cms_image_input.html"
+
+    def __init__(self, attrs=None):
+        attrs = {**(attrs or {}), "accept": "image/*"}
+        super().__init__(attrs=attrs)
 
 
 class CmsAdminTextInputWidget(AdminTextInputWidget):

@@ -20,9 +20,6 @@
                   {{ field }}
                   {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}
                   {% if field.errors %}<div class="errors">{{ field.errors }}</div>{% endif %}
-                  {% if field.name == 'image' and f.instance.pk and f.instance.image %}
-                    <img class="hero-slide-row__preview" src="{{ f.instance.image.url }}" alt="">
-                  {% endif %}
                 </div>
               {% endif %}
             {% endfor %}

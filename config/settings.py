@@ -173,7 +173,6 @@ def _sidebar_navigation(request=None):
 UNFOLD = {
     "SITE_TITLE": "Kontur+",
     "SITE_HEADER": "Kontur+",
-    "SITE_ICON": lambda request: static("img/site-icon.png"),
     "SITE_FAVICONS": [
         {
             "rel": "icon",
