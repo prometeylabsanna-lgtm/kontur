@@ -1,8 +1,11 @@
+{% load kontur_content %}
+{% section_visible 'site' 'header_cta_visible' as show_header_cta %}
+{% section_visible 'site' 'header_phone_visible' as show_header_phone %}
 <header class="site-header" id="siteHeader">
   <div class="site-header__inner">
-    <a class="brand" href="{% url 'landing:home' %}#hero" aria-label="Kontur+ — на головну">
-      <span class="brand__name">Kontur+</span>
-      <span class="brand__desc">ремонтна організація</span>
+    <a class="brand" href="{% url 'landing:home' %}#hero" aria-label="{% block_plain 'site' 'header_brand_name' %} — на головну">
+      <span class="brand__name">{% block_plain 'site' 'header_brand_name' %}</span>
+      <span class="brand__desc">{% block_plain 'site' 'header_brand_desc' %}</span>
     </a>
     <nav class="site-header__nav" aria-label="Секції">
       <a href="#advantages">Переваги</a>
@@ -14,6 +17,7 @@
       <a href="#faq">FAQ</a>
     </nav>
     <div class="site-header__actions">
+      {% if show_header_phone %}
       <a class="site-header__tel" href="tel:{{ SITE_PHONE_TEL }}">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.6 2.6.7a2 2 0 011.7 2z"/></svg>
         {{ SITE_PHONE_DISPLAY }}
@@ -21,7 +25,10 @@
       <a class="site-header__tel-icon" href="tel:{{ SITE_PHONE_TEL }}" aria-label="Зателефонувати">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.6 2.6.7a2 2 0 011.7 2z"/></svg>
       </a>
-      <button class="btn btn--primary btn--pill" type="button" data-open-modal data-ctx="Шапка">Замовити дзвінок</button>
+      {% endif %}
+      {% if show_header_cta %}
+      <button class="btn btn--primary btn--pill" type="button" data-open-modal data-ctx="Шапка">{% block_plain 'site' 'header_cta_label' %}</button>
+      {% endif %}
       <button class="burger" type="button" aria-label="Меню" data-open-nav>
         <span class="burger__lines" aria-hidden="true"><span></span><span></span></span>
       </button>
@@ -31,8 +38,8 @@
 <div class="nav-sheet" id="navSheet" hidden>
   <div class="nav-sheet__top">
     <a class="brand" href="#hero" data-close-nav>
-      <span class="brand__name">Kontur+</span>
-      <span class="brand__desc">ремонтна організація</span>
+      <span class="brand__name">{% block_plain 'site' 'header_brand_name' %}</span>
+      <span class="brand__desc">{% block_plain 'site' 'header_brand_desc' %}</span>
     </a>
     <button class="modal__close" type="button" aria-label="Закрити" data-close-nav>
       <span></span><span></span>
@@ -48,7 +55,11 @@
     <li><a href="#faq" data-close-nav>FAQ</a></li>
   </ul>
   <div class="nav-sheet__footer">
+    {% if show_header_phone %}
     <a class="link-tel" href="tel:{{ SITE_PHONE_TEL }}">{{ SITE_PHONE_DISPLAY }}</a>
-    <button class="btn btn--primary btn--block" type="button" data-open-modal data-ctx="Меню" data-close-nav>Замовити дзвінок</button>
+    {% endif %}
+    {% if show_header_cta %}
+    <button class="btn btn--primary btn--block" type="button" data-open-modal data-ctx="Меню" data-close-nav>{% block_plain 'site' 'header_cta_label' %}</button>
+    {% endif %}
   </div>
 </div>

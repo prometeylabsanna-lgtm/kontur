@@ -1,10 +1,13 @@
+{% load kontur_content %}
+{% section_visible 'home' 'calculator_section_visible' as show_calc %}
+{% if show_calc %}
 <section class="section section--soft" id="calculator">
   <div class="container">
     <div class="section__head reveal reveal--up">
       <div>
-        <h2 class="section__title">Орієнтовна вартість за 30 секунд</h2>
+        <h2 class="section__title">{% block_plain 'home' 'calculator_title' %}</h2>
       </div>
-      <p class="section__lead">Для квартири в новобудові — миттєвий орієнтир із графіком оплат. Для будинку — індивідуальний кошторис після виїзду.</p>
+      <p class="section__lead">{% block_plain 'home' 'calculator_lead' %}</p>
     </div>
     <div class="calc-shell reveal reveal--up">
       <div class="calc-panel">
@@ -16,9 +19,9 @@
         <div id="calcFlatFields">
           <p class="calc-panel__label">Пакет</p>
           <div class="calc-panel__packages">
-            <button type="button" class="calc-panel__pkg" data-rate="460" data-pkg-name="Базовий">Базовий <span>460 $/м²</span></button>
-            <button type="button" class="calc-panel__pkg is-active" data-rec data-rate="580" data-pkg-name="Оптимальний">Оптимальний <span>580 $/м²</span></button>
-            <button type="button" class="calc-panel__pkg" data-rate="700" data-pkg-name="Максимальний">Максимальний <span>700 $/м²</span></button>
+            {% for pkg in packages %}
+            <button type="button" class="calc-panel__pkg{% if pkg.is_recommended %} is-active{% endif %}" data-rate="{{ pkg.price }}" data-pkg-name="{{ pkg.name }}"{% if pkg.is_recommended %} data-rec{% endif %}>{{ pkg.name }} <span>{{ pkg.price }} $/м²</span></button>
+            {% endfor %}
           </div>
           <p class="calc-panel__label">Площа, м²</p>
           <div class="range-row">
@@ -31,18 +34,19 @@
         <div class="calc-out" id="calcOut">
           <div class="calc-out__main">
             <p class="calc-out__label">Орієнтовна сума</p>
-            <p class="calc-out__sum" id="calcSum">35 960 $</p>
-            <p class="calc-out__note" id="calcNote">Розрахунок за формулою пакету. Точна ціна — після безкоштовного заміру.</p>
+            <p class="calc-out__sum" id="calcSum">—</p>
+            <p class="calc-out__note" id="calcNote">{% block_plain 'home' 'calculator_note' %}</p>
             <div class="pay-grid" id="payGrid">
-              <div class="pay-grid__item"><strong id="p1">10 788 $</strong><span>30% · договір</span></div>
-              <div class="pay-grid__item"><strong id="p2">10 788 $</strong><span>30% · матеріали</span></div>
-              <div class="pay-grid__item"><strong id="p3">10 788 $</strong><span>30% · 75% робіт</span></div>
-              <div class="pay-grid__item"><strong id="p4">3 596 $</strong><span>10% · акт</span></div>
+              <div class="pay-grid__item"><strong id="p1">—</strong><span>30% · договір</span></div>
+              <div class="pay-grid__item"><strong id="p2">—</strong><span>30% · матеріали</span></div>
+              <div class="pay-grid__item"><strong id="p3">—</strong><span>30% · 75% робіт</span></div>
+              <div class="pay-grid__item"><strong id="p4">—</strong><span>10% · акт</span></div>
             </div>
           </div>
-          <button class="btn btn--primary btn--block" type="button" id="calcCta" data-open-modal data-ctx="Калькулятор">Отримати точний розрахунок</button>
+          <button class="btn btn--primary btn--block" type="button" id="calcCta" data-open-modal data-ctx="Калькулятор">{% block_plain 'home' 'calculator_cta_label' %}</button>
         </div>
       </div>
     </div>
   </div>
 </section>
+{% endif %}

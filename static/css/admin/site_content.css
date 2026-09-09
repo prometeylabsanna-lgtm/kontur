@@ -1,0 +1,144 @@
+.site-content-editor {
+  max-width: 52rem;
+}
+
+.site-content-editor__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.site-content-editor__preview {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #374151;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+}
+
+.site-content-editor__fieldset {
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin: 0 0 1.25rem;
+}
+
+.site-content-editor__fieldset h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.site-content-editor__fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.site-content-editor__field > label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+}
+
+.site-content-editor__field .help,
+.site-content-editor__field .errors {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.site-content-editor__actions {
+  margin-top: 1.5rem;
+}
+
+.hero-slides {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.hero-slide-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  cursor: grab;
+}
+
+.hero-slide-row__handle {
+  padding-top: 0.4rem;
+  opacity: 0.6;
+  user-select: none;
+}
+
+.hero-slide-row__grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.hero-slide-row__preview {
+  display: block;
+  margin-top: 0.5rem;
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 0.35rem;
+}
+
+.hero-slide-row__toggles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero-slide-row__toggle {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.hero-slide-row__toggle > label,
+.site-content-editor__field--inline > label {
+  display: inline;
+  margin: 0;
+}
+
+.site-content-editor__field--inline {
+  display: block;
+}
+
+.hero-slide-row__toggles input[type="checkbox"] {
+  flex-shrink: 0;
+}
+
+/* Custom file picker label (UA-friendly companion text) */
+.site-content-editor input[type="file"]::file-selector-button {
+  margin-right: 0.75rem;
+  border: 1px solid #374151;
+  border-radius: 0.375rem;
+  padding: 0.35rem 0.75rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .site-content-editor__fieldset {
+    padding: 0.85rem;
+  }
+
+  .hero-slide-row {
+    grid-template-columns: 1fr;
+  }
+}

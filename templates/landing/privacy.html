@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% load kontur_content %}
 
-{% block title %}Політика конфіденційності — Kontur+{% endblock %}
-{% block meta_description %}Політика конфіденційності Kontur+: які дані збираємо та з якою метою.{% endblock %}
+{% block title %}{% block_plain 'privacy' 'privacy_title' %} — {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{{ site_settings.meta_description|default:"Політика конфіденційності Kontur+" }}{% endblock %}
 {% block body_class %}page-solid{% endblock %}
 
 {% block body %}
 <header class="site-header is-scrolled" id="siteHeader">
   <div class="site-header__inner">
     <a class="brand" href="{% url 'landing:home' %}">
-      <span class="brand__name">Kontur+</span>
-      <span class="brand__desc">ремонтна організація</span>
+      <span class="brand__name">{% block_plain 'site' 'header_brand_name' %}</span>
+      <span class="brand__desc">{% block_plain 'site' 'header_brand_desc' %}</span>
     </a>
     <div class="site-header__actions">
       <a class="site-header__tel" href="tel:{{ SITE_PHONE_TEL }}">
@@ -22,23 +23,17 @@
 </header>
 
 <main class="container privacy reveal reveal--up">
-  <h1>Політика конфіденційності</h1>
-  <p>Спрощена сторінка-каркас. Повний юридичний текст — з CMS.</p>
-  <h2>1. Оператор даних</h2>
-  <p>Kontur+ (ремонтна організація). Контакт: телефон на сайті.</p>
-  <h2>2. Які дані збираємо</h2>
-  <p>Ім’я, номер телефону, контекст заявки (пакет, параметри розрахунку), технічні дані запиту.</p>
-  <h2>3. Мета обробки</h2>
-  <p>Зв’язок щодо ремонту, підготовка кошторису, покращення сервісу.</p>
-  <h2>4. Зберігання та права</h2>
-  <p>Дані зберігаються стільки, скільки потрібно для обробки звернення. Ви можете запитати доступ, виправлення або видалення.</p>
+  <h1>{% block_plain 'privacy' 'privacy_title' %}</h1>
+  <div class="privacy__body">
+    {% block_html 'privacy' 'privacy_body' %}
+  </div>
   <p><a href="{% url 'landing:home' %}">← Повернутись на головну</a></p>
 </main>
 
 <footer class="site-footer" id="contacts">
   <div class="container">
     <div class="site-footer__legal">
-      <span>© 2026 Kontur+</span>
+      <span>{% block_plain 'site' 'footer_legal' %}</span>
       <a href="{% url 'landing:home' %}">Головна</a>
     </div>
   </div>

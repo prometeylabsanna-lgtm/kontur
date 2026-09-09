@@ -5,6 +5,16 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_POST
 
 from .forms import LeadForm
+from .hero_slides import get_hero_slides
+from .models import (
+    AdvantageItem,
+    CaseItem,
+    DesignFeature,
+    FAQItem,
+    PackageItem,
+    ReviewItem,
+    StyleItem,
+)
 
 
 def _client_ip(request):
@@ -14,9 +24,36 @@ def _client_ip(request):
     return request.META.get("REMOTE_ADDR")
 
 
+def _landing_lists():
+    return {
+        "hero_slides": get_hero_slides(),
+        "advantages": list(
+            AdvantageItem.objects.filter(is_active=True).order_by("sort_order", "pk")
+        ),
+        "packages": list(
+            PackageItem.objects.filter(is_active=True).order_by("sort_order", "pk")
+        ),
+        "design_features": list(
+            DesignFeature.objects.filter(is_active=True).order_by("sort_order", "pk")
+        ),
+        "styles": list(
+            StyleItem.objects.filter(is_active=True).order_by("sort_order", "pk")
+        ),
+        "reviews": list(
+            ReviewItem.objects.filter(is_active=True).order_by("sort_order", "pk")
+        ),
+        "cases": list(
+            CaseItem.objects.filter(is_active=True).order_by("sort_order", "pk")
+        ),
+        "faq_items": list(
+            FAQItem.objects.filter(is_active=True).order_by("sort_order", "pk")
+        ),
+    }
+
+
 @require_GET
 def home(request):
-    return render(request, "landing/index.html")
+    return render(request, "landing/index.html", _landing_lists())
 
 
 @require_GET

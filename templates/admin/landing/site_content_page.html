@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin/site_content.css' %}">
+  <style>
+    .site-content-editor input[type="file"] {
+      color: var(--color-base-100, #f3f4f6);
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="site-content-editor">
+  <div class="site-content-editor__head">
+    <div>
+      <h1 class="text-font-important-light dark:text-font-important-dark">{{ section.title }}</h1>
+      {% if section.description %}
+        <p class="text-font-subtle-light dark:text-font-subtle-dark">{{ section.description }}</p>
+      {% endif %}
+      {% if section.list_hint %}
+        <p class="text-font-subtle-light dark:text-font-subtle-dark">{{ section.list_hint }}</p>
+      {% endif %}
+    </div>
+    {% if section.preview_url %}
+      <a class="site-content-editor__preview" href="{{ section.preview_url }}" target="_blank" rel="noopener">Переглянути на сайті</a>
+    {% endif %}
+  </div>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="mb-4">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    {% for group in field_groups %}
+      <fieldset class="site-content-editor__fieldset">
+        <h2 class="text-font-important-light dark:text-font-important-dark">{{ group.title }}</h2>
+        {% if group.description %}<p class="text-font-subtle-light dark:text-font-subtle-dark">{{ group.description }}</p>{% endif %}
+        <div class="site-content-editor__fields">
+          {% for field in group.fields %}
+            <div class="site-content-editor__field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}
+              {% if field.errors %}<div class="errors">{{ field.errors }}</div>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endfor %}
+
+    {% if hero_formset %}
+      {% include "admin/landing/hero_slides_fieldset.html" %}
+    {% endif %}
+
+    <div class="site-content-editor__actions">
+      <button type="submit" name="_save" class="bg-primary-600 border border-transparent font-medium px-3 py-2 rounded-default text-white">
+        Зберегти
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+  {{ block.super }}
+  {% if hero_formset %}
+    <script src="{% static 'js/admin/hero_slides.js' %}" defer></script>
+  {% endif %}
+{% endblock %}

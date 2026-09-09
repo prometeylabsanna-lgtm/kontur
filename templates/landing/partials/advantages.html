@@ -1,4 +1,6 @@
-{% load static %}
+{% load static kontur_content %}
+{% section_visible 'home' 'advantages_section_visible' as show_adv %}
+{% if show_adv %}
 <section class="section" id="advantages">
   <div class="container">
     <div class="adv-rail reveal reveal--up" data-adv-rail>
@@ -8,130 +10,42 @@
         </svg>
       </button>
       <ul class="adv-grid" tabindex="0" aria-label="Переваги, гортайте горизонтально" data-adv-track>
-        <li class="adv-card">
-          <div class="adv-card__content">
-            <span class="adv-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="7" y="5" width="18" height="22" rx="1.5"/>
-                <path d="M11 11h10M11 15h10M11 19h6"/>
-              </svg>
-            </span>
-            <h3 class="adv-card__title">Фіксована ціна за м²</h3>
-            <p class="adv-card__text">Ставка й обсяг пакету фіксуються в договорі до старту — без прихованих доплат у процесі.</p>
-          </div>
-          <div class="adv-card__media">
-            <img
-              src="{% static 'img/advantages/adv-fixed-price.jpg' %}"
-              alt="Замір і фіксація вартості ремонту"
-              width="1200"
-              height="675"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </li>
-
-        <li class="adv-card">
-          <div class="adv-card__content">
-            <span class="adv-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M6 12l10-5 10 5v10l-10 5-10-5V12z"/>
-                <path d="M6 12l10 5 10-5M16 17v10"/>
-              </svg>
-            </span>
-            <h3 class="adv-card__title">Усе в пакеті</h3>
-            <p class="adv-card__text">Роботи, матеріали, логістика й вивіз сміття — у складі обраного пакету, без «дрібниць окремо».</p>
-          </div>
-          <div class="adv-card__media">
-            <img
-              src="{% static 'img/advantages/adv-all-in-package.jpg' %}"
-              alt="Матеріали та комплектація ремонтного пакету"
-              width="1200"
-              height="675"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </li>
-
-        <li class="adv-card">
-          <div class="adv-card__content">
-            <span class="adv-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="6" y="8" width="20" height="18" rx="1.5"/>
-                <path d="M6 13h20M11 6v4M21 6v4M12 18h8M12 22h5"/>
-              </svg>
-            </span>
-            <h3 class="adv-card__title">60 робочих днів</h3>
-            <p class="adv-card__text">Строк комплексного ремонту квартири прописуємо в договорі після обміру.</p>
-          </div>
-          <div class="adv-card__media">
-            <img
-              src="{% static 'img/advantages/adv-60-days.jpg' %}"
-              alt="Ремонт квартири в процесі за графіком"
-              width="1200"
-              height="675"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </li>
-
-        <li class="adv-card">
-          <div class="adv-card__content">
-            <span class="adv-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M16 5l9 4v7c0 5.5-3.8 9.5-9 11-5.2-1.5-9-5.5-9-11V9l9-4z"/>
-                <path d="M12.5 16.5l2.5 2.5 4.5-5"/>
-              </svg>
-            </span>
-            <h3 class="adv-card__title">Гарантія 5 років</h3>
-            <p class="adv-card__text">Після здачі — гарантійний сертифікат і сервісний супровід у межах договору.</p>
-          </div>
-          <div class="adv-card__media">
-            <img
-              src="{% static 'img/advantages/adv-warranty.jpg' %}"
-              alt="Готовий інтер’єр після здачі об’єкта"
-              width="1200"
-              height="675"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </li>
-
-        <li class="adv-card">
-          <div class="adv-card__content">
-            <span class="adv-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M16 27s-8-7.2-8-13a8 8 0 1116 0c0 5.8-8 13-8 13z"/>
-                <circle cx="16" cy="14" r="2.75"/>
-              </svg>
-            </span>
-            <h3 class="adv-card__title">Працюємо в Одесі</h3>
-            <p class="adv-card__text">Замір, супровід і здача об’єкта — локально, з зрозумілим графіком виїздів.</p>
-          </div>
-          <div class="adv-card__media">
-            <img
-              src="{% static 'img/advantages/adv-odesa.jpg' %}"
-              alt="Інтер’єр квартири в Одесі після ремонту"
-              width="1200"
-              height="675"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </li>
-
-        <li class="adv-card adv-card--cta">
-          <div class="adv-card__content">
-            <h3 class="adv-card__title">Ще не визначились?</h3>
-            <p class="adv-card__text">Кожен проєкт починається з заміру на об’єкті та фіксованої ціни в договорі — без тиску й зобов’язань.</p>
-            <p class="adv-card__cta">
-              <a href="#packages">Дивитись усі пакети</a>
-            </p>
-          </div>
-        </li>
+        {% for item in advantages %}
+          {% if item.kind == 'cta' %}
+          <li class="adv-card adv-card--cta">
+            <div class="adv-card__content">
+              <h3 class="adv-card__title">{{ item.title }}</h3>
+              <p class="adv-card__text">{{ item.text }}</p>
+              {% if item.cta_label %}
+              <p class="adv-card__cta">
+                <a href="{{ item.cta_href|default:'#packages' }}">{{ item.cta_label }}</a>
+              </p>
+              {% endif %}
+            </div>
+          </li>
+          {% else %}
+          <li class="adv-card">
+            <div class="adv-card__content">
+              <h3 class="adv-card__title">{{ item.title }}</h3>
+              <p class="adv-card__text">{{ item.text }}</p>
+            </div>
+            {% with src=item|media_or_static %}
+            {% if src %}
+            <div class="adv-card__media">
+              <img
+                src="{{ src }}"
+                alt="{{ item.image_alt }}"
+                width="1200"
+                height="675"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            {% endif %}
+            {% endwith %}
+          </li>
+          {% endif %}
+        {% endfor %}
       </ul>
       <button class="adv-rail__btn adv-rail__btn--next" type="button" aria-label="Наступні переваги" data-adv-next>
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75">
@@ -141,3 +55,4 @@
     </div>
   </div>
 </section>
+{% endif %}

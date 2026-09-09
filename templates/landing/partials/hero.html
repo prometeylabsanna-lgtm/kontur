@@ -1,34 +1,40 @@
+{% load kontur_content %}
+{% section_visible 'home' 'hero_section_visible' as show_hero %}
+{% if show_hero %}
 <section class="hero" id="hero">
   <div class="hero__media" aria-hidden="true">
-    <div class="hero__slide is-active">
-      <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=90" alt="" width="2000" height="1333" fetchpriority="high" />
+    {% for slide in hero_slides %}
+    <div class="hero__slide{% if forloop.first %} is-active{% endif %}">
+      <img
+        src="{{ slide.src }}"
+        alt="{{ slide.alt }}"
+        width="2000"
+        height="1333"
+        {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+      />
     </div>
-    <div class="hero__slide">
-      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=90" alt="" width="2000" height="1333" loading="lazy" />
-    </div>
-    <div class="hero__slide">
-      <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=2000&q=90" alt="" width="2000" height="1333" loading="lazy" />
-    </div>
+    {% endfor %}
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
   <div class="hero__content">
-    <h1 class="hero__title">Готові пакети ремонту з фіксованою ціною за м²</h1>
-    <p class="hero__lead">Повний цикл під ключ: дизайн, матеріали, роботи й здача за 60 робочих днів. Ставка й строк — у договорі до старту.</p>
+    <h1 class="hero__title">{% block_plain 'home' 'hero_title' %}</h1>
+    <p class="hero__lead">{% block_plain 'home' 'hero_lead' %}</p>
     <div class="hero__cta">
-      <button class="btn btn--light" type="button" data-open-modal data-ctx="Hero">Замовити дзвінок</button>
-      <a class="btn btn--ghost btn--on-dark" href="#calculator">Порахувати вартість</a>
+      <button class="btn btn--light" type="button" data-open-modal data-ctx="Hero">{% block_plain 'home' 'hero_cta_primary' %}</button>
+      <a class="btn btn--ghost btn--on-dark" href="{% block_plain 'home' 'hero_cta_secondary_url' %}">{% block_plain 'home' 'hero_cta_secondary' %}</a>
     </div>
     <div class="hero__bar">
       <p class="hero__trust">
-        <span><span class="mono">460</span>$/м² від</span>
-        <span><span class="mono">60</span>робочих днів</span>
-        <span><span class="mono">5</span>років гарантії</span>
+        <span>{% block_plain 'home' 'hero_trust_1' %}</span>
+        <span>{% block_plain 'home' 'hero_trust_2' %}</span>
+        <span>{% block_plain 'home' 'hero_trust_3' %}</span>
       </p>
       <div class="hero__dots" role="tablist" aria-label="Кадри героя">
-        <button class="hero__dot is-active" type="button" data-hero-dot="0" aria-label="Кадр 1"><i></i></button>
-        <button class="hero__dot" type="button" data-hero-dot="1" aria-label="Кадр 2"><i></i></button>
-        <button class="hero__dot" type="button" data-hero-dot="2" aria-label="Кадр 3"><i></i></button>
+        {% for slide in hero_slides %}
+        <button class="hero__dot{% if forloop.first %} is-active{% endif %}" type="button" data-hero-dot="{{ forloop.counter0 }}" aria-label="Кадр {{ forloop.counter }}"><i></i></button>
+        {% endfor %}
       </div>
     </div>
   </div>
 </section>
+{% endif %}

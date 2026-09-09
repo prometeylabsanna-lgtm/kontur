@@ -1,10 +1,11 @@
+{% load kontur_content %}
 <div class="modal-root" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
   <div class="modal-root__backdrop" data-close-modal></div>
   <div class="modal">
     <button class="modal__close" type="button" aria-label="Закрити" data-close-modal><span></span><span></span></button>
     <div id="modalDefault">
-      <h2 class="modal__title" id="modalTitle">Замовити дзвінок</h2>
-      <p class="modal__sub">Залиште контакти — передзвонимо в робочий час.</p>
+      <h2 class="modal__title" id="modalTitle">{% block_plain 'site' 'modal_title' %}</h2>
+      <p class="modal__sub">{% block_plain 'site' 'modal_sub' %}</p>
       <p class="modal__context" id="modalCtx">Контекст: Hero</p>
       <form id="leadForm" action="{% url 'landing:lead_create' %}" method="post" novalidate>
         {% csrf_token %}
@@ -28,14 +29,14 @@
           <span>Погоджуюсь з <a href="{% url 'landing:privacy' %}" target="_blank" rel="noopener">політикою конфіденційності</a></span>
         </label>
         <p class="field__hint field__hint--form" id="formError" hidden>Спробуйте ще раз</p>
-        <button class="btn btn--primary btn--block" type="submit" id="submitBtn">Надіслати</button>
+        <button class="btn btn--primary btn--block" type="submit" id="submitBtn">{% block_plain 'site' 'modal_submit' %}</button>
       </form>
     </div>
     <div id="modalSuccess" hidden>
       <div class="modal__success-icon" aria-hidden="true">✓</div>
-      <h2 class="modal__title">Дякуємо</h2>
-      <p class="modal__sub">Заявку отримано. Очікуйте дзвінок протягом 30 хвилин у робочий час.</p>
-      <button class="btn btn--ghost btn--block" type="button" data-close-modal>Закрити</button>
+      <h2 class="modal__title">{% block_plain 'site' 'modal_success_title' %}</h2>
+      <p class="modal__sub">{% block_plain 'site' 'modal_success_sub' %}</p>
+      <button class="btn btn--ghost btn--block" type="button" data-close-modal>{% block_plain 'site' 'modal_success_close' %}</button>
     </div>
   </div>
 </div>

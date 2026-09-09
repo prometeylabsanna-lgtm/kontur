@@ -1,0 +1,89 @@
+{% load i18n %}
+<fieldset class="site-content-editor__fieldset" id="hero-slides-fieldset" data-hero-slides>
+  <h2 class="text-font-important-light dark:text-font-important-dark">Фото банера</h2>
+  <p class="text-font-subtle-light dark:text-font-subtle-dark">Додавайте, видаляйте та змінюйте порядок фото. Можна завантажити файл з комп’ютера або вставити посилання на зображення.</p>
+  {{ hero_formset.management_form }}
+  <div class="hero-slides" data-hero-slides-list>
+    {% for f in hero_formset %}
+      <div class="hero-slide-row" data-hero-slide-row draggable="true">
+        <div class="hero-slide-row__handle" title="Перетягнути">⋮⋮</div>
+        <div class="hero-slide-row__body">
+          {% for hidden in f.hidden_fields %}{{ hidden }}{% endfor %}
+          <div class="hero-slide-row__grid">
+            <div class="site-content-editor__field">
+              <label>{{ f.image.label }}</label>
+              {{ f.image }}
+              {% if f.instance.image %}
+                <img class="hero-slide-row__preview" src="{{ f.instance.image.url }}" alt="">
+              {% elif f.instance.image_url %}
+                <img class="hero-slide-row__preview" src="{{ f.instance.image_url }}" alt="">
+              {% endif %}
+              {% if f.image.errors %}<div class="errors">{{ f.image.errors }}</div>{% endif %}
+            </div>
+            <div class="site-content-editor__field">
+              <label>{{ f.image_url.label }}</label>
+              {{ f.image_url }}
+            </div>
+            <div class="site-content-editor__field">
+              <label>{{ f.alt_text.label }}</label>
+              {{ f.alt_text }}
+            </div>
+            <div class="site-content-editor__field site-content-editor__field--inline">
+              <div class="hero-slide-row__toggles">
+                <label class="hero-slide-row__toggle">
+                  <span>{{ f.is_active.label }}</span>
+                  {{ f.is_active }}
+                </label>
+                {% if f.DELETE %}
+                <label class="hero-slide-row__toggle">
+                  {{ f.DELETE }}
+                  <span>Видалити</span>
+                </label>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <template id="hero-slide-empty-form">
+    <div class="hero-slide-row" data-hero-slide-row draggable="true">
+      <div class="hero-slide-row__handle" title="Перетягнути">⋮⋮</div>
+      <div class="hero-slide-row__body">
+        {% with f=hero_formset.empty_form %}
+          {% for hidden in f.hidden_fields %}{{ hidden }}{% endfor %}
+          <div class="hero-slide-row__grid">
+            <div class="site-content-editor__field">
+              <label>{{ f.image.label }}</label>
+              {{ f.image }}
+            </div>
+            <div class="site-content-editor__field">
+              <label>{{ f.image_url.label }}</label>
+              {{ f.image_url }}
+            </div>
+            <div class="site-content-editor__field">
+              <label>{{ f.alt_text.label }}</label>
+              {{ f.alt_text }}
+            </div>
+            <div class="site-content-editor__field site-content-editor__field--inline">
+              <div class="hero-slide-row__toggles">
+                <label class="hero-slide-row__toggle">
+                  <span>{{ f.is_active.label }}</span>
+                  {{ f.is_active }}
+                </label>
+                {% if f.DELETE %}
+                <label class="hero-slide-row__toggle">
+                  {{ f.DELETE }}
+                  <span>Видалити</span>
+                </label>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endwith %}
+      </div>
+    </div>
+  </template>
+  <button type="button" class="hero-slides__add" data-hero-slides-add>Додати фото</button>
+</fieldset>

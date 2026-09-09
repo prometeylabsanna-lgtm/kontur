@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from django.urls import reverse_lazy
 from decouple import Csv, config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,13 +16,17 @@ ALLOWED_HOSTS = config(
 )
 
 INSTALLED_APPS = [
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "landing",
+    "tinymce",
+    "landing.apps.LandingConfig",
 ]
 
 MIDDLEWARE = [
@@ -46,7 +51,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "landing.context_processors.site_contacts",
+                "landing.context_processors.site_context",
             ],
         },
     },
@@ -77,13 +82,118 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Placeholder contacts from design mockups (CMS later)
-SITE_PHONE_DISPLAY = "+380 44 123 45 67"
-SITE_PHONE_TEL = "+380441234567"
-SITE_CITY = "Одеса"
-SITE_HOURS = "Пн–Сб · 09:00–19:00"
-SITE_EMAIL = "hello@kontur.plus"
-SITE_INSTAGRAM = "#"
-SITE_TELEGRAM = "#"
+TINYMCE_DEFAULT_CONFIG = {
+    "height": 360,
+    "menubar": False,
+    "plugins": "lists link code table",
+    "toolbar": "undo redo | bold italic | bullist numlist | link | code",
+    "content_style": "body { font-family: Outfit, sans-serif; font-size: 14px; }",
+}
+
+
+def _sidebar_navigation(request=None):
+    from landing.site_content_registry import build_content_sidebar_items
+
+    return [
+        {
+            "title": "Налаштування",
+            "separator": True,
+            "items": [
+                {
+                    "title": "Сайт",
+                    "icon": "settings",
+                    "link": reverse_lazy("admin:landing_sitesettings_changelist"),
+                },
+            ],
+        },
+        {
+            "title": "Контент сторінок",
+            "separator": True,
+            "items": build_content_sidebar_items(),
+        },
+        {
+            "title": "Картки сайту",
+            "separator": True,
+            "items": [
+                {
+                    "title": "Переваги",
+                    "icon": "star",
+                    "link": reverse_lazy("admin:landing_advantageitem_changelist"),
+                },
+                {
+                    "title": "Пакети",
+                    "icon": "inventory_2",
+                    "link": reverse_lazy("admin:landing_packageitem_changelist"),
+                },
+                {
+                    "title": "Пункти дизайну",
+                    "icon": "checklist",
+                    "link": reverse_lazy("admin:landing_designfeature_changelist"),
+                },
+                {
+                    "title": "Стилі",
+                    "icon": "grid_view",
+                    "link": reverse_lazy("admin:landing_styleitem_changelist"),
+                },
+                {
+                    "title": "Відгуки",
+                    "icon": "format_quote",
+                    "link": reverse_lazy("admin:landing_reviewitem_changelist"),
+                },
+                {
+                    "title": "Кейси",
+                    "icon": "photo_library",
+                    "link": reverse_lazy("admin:landing_caseitem_changelist"),
+                },
+                {
+                    "title": "Питання та відповіді",
+                    "icon": "help",
+                    "link": reverse_lazy("admin:landing_faqitem_changelist"),
+                },
+            ],
+        },
+        {
+            "title": "Заявки",
+            "separator": True,
+            "items": [
+                {
+                    "title": "Заявки з сайту",
+                    "icon": "call",
+                    "link": reverse_lazy("admin:landing_lead_changelist"),
+                },
+            ],
+        },
+    ]
+
+
+UNFOLD = {
+    "SITE_TITLE": "Kontur+ — кабінет",
+    "SITE_HEADER": "Kontur+ — редагування сайту",
+    "SITE_SYMBOL": "home_repair_service",
+    "COLORS": {
+        "primary": {
+            "50": "oklch(98.6% .031 120.757)",
+            "100": "oklch(96.7% .067 122.328)",
+            "200": "oklch(93.8% .127 124.321)",
+            "300": "oklch(89.7% .196 126.665)",
+            "400": "oklch(84.1% .238 128.85)",
+            "500": "oklch(76.8% .233 130.85)",
+            "600": "oklch(64.8% .2 131.684)",
+            "700": "oklch(53.2% .157 131.589)",
+            "800": "oklch(45.3% .124 130.933)",
+            "900": "oklch(40.5% .101 131.063)",
+            "950": "oklch(27.4% .072 132.109)",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "command_search": True,
+        "show_all_applications": False,
+        "navigation": _sidebar_navigation,
+    },
+}

@@ -1,47 +1,54 @@
+{% load kontur_content %}
+{% section_visible 'site' 'footer_cta_visible' as show_footer_cta %}
+{% section_visible 'site' 'footer_socials_visible' as show_footer_socials %}
 <footer class="site-footer" id="contacts">
   <div class="container reveal reveal--up">
     <div class="site-footer__grid">
       <div class="site-footer__brand">
-        <a class="brand" href="{% url 'landing:home' %}#hero" aria-label="Kontur+ — на головну">
-          <span class="brand__name">Kontur+</span>
-          <span class="brand__desc">ремонтна організація</span>
+        <a class="brand" href="{% url 'landing:home' %}#hero" aria-label="{% block_plain 'site' 'header_brand_name' %} — на головну">
+          <span class="brand__name">{% block_plain 'site' 'header_brand_name' %}</span>
+          <span class="brand__desc">{% block_plain 'site' 'header_brand_desc' %}</span>
         </a>
-        <p class="site-footer__tagline">Ремонт під ключ в Одесі з фіксованою ціною за м².</p>
+        <p class="site-footer__tagline">{% block_plain 'site' 'footer_tagline' %}</p>
+        {% if show_footer_socials %}
         <div class="site-footer__socials">
           <a class="site-footer__social" href="{{ SITE_INSTAGRAM }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5zm8.2 2.2H7.8A2.6 2.6 0 0 0 5.2 7.8v8.4a2.6 2.6 0 0 0 2.6 2.6h8.4a2.6 2.6 0 0 0 2.6-2.6V7.8a2.6 2.6 0 0 0-2.6-2.6zM12 8.2A3.8 3.8 0 1 1 8.2 12 3.8 3.8 0 0 1 12 8.2zm0 1.6A2.2 2.2 0 1 0 14.2 12 2.2 2.2 0 0 0 12 9.8zm4.35-2.55a.9.9 0 1 1-.9.9.9.9 0 0 1 .9-.9z" fill="currentColor"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.2A4.8 4.8 0 1016.8 12 4.8 4.8 0 0012 7.2zm6.1-.9a1.1 1.1 0 11-1.1-1.1 1.1 1.1 0 011.1 1.1zM12 9.2A2.8 2.8 0 1114.8 12 2.8 2.8 0 0112 9.2z" fill="currentColor"/></svg>
           </a>
           <a class="site-footer__social" href="{{ SITE_TELEGRAM }}" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.8 4.4 3.9 10.5c-1.1.4-1.1 1.1-.2 1.4l4.1 1.3 1.6 4.9c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.3-2.2 4.4 3.2c.8.4 1.4.2 1.6-.8l2.9-13.5c.3-1.2-.4-1.7-1.5-1.2zM9.7 13.7l7.8-4.9c.4-.2.7 0 .4.3l-6.3 5.7-.2 2.5z" fill="currentColor"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 3.2L2.8 10.4c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.7.4 1 .9 1 .6 0 .8-.2 1.1-.5l2.7-2.6 5.6 4.1c1 .6 1.8.3 2-.9L22.8 4.5c.3-1.3-.5-1.9-1.3-1.3z" fill="currentColor"/></svg>
           </a>
         </div>
-        <button class="btn btn--primary btn--pill site-footer__cta" type="button" data-open-modal data-ctx="Footer">Замовити дзвінок</button>
+        {% endif %}
+        {% if show_footer_cta %}
+        <button class="btn btn--primary btn--pill site-footer__cta" type="button" data-open-modal data-ctx="Footer">{% block_plain 'site' 'footer_cta_label' %}</button>
+        {% endif %}
       </div>
 
       <nav class="site-footer__block" aria-label="Меню">
-        <h3>Меню</h3>
+        <h3>{% block_plain 'site' 'footer_menu_title' %}</h3>
         <ul class="site-footer__list">
-          <li><a href="{% url 'landing:home' %}#advantages">Переваги</a></li>
-          <li><a href="{% url 'landing:home' %}#packages">Пакети</a></li>
-          <li><a href="{% url 'landing:home' %}#design">Дизайн</a></li>
-          <li><a href="{% url 'landing:home' %}#calculator">Розрахунок</a></li>
-          <li><a href="{% url 'landing:home' %}#proof">Роботи</a></li>
-          <li><a href="{% url 'landing:home' %}#faq">FAQ</a></li>
+          <li><a href="#advantages">Переваги</a></li>
+          <li><a href="#packages">Пакети</a></li>
+          <li><a href="#design">Дизайн</a></li>
+          <li><a href="#styles">Стилі</a></li>
+          <li><a href="#calculator">Розрахунок</a></li>
+          <li><a href="#proof">Роботи</a></li>
+          <li><a href="#faq">FAQ</a></li>
         </ul>
       </nav>
 
       <nav class="site-footer__block" aria-label="Послуги">
-        <h3>Послуги</h3>
+        <h3>{% block_plain 'site' 'footer_services_title' %}</h3>
         <ul class="site-footer__list">
-          <li><a href="{% url 'landing:home' %}#packages">Ремонт під ключ</a></li>
-          <li><a href="{% url 'landing:home' %}#design">Дизайн-проєкт</a></li>
-          <li><a href="{% url 'landing:home' %}#styles">Підбір матеріалів</a></li>
-          <li><a href="{% url 'landing:privacy' %}">Політика конфіденційності</a></li>
+          <li>{% block_plain 'site' 'footer_service_1' %}</li>
+          <li>{% block_plain 'site' 'footer_service_2' %}</li>
+          <li>{% block_plain 'site' 'footer_service_3' %}</li>
         </ul>
       </nav>
 
       <div class="site-footer__block site-footer__block--contact">
-        <h3>Контакти</h3>
+        <h3>{% block_plain 'site' 'footer_contacts_title' %}</h3>
         <ul class="site-footer__contacts">
           <li>
             <span class="site-footer__icon" aria-hidden="true">
@@ -49,7 +56,7 @@
             </span>
             <div>
               <span class="site-footer__label">Телефон</span>
-              <a href="tel:{{ SITE_PHONE_TEL }}">{{ SITE_PHONE_DISPLAY }}</a>
+              <a class="site-footer__value" href="tel:{{ SITE_PHONE_TEL }}">{{ SITE_PHONE_DISPLAY }}</a>
             </div>
           </li>
           <li>
@@ -63,7 +70,7 @@
           </li>
           <li>
             <span class="site-footer__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 1.8a10.2 10.2 0 1 0 10.2 10.2A10.2 10.2 0 0 0 12 1.8zm0 18.4a8.2 8.2 0 1 1 8.2-8.2 8.2 8.2 0 0 1-8.2 8.2zm.6-13.1h-1.5v5.3l4.6 2.8.8-1.2-3.9-2.3z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 8v5l3 2M12 2a10 10 0 100 20 10 10 0 000-20z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
             </span>
             <div>
               <span class="site-footer__label">Години</span>
@@ -76,7 +83,7 @@
             </span>
             <div>
               <span class="site-footer__label">Пошта</span>
-              <a href="mailto:{{ SITE_EMAIL }}">{{ SITE_EMAIL }}</a>
+              <a class="site-footer__value" href="mailto:{{ SITE_EMAIL }}">{{ SITE_EMAIL }}</a>
             </div>
           </li>
         </ul>
@@ -84,7 +91,7 @@
     </div>
 
     <div class="site-footer__legal">
-      <p>© 2026 Kontur+. Усі права захищено. Ціни на сайті — орієнтовні та можуть змінюватись у CMS.</p>
+      <p>{% block_plain 'site' 'footer_legal' %}</p>
     </div>
   </div>
 </footer>

@@ -1,41 +1,26 @@
+{% load kontur_content %}
+{% section_visible 'home' 'styles_section_visible' as show_styles %}
+{% if show_styles %}
 <section class="section" id="styles">
   <div class="container">
     <div class="section__head reveal reveal--up">
       <div>
-        <h2 class="section__title">Чотири стилі з підбором фінішів</h2>
+        <h2 class="section__title">{% block_plain 'home' 'styles_title' %}</h2>
       </div>
-      <p class="section__lead">Дизайн і постачання зібрали фінішні матеріали з кращим співвідношенням ціна–якість у чотирьох напрямках.</p>
+      <p class="section__lead">{% block_plain 'home' 'styles_lead' %}</p>
     </div>
     <ul class="styles-grid" data-reveal-stagger>
+      {% for item in styles %}
       <li class="styles-grid__item reveal reveal--up">
         <div class="styles-grid__thumb" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=88" alt="" width="900" height="562" loading="lazy" />
+          <img src="{{ item.src }}" alt="" width="900" height="562" loading="lazy" />
         </div>
-        <h3>Лофт</h3>
-        <p>Текстури, відкриті акценти, практичність для вторинки й сучасних планувань.</p>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
       </li>
-      <li class="styles-grid__item reveal reveal--up">
-        <div class="styles-grid__thumb" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=88" alt="" width="900" height="562" loading="lazy" />
-        </div>
-        <h3>Мінімалізм</h3>
-        <p>Чисті лінії, спокійна палітра, менше зайвого — більше повітря в просторі.</p>
-      </li>
-      <li class="styles-grid__item reveal reveal--up">
-        <div class="styles-grid__thumb" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=88" alt="" width="900" height="562" loading="lazy" />
-        </div>
-        <h3>Контемпорарі</h3>
-        <p>Актуальні рішення без моди заради моди: комфорт і довговічність матеріалів.</p>
-      </li>
-      <li class="styles-grid__item reveal reveal--up">
-        <div class="styles-grid__thumb" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=88" alt="" width="900" height="562" loading="lazy" />
-        </div>
-        <h3>Скандинавський</h3>
-        <p>Світло, тепло дерева й функціональні деталі для щоденного життя.</p>
-      </li>
+      {% endfor %}
     </ul>
-    <button class="btn btn--ghost" type="button" data-open-modal data-ctx="Стилі / підбір матеріалів">Отримати підбір матеріалів</button>
+    <button class="btn btn--ghost" type="button" data-open-modal data-ctx="Стилі / підбір матеріалів">{% block_plain 'home' 'styles_cta_label' %}</button>
   </div>
 </section>
+{% endif %}

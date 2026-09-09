@@ -1,46 +1,27 @@
-{% load static %}
+{% load kontur_content %}
+{% section_visible 'home' 'proof_section_visible' as show_proof %}
+{% if show_proof %}
 <section class="section" id="proof">
   <div class="container">
     <div class="section__head reveal reveal--up">
       <div>
-        <h2 class="section__title">Відгуки та кейси</h2>
+        <h2 class="section__title">{% block_plain 'home' 'proof_title' %}</h2>
       </div>
     </div>
+    {% if reviews %}
     <div class="reviews-rail reveal reveal--up" data-reviews-rail>
-      <span class="reviews-rail__badge">Відгуки</span>
+      <span class="reviews-rail__badge">{% block_plain 'home' 'proof_reviews_badge' %}</span>
       <div class="reviews" tabindex="0" aria-label="Відгуки, гортайте горизонтально" data-reviews-track>
+        {% for review in reviews %}
         <article class="review">
           <span class="review__quote" aria-hidden="true">“</span>
-          <p class="review__text">Ціну зафіксували в договорі. Етапи оплати збіглися з роботами — без тиску «доплатити зараз».</p>
+          <p class="review__text">{{ review.text }}</p>
           <div class="review__author">
-            <strong class="review__name">Олена К.</strong>
-            <span class="review__meta">Одеса · фіксована ціна</span>
+            <strong class="review__name">{{ review.name }}</strong>
+            {% if review.meta %}<span class="review__meta">{{ review.meta }}</span>{% endif %}
           </div>
         </article>
-        <article class="review">
-          <span class="review__quote" aria-hidden="true">“</span>
-          <p class="review__text">Новобудова в Одесі: пакет «Оптимальний», строки й приймання — усе по пунктах. Рекомендую.</p>
-          <div class="review__author">
-            <strong class="review__name">Андрій М.</strong>
-            <span class="review__meta">Одеса · Оптимальний</span>
-          </div>
-        </article>
-        <article class="review">
-          <span class="review__quote" aria-hidden="true">“</span>
-          <p class="review__text">Після поганого досвіду з іншою бригадою шукали прозорий кошторис. У Kontur+ саме так і вийшло.</p>
-          <div class="review__author">
-            <strong class="review__name">Ірина С.</strong>
-            <span class="review__meta">Одеса · кошторис</span>
-          </div>
-        </article>
-        <article class="review">
-          <span class="review__quote" aria-hidden="true">“</span>
-          <p class="review__text">Дизайн і матеріали узгодили до старту. На об’єкті все збіглося з планом — без сюрпризів у кошторисі.</p>
-          <div class="review__author">
-            <strong class="review__name">Марина П.</strong>
-            <span class="review__meta">Аркадія · Максимальний</span>
-          </div>
-        </article>
+        {% endfor %}
       </div>
       <div class="reviews-rail__foot">
         <div class="reviews-rail__nav">
@@ -53,95 +34,40 @@
         </div>
       </div>
     </div>
+    {% endif %}
+    {% if cases %}
     <div class="cases" data-reveal-stagger>
+      {% for case in cases %}
       <article class="case reveal reveal--up">
         <div class="case__media">
-          <img src="{% static 'img/cases/case-01-newbuild.jpg' %}" alt="Ремонт у новобудові" width="1200" height="900" loading="lazy" decoding="async" />
+          {% with src=case|media_or_static %}
+          <img src="{{ src }}" alt="{{ case.image_alt }}" width="1200" height="900" loading="lazy" decoding="async" />
+          {% endwith %}
         </div>
         <div class="case__content">
+          {% if case.location %}
           <p class="case__loc">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-            Одеса · новобудова
+            {{ case.location }}
           </p>
-          <h3 class="case__title">Новобудова, Одеса</h3>
-          <p class="case__text">Повний цикл від дизайн-проєкту до фінального прибирання — квартира готова до заселення.</p>
+          {% endif %}
+          <h3 class="case__title">{{ case.title }}</h3>
+          <p class="case__text">{{ case.text }}</p>
+          {% with tags=case.tag_list %}
+          {% if tags %}
           <div class="case__did">
-            <span class="case__did-label">Що зробили</span>
+            <span class="case__did-label">{% block_plain 'home' 'proof_cases_did_label' %}</span>
             <ul class="case__tags">
-              <li>Дизайн-проєкт</li>
-              <li>Ремонт під ключ</li>
-              <li>Комплектація</li>
-              <li>Оптимальний</li>
+              {% for tag in tags %}<li>{{ tag }}</li>{% endfor %}
             </ul>
           </div>
+          {% endif %}
+          {% endwith %}
         </div>
       </article>
-      <article class="case reveal reveal--up">
-        <div class="case__media">
-          <img src="{% static 'img/cases/case-02-secondary.jpg' %}" alt="Ремонт вторинного житла" width="1200" height="633" loading="lazy" decoding="async" />
-        </div>
-        <div class="case__content">
-          <p class="case__loc">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-            Одеса · вторинка
-          </p>
-          <h3 class="case__title">Вторинне житло</h3>
-          <p class="case__text">Завдання — оновити стару квартиру. Обрали лофт: практично й добре поєднується з іншими акцентами.</p>
-          <div class="case__did">
-            <span class="case__did-label">Що зробили</span>
-            <ul class="case__tags">
-              <li>Демонтаж</li>
-              <li>Лофт</li>
-              <li>Інженерія</li>
-              <li>Максимальний</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-      <article class="case reveal reveal--up">
-        <div class="case__media">
-          <img src="{% static 'img/cases/case-03-rent.jpg' %}" alt="Ремонт під оренду" width="1200" height="800" loading="lazy" decoding="async" />
-        </div>
-        <div class="case__content">
-          <p class="case__loc">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-            ЖК Елегія Парк
-          </p>
-          <h3 class="case__title">Під оренду · ЖК Елегія Парк</h3>
-          <p class="case__text">Комфортне сучасне житло з попитом на довгострокову оренду — без зайвих витрат і втрати якості.</p>
-          <div class="case__did">
-            <span class="case__did-label">Що зробили</span>
-            <ul class="case__tags">
-              <li>Базовий пакет</li>
-              <li>Сантехніка</li>
-              <li>Електрика</li>
-              <li>Фініш</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-      <article class="case reveal reveal--up">
-        <div class="case__media">
-          <img src="{% static 'img/cases/case-04-studio.jpg' %}" alt="Студія під ключ" width="1200" height="1006" loading="lazy" decoding="async" />
-        </div>
-        <div class="case__content">
-          <p class="case__loc">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-            Одеса · студія
-          </p>
-          <h3 class="case__title">Студія під ключ · Аркадія</h3>
-          <p class="case__text">Компактне планування з максимумом світла: зонування, вбудовані рішення й фініші, які тримають охайний вигляд щодня.</p>
-          <div class="case__did">
-            <span class="case__did-label">Що зробили</span>
-            <ul class="case__tags">
-              <li>Планування</li>
-              <li>Мінімалізм</li>
-              <li>Меблі</li>
-              <li>Оптимальний</li>
-            </ul>
-          </div>
-        </div>
-      </article>
+      {% endfor %}
     </div>
+    {% endif %}
   </div>
 </section>
+{% endif %}
