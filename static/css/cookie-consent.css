@@ -39,6 +39,8 @@
   color: var(--muted);
   text-wrap: pretty;
   max-width: 62ch;
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .cookie-consent__link {
@@ -74,15 +76,17 @@
     justify-content: space-between;
     gap: 1.25rem;
     padding: 0.875rem 1.25rem;
+    min-width: 0;
   }
 
   .cookie-consent__actions {
-    flex-shrink: 0;
+    flex: 0 0 auto;
     flex-wrap: nowrap;
   }
 
   .cookie-consent__btn {
     flex: 0 0 auto;
+    white-space: nowrap;
   }
 }
 
