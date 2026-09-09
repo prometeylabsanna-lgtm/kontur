@@ -22,6 +22,11 @@ from .block_defaults import (
 )
 from .context_processors import SITE_BLOCKS_CACHE_KEY
 from .models import SiteBlock, SiteSettings
+from .privacy_text import (
+    PRIVACY_BODY_HELP,
+    html_to_plain,
+    plain_to_html,
+)
 from .site_content_registry import ContentSection, get_section, iter_section_blocks
 
 try:
@@ -108,16 +113,23 @@ class SitePageContentForm(forms.Form):
 
             hint = get_text_limit_hint(key)
             help_text = hint or ""
+            initial_text = block.text_html
+            rows = 2
+            if key == "privacy_body":
+                initial_text = html_to_plain(block.text_html)
+                help_text = PRIVACY_BODY_HELP
+                rows = 16
+            elif is_multiline_key(key):
+                rows = 4
+
             if is_inline_key(key):
                 widget = CmsAdminTextInputWidget()
-            elif is_multiline_key(key):
-                widget = CmsAdminTextareaWidget(attrs={"rows": 4})
             else:
-                widget = CmsAdminTextareaWidget(attrs={"rows": 2})
+                widget = CmsAdminTextareaWidget(attrs={"rows": rows})
             self.fields[f"block__{page}__{key}__text_html"] = forms.CharField(
                 label=human,
                 required=False,
-                initial=block.text_html,
+                initial=initial_text,
                 widget=widget,
                 help_text=help_text,
             )
@@ -144,7 +156,10 @@ class SitePageContentForm(forms.Form):
                 block.text_html = "1" if value else "0"
                 block.save(update_fields=["text_html"])
             elif suffix == "text_html":
-                block.text_html = value or ""
+                text = value or ""
+                if key == "privacy_body":
+                    text = plain_to_html(text)
+                block.text_html = text
                 block.save(update_fields=["text_html"])
             elif suffix == "image":
                 if value:

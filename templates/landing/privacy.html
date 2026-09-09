@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load kontur_content %}
+{% load static kontur_content %}
 
 {% block title %}{% block_plain 'privacy' 'privacy_title' %} — {{ SITE_NAME }}{% endblock %}
 {% block meta_description %}{{ site_settings.meta_description|default:"Політика конфіденційності Kontur+" }}{% endblock %}
@@ -22,20 +22,18 @@
   </div>
 </header>
 
-<main class="container privacy reveal reveal--up">
+<main class="privacy reveal reveal--up">
   <h1>{% block_plain 'privacy' 'privacy_title' %}</h1>
   <div class="privacy__body">
     {% block_html 'privacy' 'privacy_body' %}
   </div>
-  <p><a href="{% url 'landing:home' %}">← Повернутись на головну</a></p>
+  <p class="privacy__back"><a href="{% url 'landing:home' %}">← Повернутись на головну</a></p>
 </main>
 
-<footer class="site-footer" id="contacts">
-  <div class="container">
-    <div class="site-footer__legal">
-      <span>{% block_plain 'site' 'footer_legal' %}</span>
-      <a href="{% url 'landing:home' %}">Головна</a>
-    </div>
-  </div>
-</footer>
+{% include "landing/partials/footer.html" %}
+{% include "landing/partials/modal.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/landing.js' %}" defer></script>
 {% endblock %}

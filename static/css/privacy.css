@@ -1,25 +1,58 @@
 .privacy {
-  padding: calc(5.5rem + var(--safe-t, 0px)) 0 3rem;
-  max-width: 720px;
+  padding: calc(5.5rem + var(--safe-t, 0px)) 0 3.5rem;
+  width: 100%;
+  max-width: min(56rem, 100%);
+  margin-inline: auto;
+  box-sizing: border-box;
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
 }
 
 .privacy h1 {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.privacy__body {
+  max-width: none;
 }
 
 .privacy h2 {
-  font-size: 1.125rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   margin: 2rem 0 0.75rem;
+  color: var(--ink, #1a1a1a);
 }
 
 .privacy p {
   color: var(--muted);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
+  line-height: 1.65;
+  max-width: 70ch;
 }
 
 .privacy a {
   color: var(--accent-link);
+}
+
+.privacy__back {
+  margin-top: 2rem;
+}
+
+.page-solid {
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-solid .privacy {
+  flex: 1 0 auto;
+}
+
+.page-solid .site-footer {
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .field__hint--form {
@@ -31,4 +64,16 @@
 
 .field__hint--form[hidden] {
   display: none;
+}
+
+@media (min-width: 768px) {
+  .privacy {
+    padding-top: calc(6rem + var(--safe-t, 0px));
+    padding-bottom: 4rem;
+    max-width: min(64rem, 100%);
+  }
+
+  .privacy p {
+    max-width: 75ch;
+  }
 }

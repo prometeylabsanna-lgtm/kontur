@@ -28,13 +28,13 @@
       <nav class="site-footer__block" aria-label="Меню">
         <h3>{% block_plain 'site' 'footer_menu_title' %}</h3>
         <ul class="site-footer__list">
-          <li><a href="#advantages">Переваги</a></li>
-          <li><a href="#packages">Пакети</a></li>
-          <li><a href="#design">Дизайн</a></li>
-          <li><a href="#styles">Стилі</a></li>
-          <li><a href="#calculator">Розрахунок</a></li>
-          <li><a href="#proof">Роботи</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="{% url 'landing:home' %}#advantages">Переваги</a></li>
+          <li><a href="{% url 'landing:home' %}#packages">Пакети</a></li>
+          <li><a href="{% url 'landing:home' %}#design">Дизайн</a></li>
+          <li><a href="{% url 'landing:home' %}#styles">Стилі</a></li>
+          <li><a href="{% url 'landing:home' %}#calculator">Розрахунок</a></li>
+          <li><a href="{% url 'landing:home' %}#proof">Роботи</a></li>
+          <li><a href="{% url 'landing:home' %}#faq">FAQ</a></li>
         </ul>
       </nav>
 
