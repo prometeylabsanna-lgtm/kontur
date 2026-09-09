@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from django.templatetags.static import static
 from django.urls import reverse_lazy
 from decouple import Csv, config
 
@@ -172,7 +173,32 @@ def _sidebar_navigation(request=None):
 UNFOLD = {
     "SITE_TITLE": "Kontur+",
     "SITE_HEADER": "Kontur+",
-    "SITE_SYMBOL": "home_repair_service",
+    "SITE_ICON": lambda request: static("img/site-icon.png"),
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/png",
+            "href": lambda request: static("img/favicon-32x32.png"),
+        },
+        {
+            "rel": "icon",
+            "sizes": "16x16",
+            "type": "image/png",
+            "href": lambda request: static("img/favicon-16x16.png"),
+        },
+        {
+            "rel": "apple-touch-icon",
+            "sizes": "180x180",
+            "type": "image/png",
+            "href": lambda request: static("img/apple-touch-icon.png"),
+        },
+        {
+            "rel": "shortcut icon",
+            "type": "image/x-icon",
+            "href": lambda request: static("img/favicon.ico"),
+        },
+    ],
     "COLORS": {
         "primary": {
             "50": "oklch(98.6% .031 120.757)",

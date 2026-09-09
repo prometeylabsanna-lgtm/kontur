@@ -33,7 +33,8 @@ def get_image_hint(profile: str) -> str:
     data = IMAGE_PROFILES.get(profile) or IMAGE_PROFILES["block_image"]
     return (
         f"Рекомендовано {data['recommended']}, до {data['max_size_mb']} МБ. "
-        f"{data.get('note', '')}"
+        f"{data.get('note', '')} "
+        "Після збереження автоматично конвертується в WebP."
     ).strip()
 
 

@@ -8,3 +8,4 @@ class LandingConfig(AppConfig):
 
     def ready(self):
         from . import models_proxies  # noqa: F401
+        from . import signals  # noqa: F401
