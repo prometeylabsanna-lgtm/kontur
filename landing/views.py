@@ -61,6 +61,14 @@ def privacy(request):
     return render(request, "landing/privacy.html")
 
 
+def bad_request(request, exception=None):
+    return render(request, "errors/400.html", status=400)
+
+
+def decoy_admin(request, rest=""):
+    return bad_request(request)
+
+
 @require_POST
 def lead_create(request):
     if request.content_type and "application/json" in request.content_type:

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>400 — Некоректний запит · Kontur+</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/errors.css' %}" />
+</head>
+<body class="error-page">
+  <main class="error-page__card">
+    <p class="error-page__code">400</p>
+    <h1 class="error-page__title">Некоректний запит</h1>
+    <p class="error-page__text">
+      Запит не може бути оброблений. Перевірте адресу або поверніться на головну.
+    </p>
+    <a class="error-page__link" href="/">На головну</a>
+  </main>
+</body>
+</html>
