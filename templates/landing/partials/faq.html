@@ -1,0 +1,105 @@
+{% load static %}
+<section class="section" id="faq">
+  <div class="container">
+    <div class="faq">
+      <div class="faq__visual reveal reveal--left" aria-hidden="true">
+        <div class="faq__stack">
+          <figure class="faq__shot faq__shot--main">
+            <img
+              src="{% static 'img/advantages/adv-odesa.jpg' %}"
+              alt=""
+              width="1200"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <figure class="faq__shot faq__shot--sub">
+            <img
+              src="{% static 'img/advantages/adv-warranty.jpg' %}"
+              alt=""
+              width="1200"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      </div>
+
+      <div class="faq__content reveal reveal--right">
+        <span class="faq__badge">FAQ</span>
+        <h2 class="faq__title">Питання до старту</h2>
+
+        <div class="faq__wrap accordion" id="faqAcc">
+          <div class="accordion__item is-open">
+            <button class="accordion__btn" type="button" aria-expanded="true">
+              Чи справді ціна фіксована?
+              <span class="accordion__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 9.5L12 15l5.5-5.5"/>
+                </svg>
+              </span>
+            </button>
+            <div class="accordion__panel">Так — у межах обраного пакету й обсягу, зафіксованих у договорі. Зміни лише письмово, з перерахунком до виконання.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button" aria-expanded="false">
+              Що входить у пакет?
+              <span class="accordion__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 9.5L12 15l5.5-5.5"/>
+                </svg>
+              </span>
+            </button>
+            <div class="accordion__panel">Роботи, матеріали й супутні процеси (логістика, замовлення, вивіз сміття) згідно з описом пакету. Детальний склад — після заміру.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button" aria-expanded="false">
+              Скільки триває ремонт квартири?
+              <span class="accordion__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 9.5L12 15l5.5-5.5"/>
+                </svg>
+              </span>
+            </button>
+            <div class="accordion__panel">Орієнтир для комплексного пакетного ремонту — 60 робочих днів. Точний строк фіксуємо в договорі після обміру.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button" aria-expanded="false">
+              Хто обирає матеріали?
+              <span class="accordion__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 9.5L12 15l5.5-5.5"/>
+                </svg>
+              </span>
+            </button>
+            <div class="accordion__panel">Базовий склад — у пакеті та підбірках стилів. Заміну на аналоги узгоджуємо з вами до закупівлі.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button" aria-expanded="false">
+              Як працює оплата 30/30/30/10?
+              <span class="accordion__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 9.5L12 15l5.5-5.5"/>
+                </svg>
+              </span>
+            </button>
+            <div class="accordion__panel">Етапи: договір → матеріали → 75% робіт → акт. Суми видно в калькуляторі як орієнтир.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button" aria-expanded="false">
+              Яка гарантія?
+              <span class="accordion__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6.5 9.5L12 15l5.5-5.5"/>
+                </svg>
+              </span>
+            </button>
+            <div class="accordion__panel">Гарантія на роботи — 5 років за договором. Після здачі видаємо гарантійний сертифікат і умови сервісу.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

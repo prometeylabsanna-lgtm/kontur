@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+{% include "landing/partials/header.html" %}
+<main>
+  {% include "landing/partials/hero.html" %}
+  {% include "landing/partials/advantages.html" %}
+  {% include "landing/partials/packages.html" %}
+  {% include "landing/partials/design.html" %}
+  {% include "landing/partials/styles.html" %}
+  {% include "landing/partials/calculator.html" %}
+  {% include "landing/partials/proof.html" %}
+  {% include "landing/partials/faq.html" %}
+</main>
+{% include "landing/partials/footer.html" %}
+{% include "landing/partials/modal.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/landing.js' %}" defer></script>
+{% endblock %}

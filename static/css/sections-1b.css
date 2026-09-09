@@ -1,0 +1,139 @@
+/* Packages section: background, veil, glass cards · Landing v2 */
+.packages__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  background: transparent;
+  border: 0;
+  align-items: stretch;
+}
+
+.packages {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.packages__media {
+  position: absolute;
+  inset: -2.5rem;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.packages__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  filter: blur(18px) saturate(0.78) contrast(1.05) brightness(0.86);
+}
+
+.packages__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(247, 246, 244, 0.58) 0%,
+      rgba(247, 246, 244, 0.22) 40%,
+      rgba(22, 24, 26, 0.48) 100%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(223, 242, 80, 0.28) 0%,
+      transparent 48%
+    );
+}
+
+.packages__content {
+  position: relative;
+  z-index: 2;
+}
+
+.packages__head {
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  padding: clamp(1.25rem, 2.8vw, 1.75rem) clamp(1.75rem, 5vw, 3rem);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-radius: 1rem;
+  background: rgba(247, 246, 244, 0.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+}
+
+@media (min-width: 768px) {
+  .packages__head {
+    align-items: center;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+  }
+}
+
+.packages .card {
+  --card-fill: rgba(255, 255, 255, 0.42);
+  --card-page: transparent;
+}
+
+.packages .card--rec {
+  --card-fill: rgba(223, 242, 80, 0.42);
+}
+
+.packages .card__panel {
+  background: var(--card-fill);
+  border: 0;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    0 10px 36px rgba(22, 24, 26, 0.14);
+  -webkit-backdrop-filter: blur(24px) saturate(1.35);
+  backdrop-filter: blur(24px) saturate(1.35);
+}
+
+.packages .card--rec .card__panel {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.58),
+    0 12px 40px rgba(22, 24, 26, 0.16);
+}
+
+.packages .card__price {
+  border-bottom-color: rgba(22, 24, 26, 0.14);
+}
+
+.packages .card--rec .card__price {
+  border-bottom-color: rgba(255, 255, 255, 0.55);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .packages__head {
+    background: rgba(247, 246, 244, 0.92);
+  }
+
+  .packages .card {
+    --card-fill: rgba(247, 246, 244, 0.94);
+  }
+
+  .packages .card--rec {
+    --card-fill: rgba(223, 242, 80, 0.9);
+  }
+}
+
+@media (max-width: 767px) {
+  .packages__veil {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(247, 246, 244, 0.62) 0%,
+        rgba(247, 246, 244, 0.28) 38%,
+        rgba(22, 24, 26, 0.5) 100%
+      ),
+      linear-gradient(
+        160deg,
+        rgba(223, 242, 80, 0.22) 0%,
+        transparent 52%
+      );
+  }
+}

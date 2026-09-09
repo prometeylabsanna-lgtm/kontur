@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; overflow-x: hidden; background: #F7F6F4; }
+  button { font: inherit; color: inherit; }
+  input { font: inherit; }
+  a { color: #5F6E12; }
+  a:hover { color: #16181A; }
+  @keyframes kp-zoom { from { transform: scale(1.02); } to { transform: scale(1.11); } }
+  @keyframes kp-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<div style="font-family: Outfit, 'Helvetica Neue', sans-serif; color: #16181A; background: #F7F6F4; line-height: 1.62; -webkit-font-smoothing: antialiased;">
+
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 80; padding: calc(12px + env(safe-area-inset-top)) clamp(12px, 2.5vw, 32px) 0;">
+    <div style="{{ headerBarStyle }}">
+      <a href="#hero" style="text-decoration: none; color: #F7F6F4; display: flex; flex-direction: column; line-height: 1.05; flex: none; padding-left: clamp(8px, 1vw, 14px);">
+        <span style="font-size: clamp(19px, 1.8vw, 22px); font-weight: 600; letter-spacing: -0.035em;">Kontur+</span>
+        <span style="font-size: 9.5px; font-weight: 400; opacity: 0.6; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 2px;">ремонтна організація</span>
+      </a>
+
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <nav style="display: flex; gap: 8px; margin: 0 auto;">
+          <a href="#advantages" style="text-decoration: none; color: rgba(247,246,244,0.82); font-size: 14px; padding: 10px 16px; border: none; border-radius: 999px; transition: background 220ms ease, color 220ms ease;" style-hover="background: rgba(247,246,244,0.14); color: #F7F6F4;">Переваги</a>
+          <a href="#packages" style="text-decoration: none; color: rgba(247,246,244,0.82); font-size: 14px; padding: 10px 16px; border: none; border-radius: 999px; transition: background 220ms ease, color 220ms ease;" style-hover="background: rgba(247,246,244,0.14); color: #F7F6F4;">Пакети</a>
+          <a href="#calculator" style="text-decoration: none; color: rgba(247,246,244,0.82); font-size: 14px; padding: 10px 16px; border: none; border-radius: 999px; transition: background 220ms ease, color 220ms ease;" style-hover="background: rgba(247,246,244,0.14); color: #F7F6F4;">Розрахунок</a>
+          <a href="#process" style="text-decoration: none; color: rgba(247,246,244,0.82); font-size: 14px; padding: 10px 16px; border: none; border-radius: 999px; transition: background 220ms ease, color 220ms ease;" style-hover="background: rgba(247,246,244,0.14); color: #F7F6F4;">Етапи</a>
+          <a href="#design" style="text-decoration: none; color: rgba(247,246,244,0.82); font-size: 14px; padding: 10px 16px; border: none; border-radius: 999px; transition: background 220ms ease, color 220ms ease;" style-hover="background: rgba(247,246,244,0.14); color: #F7F6F4;">Дизайн</a>
+          <a href="#proof" style="text-decoration: none; color: rgba(247,246,244,0.82); font-size: 14px; padding: 10px 16px; border: none; border-radius: 999px; transition: background 220ms ease, color 220ms ease;" style-hover="background: rgba(247,246,244,0.14); color: #F7F6F4;">Роботи</a>
+          <a href="#faq" style="text-decoration: none; color: rgba(247,246,244,0.82); font-size: 14px; padding: 10px 16px; border: none; border-radius: 999px; transition: background 220ms ease, color 220ms ease;" style-hover="background: rgba(247,246,244,0.14); color: #F7F6F4;">FAQ</a>
+        </nav>
+      </sc-if>
+
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 10px;">
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <a href="{{ telHref }}" style="min-height: 46px; padding: 12px 22px; display: inline-flex; align-items: center; gap: 9px; background: #DFF250; color: #16181A; text-decoration: none; border-radius: 999px; font-size: 14px; font-weight: 600; white-space: nowrap; transition: background 220ms ease, transform 220ms ease;" style-hover="background: #EAFF6B; transform: translateY(-1px);">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#16181A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.6 2.6.7a2 2 0 011.7 2z"></path></svg>
+            {{ phone }}
+          </a>
+        </sc-if>
+        <sc-if value="{{ isMobileNav }}" hint-placeholder-val="{{ false }}">
+          <a href="{{ telHref }}" aria-label="{{ telAria }}" style="width: 46px; height: 46px; flex: none; display: inline-flex; align-items: center; justify-content: center; background: #DFF250; color: #16181A; text-decoration: none; border-radius: 999px; transition: background 220ms ease;" style-hover="background: #EAFF6B;">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#16181A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.6 2.6.7a2 2 0 011.7 2z"></path></svg>
+          </a>
+        </sc-if>
+        <sc-if value="{{ isMobileNav }}" hint-placeholder-val="{{ false }}">
+          <button type="button" onClick="{{ openNav }}" aria-label="Меню" style="width: 46px; height: 46px; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: rgba(247,246,244,0.12); border: none; border-radius: 999px; cursor: pointer; padding: 0;">
+            <span style="display: block; width: 16px; height: 1px; background: #F7F6F4;"></span>
+            <span style="display: block; width: 16px; height: 1px; background: #F7F6F4;"></span>
+          </button>
+        </sc-if>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 95; background: #16181A; color: #F7F6F4; display: flex; flex-direction: column; padding: 22px clamp(20px, 6vw, 44px) calc(30px + env(safe-area-inset-bottom)); animation: kp-fade 260ms ease;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; line-height: 1.05;">
+          <span style="font-size: 25px; font-weight: 600; letter-spacing: -0.035em;">Kontur+</span>
+          <span style="font-size: 10.5px; opacity: 0.6; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px;">ремонтна організація</span>
+        </div>
+        <button type="button" onClick="{{ closeNav }}" aria-label="Закрити" style="width: 46px; height: 46px; background: none; border: 1px solid rgba(247,246,244,0.3); border-radius: 10px; cursor: pointer; font-size: 19px; line-height: 1;">✕</button>
+      </div>
+      <nav style="margin-top: clamp(32px, 8vh, 64px); display: flex; flex-direction: column;">
+        <a href="#advantages" onClick="{{ closeNav }}" style="text-decoration: none; color: #F7F6F4; font-size: clamp(22px, 6vw, 30px); font-weight: 500; letter-spacing: -0.02em; padding: 15px 0; border-bottom: 1px solid rgba(247,246,244,0.14); display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #DFF250;">01</span>Переваги</a>
+        <a href="#packages" onClick="{{ closeNav }}" style="text-decoration: none; color: #F7F6F4; font-size: clamp(22px, 6vw, 30px); font-weight: 500; letter-spacing: -0.02em; padding: 15px 0; border-bottom: 1px solid rgba(247,246,244,0.14); display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #DFF250;">02</span>Пакети</a>
+        <a href="#calculator" onClick="{{ closeNav }}" style="text-decoration: none; color: #F7F6F4; font-size: clamp(22px, 6vw, 30px); font-weight: 500; letter-spacing: -0.02em; padding: 15px 0; border-bottom: 1px solid rgba(247,246,244,0.14); display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #DFF250;">03</span>Розрахунок</a>
+        <a href="#process" onClick="{{ closeNav }}" style="text-decoration: none; color: #F7F6F4; font-size: clamp(22px, 6vw, 30px); font-weight: 500; letter-spacing: -0.02em; padding: 15px 0; border-bottom: 1px solid rgba(247,246,244,0.14); display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #DFF250;">04</span>Етапи</a>
+        <a href="#design" onClick="{{ closeNav }}" style="text-decoration: none; color: #F7F6F4; font-size: clamp(22px, 6vw, 30px); font-weight: 500; letter-spacing: -0.02em; padding: 15px 0; border-bottom: 1px solid rgba(247,246,244,0.14); display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #DFF250;">05</span>Дизайн і стилі</a>
+        <a href="#proof" onClick="{{ closeNav }}" style="text-decoration: none; color: #F7F6F4; font-size: clamp(22px, 6vw, 30px); font-weight: 500; letter-spacing: -0.02em; padding: 15px 0; border-bottom: 1px solid rgba(247,246,244,0.14); display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #DFF250;">06</span>Роботи</a>
+        <a href="#faq" onClick="{{ closeNav }}" style="text-decoration: none; color: #F7F6F4; font-size: clamp(22px, 6vw, 30px); font-weight: 500; letter-spacing: -0.02em; padding: 15px 0; border-bottom: 1px solid rgba(247,246,244,0.14); display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #DFF250;">07</span>FAQ</a>
+      </nav>
+      <div style="margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <a href="{{ telHref }}" style="color: #F7F6F4; text-decoration: none; font-size: 19px; font-weight: 500;">{{ phone }}</a>
+        <button type="button" onClick="{{ openFromNav }}" style="min-height: 54px; background: #DFF250; color: #16181A; border: none; border-radius: 10px; font-size: 16px; font-weight: 500; cursor: pointer;">Замовити дзвінок</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <main>
+    <section id="hero" data-screen-label="Hero" style="position: relative; min-height: clamp(600px, 100dvh, 1000px); display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; background: #16181A;">
+      <div style="position: absolute; inset: 0;">
+        <div style="{{ slide0Style }}">
+          <image-slot id="kp2-hero-1" shape="rect" fit="cover" placeholder="Hero 1 — інтер'єр після ремонту" style="width: 100%; height: 100%; filter: saturate(0.7) contrast(1.06) brightness(0.92);"></image-slot>
+        </div>
+        <div style="{{ slide1Style }}">
+          <image-slot id="kp2-hero-2" shape="rect" fit="cover" placeholder="Hero 2 — процес робіт" style="width: 100%; height: 100%; filter: saturate(0.7) contrast(1.06) brightness(0.92);"></image-slot>
+        </div>
+        <div style="{{ slide2Style }}">
+          <image-slot id="kp2-hero-3" shape="rect" fit="cover" placeholder="Hero 3 — деталь / фінішні матеріали" style="width: 100%; height: 100%; filter: saturate(0.7) contrast(1.06) brightness(0.92);"></image-slot>
+        </div>
+      </div>
+      <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(22,24,26,0.72) 0%, rgba(22,24,26,0.24) 34%, rgba(22,24,26,0.62) 74%, rgba(22,24,26,0.92) 100%);"></div>
+
+      <div style="position: relative; width: 100%; max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px) clamp(28px, 4vw, 44px);">
+        <div style="max-width: 900px;">
+          <h1 style="margin: 0; color: #F7F6F4; font-size: clamp(34px, 5.6vw, 78px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.02; text-wrap: balance;">Готові пакети ремонту з фіксованою ціною за м²</h1>
+          <p style="margin: clamp(20px, 2.4vw, 28px) 0 0; color: rgba(247,246,244,0.76); font-size: clamp(16px, 1.25vw, 19px); max-width: 54ch; text-wrap: pretty;">Повний цикл під ключ: дизайн, матеріали, роботи й здача за 60 робочих днів. Ставка й строк — у договорі до старту.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(26px, 3vw, 38px);">
+            <button type="button" onClick="{{ openFromHero }}" style="min-height: 56px; padding: 16px 32px; background: #DFF250; color: #16181A; border: none; border-radius: 10px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background 220ms ease, transform 220ms ease;" style-hover="background: #EAFF6B; transform: translateY(-2px);">Замовити дзвінок</button>
+            <a href="#calculator" style="min-height: 56px; padding: 16px 28px; display: inline-flex; align-items: center; color: #F7F6F4; text-decoration: none; border: 1px solid rgba(247,246,244,0.34); border-radius: 10px; font-size: 16px; font-weight: 500; transition: border-color 220ms ease, background 220ms ease;" style-hover="border-color: #F7F6F4; background: rgba(247,246,244,0.06);">Порахувати вартість</a>
+          </div>
+        </div>
+
+        <div style="margin-top: clamp(34px, 5vw, 64px); padding-top: clamp(20px, 2.5vw, 28px); border-top: 1px solid rgba(247,246,244,0.18); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px;">
+          <div style="display: flex; flex-wrap: wrap; gap: clamp(20px, 4vw, 56px); color: rgba(247,246,244,0.78); font-size: 14px;">
+            <span style="display: flex; align-items: baseline; gap: 9px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 22px; font-weight: 500; color: #F7F6F4; letter-spacing: -0.02em;">460</span>$/м² від</span>
+            <span style="display: flex; align-items: baseline; gap: 9px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 22px; font-weight: 500; color: #F7F6F4; letter-spacing: -0.02em;">60</span>робочих днів</span>
+            <span style="display: flex; align-items: baseline; gap: 9px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 22px; font-weight: 500; color: #F7F6F4; letter-spacing: -0.02em;">5</span>років гарантії</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button type="button" onClick="{{ goSlide0 }}" aria-label="Кадр 1" style="height: 44px; min-width: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer;"><span style="{{ dot0Style }}"></span></button>
+            <button type="button" onClick="{{ goSlide1 }}" aria-label="Кадр 2" style="height: 44px; min-width: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer;"><span style="{{ dot1Style }}"></span></button>
+            <button type="button" onClick="{{ goSlide2 }}" aria-label="Кадр 3" style="height: 44px; min-width: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer;"><span style="{{ dot2Style }}"></span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="advantages" data-screen-label="Переваги" style="scroll-margin-top: 96px; padding: clamp(72px, 10vw, 152px) 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px);">
+        <div data-reveal="1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(20px, 4vw, 72px); align-items: end; padding-bottom: clamp(36px, 4vw, 56px); border-bottom: 1px solid #DCD8D2;">
+          <div>
+            <h2 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.06; max-width: 20ch; text-wrap: balance;">Ремонт під контролем — від заміру до ключів</h2>
+          </div>
+          <p style="margin: 0; color: #6B6560; font-size: 17px; max-width: 46ch; text-wrap: pretty;">Готові пакетні рішення Kontur+ в Одесі: фіксована ставка за м², строк у договорі та повний склад робіт і матеріалів.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0;">
+          <div data-reveal="1" style="padding: clamp(26px, 3vw, 40px) clamp(0px, 2.5vw, 40px) clamp(26px, 3vw, 40px) 0; border-bottom: 1px solid #DCD8D2;">
+            <p style="margin: 0 0 14px; font-family: 'Space Grotesk', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: #7E8F1C;">01</p>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em;">Фіксована ціна за м²</h3>
+            <p style="margin: 10px 0 0; color: #6B6560; font-size: 15.5px; max-width: 40ch; text-wrap: pretty;">Ставка й обсяг пакету фіксуються в договорі до старту — без прихованих доплат у процесі.</p>
+          </div>
+          <div data-reveal="1" style="padding: clamp(26px, 3vw, 40px) clamp(0px, 2.5vw, 40px); border-bottom: 1px solid #DCD8D2;">
+            <p style="margin: 0 0 14px; font-family: 'Space Grotesk', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: #7E8F1C;">02</p>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em;">Усе в пакеті</h3>
+            <p style="margin: 10px 0 0; color: #6B6560; font-size: 15.5px; max-width: 40ch; text-wrap: pretty;">Роботи, матеріали, логістика й вивіз сміття — у складі обраного пакету, без «дрібниць окремо».</p>
+          </div>
+          <div data-reveal="1" style="padding: clamp(26px, 3vw, 40px) 0 clamp(26px, 3vw, 40px) clamp(0px, 2.5vw, 40px); border-bottom: 1px solid #DCD8D2;">
+            <p style="margin: 0 0 14px; font-family: 'Space Grotesk', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: #7E8F1C;">03</p>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em;">60 робочих днів</h3>
+            <p style="margin: 10px 0 0; color: #6B6560; font-size: 15.5px; max-width: 40ch; text-wrap: pretty;">Строк комплексного ремонту квартири прописуємо в договорі після обміру.</p>
+          </div>
+          <div data-reveal="1" style="padding: clamp(26px, 3vw, 40px) clamp(0px, 2.5vw, 40px) clamp(26px, 3vw, 40px) 0; border-bottom: 1px solid #DCD8D2;">
+            <p style="margin: 0 0 14px; font-family: 'Space Grotesk', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: #7E8F1C;">04</p>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em;">Гарантія 5 років</h3>
+            <p style="margin: 10px 0 0; color: #6B6560; font-size: 15.5px; max-width: 40ch; text-wrap: pretty;">Після здачі — гарантійний сертифікат і сервісний супровід у межах договору.</p>
+          </div>
+          <div data-reveal="1" style="padding: clamp(26px, 3vw, 40px) clamp(0px, 2.5vw, 40px); border-bottom: 1px solid #DCD8D2;">
+            <p style="margin: 0 0 14px; font-family: 'Space Grotesk', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: #7E8F1C;">05</p>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em;">Працюємо в Одесі</h3>
+            <p style="margin: 10px 0 0; color: #6B6560; font-size: 15.5px; max-width: 40ch; text-wrap: pretty;">Замір, супровід і здача об'єкта — локально, з зрозумілим графіком виїздів.</p>
+          </div>
+          <div data-reveal="1" style="padding: clamp(26px, 3vw, 40px) 0 clamp(26px, 3vw, 40px) clamp(0px, 2.5vw, 40px); border-bottom: 1px solid #DCD8D2; display: flex; align-items: center;">
+            <a href="#packages" style="text-decoration: none; color: #16181A; font-size: 17px; font-weight: 500; display: flex; align-items: center; gap: 12px;" style-hover="color: #5F6E12;">Дивитись пакети<span style="display: block; width: 34px; height: 1px; background: #A8BC22;"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" data-screen-label="Пакети" style="scroll-margin-top: 96px; background: #FFFFFF; padding: clamp(72px, 10vw, 152px) 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px);">
+        <div data-reveal="1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(20px, 4vw, 72px); align-items: end;">
+          <div>
+            <h2 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.06; max-width: 20ch; text-wrap: balance;">Три пакети — один рівень контролю</h2>
+          </div>
+          <p style="margin: 0; color: #6B6560; font-size: 17px; max-width: 46ch; text-wrap: pretty;">Ціна за м² і строк фіксуються в договорі. «Оптимальний» — баланс складу, комфорту й бюджету.</p>
+        </div>
+
+        <div style="margin-top: clamp(40px, 5vw, 72px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(1px, 0.2vw, 2px); background: #DCD8D2; border: 1px solid #DCD8D2;">
+          <article data-reveal="1" style="background: #FFFFFF; padding: clamp(26px, 3vw, 40px); display: flex; flex-direction: column; gap: 22px;">
+            <div>
+              <p style="margin: 0 0 12px; font-family: 'Space Grotesk', monospace; font-size: 12px; letter-spacing: 0.12em; color: #6B6560;">01</p>
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.025em;">Базовий</h3>
+              <p style="margin: 10px 0 0; color: #6B6560; font-size: 15px; text-wrap: pretty;">Чорнові й чистові роботи плюс ключові фінішні позиції для готової квартири.</p>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 20px; border-bottom: 1px solid #DCD8D2;">
+              <span style="font-family: 'Space Grotesk', monospace; font-size: clamp(38px, 4vw, 52px); font-weight: 500; letter-spacing: -0.05em; line-height: 1;">460</span>
+              <span style="font-size: 14px; color: #6B6560;">$/м²</span>
+            </div>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; color: #4A4642; font-size: 15px;">
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Підготовка, чорнові роботи, електрика й сантехніка</li>
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Санфаянс, натяжні стелі, двері</li>
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Шпалери, ламінат і плитка, освітлення</li>
+            </ul>
+            <button type="button" onClick="{{ openBasic }}" style="margin-top: auto; min-height: 50px; background: none; border: 1px solid #DCD8D2; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: border-color 220ms ease, background 220ms ease;" style-hover="border-color: #A8BC22; background: #FBFAF8;">Замовити</button>
+          </article>
+
+          <article data-reveal="1" style="background: #16181A; color: #F7F6F4; padding: clamp(26px, 3vw, 40px); display: flex; flex-direction: column; gap: 22px;">
+            <div>
+              <p style="margin: 0 0 12px; font-family: 'Space Grotesk', monospace; font-size: 12px; letter-spacing: 0.12em; color: #DFF250;">РЕКОМЕНДУЄМО</p>
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.025em;">Оптимальний</h3>
+              <p style="margin: 10px 0 0; color: rgba(247,246,244,0.68); font-size: 15px; text-wrap: pretty;">Усе з «Базового» плюс кухня та інженерний комфорт для щоденного життя.</p>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 20px; border-bottom: 1px solid rgba(247,246,244,0.18);">
+              <span style="font-family: 'Space Grotesk', monospace; font-size: clamp(38px, 4vw, 52px); font-weight: 500; letter-spacing: -0.05em; line-height: 1; color: #DFF250;">580</span>
+              <span style="font-size: 14px; color: rgba(247,246,244,0.6);">$/м²</span>
+            </div>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; color: rgba(247,246,244,0.82); font-size: 15px;">
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Усе з пакету «Базовий»</li>
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Кухня на замовлення, штори, кондиціонери</li>
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Бойлер, рушникосушка, дзеркало з LED</li>
+            </ul>
+            <button type="button" onClick="{{ openOptimal }}" style="margin-top: auto; min-height: 50px; background: #DFF250; color: #16181A; border: none; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 220ms ease;" style-hover="background: #EAFF6B;">Замовити</button>
+          </article>
+
+          <article data-reveal="1" style="background: #FFFFFF; padding: clamp(26px, 3vw, 40px); display: flex; flex-direction: column; gap: 22px;">
+            <div>
+              <p style="margin: 0 0 12px; font-family: 'Space Grotesk', monospace; font-size: 12px; letter-spacing: 0.12em; color: #6B6560;">03</p>
+              <h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.025em;">Максимальний</h3>
+              <p style="margin: 10px 0 0; color: #6B6560; font-size: 15px; text-wrap: pretty;">Розширена комплектація з технікою та меблями — заїхали й живете.</p>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 8px; padding-bottom: 20px; border-bottom: 1px solid #DCD8D2;">
+              <span style="font-family: 'Space Grotesk', monospace; font-size: clamp(38px, 4vw, 52px); font-weight: 500; letter-spacing: -0.05em; line-height: 1;">700</span>
+              <span style="font-size: 14px; color: #6B6560;">$/м²</span>
+            </div>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; color: #4A4642; font-size: 15px;">
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Усе з пакету «Оптимальний»</li>
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Техніка: ТВ, холодильник, варильна, витяжка, духовка, пральна</li>
+              <li style="display: flex; gap: 10px;"><span style="color: #A8BC22;">—</span>Спальний гарнітур у складі пакету</li>
+            </ul>
+            <button type="button" onClick="{{ openMaximum }}" style="margin-top: auto; min-height: 50px; background: none; border: 1px solid #DCD8D2; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: border-color 220ms ease, background 220ms ease;" style-hover="border-color: #A8BC22; background: #FBFAF8;">Замовити</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" data-screen-label="Розрахунок" style="scroll-margin-top: 96px; background: #EAE6E0; padding: clamp(72px, 10vw, 152px) 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px);">
+        <div data-reveal="1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(20px, 4vw, 72px); align-items: end;">
+          <div>
+            <h2 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.06; max-width: 20ch; text-wrap: balance;">Орієнтовна вартість за 30 секунд</h2>
+          </div>
+          <p style="margin: 0; color: #6B6560; font-size: 17px; max-width: 46ch; text-wrap: pretty;">Для квартири в новобудові — миттєвий орієнтир із графіком оплат. Для будинку — індивідуальний кошторис після виїзду.</p>
+        </div>
+
+        <div style="margin-top: clamp(36px, 4.5vw, 64px); display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: clamp(2px, 0.3vw, 3px);">
+          <div data-reveal="1" style="background: #FFFFFF; padding: clamp(24px, 3vw, 40px);">
+            <p style="margin: 0 0 12px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B6560;">Тип об'єкта</p>
+            <div role="group" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(152px, 1fr)); gap: 2px;">
+              <button type="button" onClick="{{ setFlat }}" style="{{ segFlatStyle }}">Квартира у новобудові</button>
+              <button type="button" onClick="{{ setHouse }}" style="{{ segHouseStyle }}">Будинок / Котедж</button>
+            </div>
+
+            <sc-if value="{{ isFlat }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <p style="margin: 30px 0 12px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B6560;">Пакет</p>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <button type="button" onClick="{{ setBasic }}" style="{{ pkgBasicStyle }}"><span>Базовий</span><span style="font-family: 'Space Grotesk', monospace; font-size: 15px;">460 $/м²</span></button>
+                  <button type="button" onClick="{{ setOptimal }}" style="{{ pkgOptimalStyle }}"><span>Оптимальний</span><span style="font-family: 'Space Grotesk', monospace; font-size: 15px;">580 $/м²</span></button>
+                  <button type="button" onClick="{{ setMaximum }}" style="{{ pkgMaximumStyle }}"><span>Максимальний</span><span style="font-family: 'Space Grotesk', monospace; font-size: 15px;">700 $/м²</span></button>
+                </div>
+
+                <div style="margin: 30px 0 12px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+                  <p style="margin: 0; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B6560;">Площа</p>
+                  <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 22px; font-weight: 500; letter-spacing: -0.02em;">{{ areaLabel }}</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                  <input type="range" min="20" max="150" step="1" value="{{ area }}" onChange="{{ onArea }}" aria-label="Площа, м²" style="flex: 1; min-width: 0; accent-color: #A8BC22; height: 44px;" />
+                  <input type="number" min="20" max="150" value="{{ area }}" onChange="{{ onArea }}" aria-label="Площа числом" style="width: 88px; min-height: 48px; padding: 0 12px; border: 1px solid #DCD8D2; border-radius: 10px; background: #fff; text-align: center; font-family: 'Space Grotesk', monospace; font-size: 16px;" />
+                </div>
+                <p style="margin: 16px 0 0; font-size: 13.5px; color: #6B6560; text-wrap: pretty;">{{ areaNote }}</p>
+              </div>
+            </sc-if>
+          </div>
+
+          <div data-reveal="1" style="background: #16181A; color: #F7F6F4; padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; gap: 22px;">
+            <sc-if value="{{ isFlat }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <p style="margin: 0; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,246,244,0.54);">Орієнтовна сума</p>
+                <p style="margin: 12px 0 0; font-family: 'Space Grotesk', monospace; font-size: clamp(40px, 5vw, 66px); font-weight: 500; letter-spacing: -0.05em; line-height: 1; color: #DFF250;">{{ sumLabel }}</p>
+                <p style="margin: 16px 0 0; color: rgba(247,246,244,0.62); font-size: 14px; max-width: 44ch; text-wrap: pretty;">{{ rateNote }}</p>
+                <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(126px, 1fr)); gap: 1px; background: rgba(247,246,244,0.16);">
+                  <div style="background: #16181A; padding: 16px 14px;"><strong style="display: block; font-family: 'Space Grotesk', monospace; font-size: 18px; font-weight: 500;">{{ pay1 }}</strong><span style="font-size: 12.5px; color: rgba(247,246,244,0.54);">30% · договір</span></div>
+                  <div style="background: #16181A; padding: 16px 14px;"><strong style="display: block; font-family: 'Space Grotesk', monospace; font-size: 18px; font-weight: 500;">{{ pay2 }}</strong><span style="font-size: 12.5px; color: rgba(247,246,244,0.54);">30% · матеріали</span></div>
+                  <div style="background: #16181A; padding: 16px 14px;"><strong style="display: block; font-family: 'Space Grotesk', monospace; font-size: 18px; font-weight: 500;">{{ pay3 }}</strong><span style="font-size: 12.5px; color: rgba(247,246,244,0.54);">30% · 75% робіт</span></div>
+                  <div style="background: #16181A; padding: 16px 14px;"><strong style="display: block; font-family: 'Space Grotesk', monospace; font-size: 18px; font-weight: 500;">{{ pay4 }}</strong><span style="font-size: 12.5px; color: rgba(247,246,244,0.54);">10% · акт</span></div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isHouse }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <p style="margin: 0; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,246,244,0.54);">Будинок / Котедж</p>
+                <p style="margin: 14px 0 0; font-size: clamp(26px, 2.8vw, 36px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; max-width: 22ch; text-wrap: balance;">Індивідуальний кошторис</p>
+                <p style="margin: 16px 0 0; color: rgba(247,246,244,0.66); font-size: 16px; max-width: 44ch; text-wrap: pretty;">Вартість залежить від конструктиву, інженерії та обсягу робіт. Порахуємо після безкоштовного виїзду й обміру.</p>
+              </div>
+            </sc-if>
+            <button type="button" onClick="{{ openCalc }}" style="margin-top: auto; min-height: 56px; background: #DFF250; color: #16181A; border: none; border-radius: 10px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background 220ms ease;" style-hover="background: #EAFF6B;">{{ calcCtaLabel }}</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" data-screen-label="Етапи" style="scroll-margin-top: 96px; padding: clamp(72px, 10vw, 152px) 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px);">
+        <div data-reveal="1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(20px, 4vw, 72px); align-items: end; padding-bottom: clamp(32px, 4vw, 52px);">
+          <div>
+            <h2 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.06; max-width: 20ch; text-wrap: balance;">Як проходить проєкт</h2>
+          </div>
+          <p style="margin: 0; color: #6B6560; font-size: 17px; max-width: 46ch; text-wrap: pretty;">П'ять етапів з фіксованими точками контролю. Ви завжди знаєте, що зроблено, що далі й скільки це коштує.</p>
+        </div>
+
+        <div data-reveal="1" style="{{ processGridStyle }}">
+          <div style="display: flex; flex-direction: column; gap: 14px; padding-right: clamp(0px, 1.5vw, 24px);">
+            <span style="width: 9px; height: 9px; border-radius: 50%; background: #A8BC22; flex: none; margin-top: -4px;"></span>
+            <h3 style="margin: 0; font-size: clamp(16px, 1.35vw, 19px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25;">Замір і кошторис</h3>
+            <p style="margin: 0; color: #6B6560; font-size: 14.5px; text-wrap: pretty;">Безкоштовний виїзд, обмір, фіксація обсягу робіт.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px; padding-right: clamp(0px, 1.5vw, 24px);">
+            <span style="width: 9px; height: 9px; border-radius: 50%; background: #A8BC22; flex: none; margin-top: -4px;"></span>
+            <h3 style="margin: 0; font-size: clamp(16px, 1.35vw, 19px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25;">Договір і пакет</h3>
+            <p style="margin: 0; color: #6B6560; font-size: 14.5px; text-wrap: pretty;">Ставка за м², строк 60 робочих днів і графік оплат — письмово.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px; padding-right: clamp(0px, 1.5vw, 24px);">
+            <span style="width: 9px; height: 9px; border-radius: 50%; background: #A8BC22; flex: none; margin-top: -4px;"></span>
+            <h3 style="margin: 0; font-size: clamp(16px, 1.35vw, 19px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25;">Дизайн і матеріали</h3>
+            <p style="margin: 0; color: #6B6560; font-size: 14.5px; text-wrap: pretty;">Планування, відомість фінішів, узгодження до закупівлі.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px; padding-right: clamp(0px, 1.5vw, 24px);">
+            <span style="width: 9px; height: 9px; border-radius: 50%; background: #A8BC22; flex: none; margin-top: -4px;"></span>
+            <h3 style="margin: 0; font-size: clamp(16px, 1.35vw, 19px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25;">Роботи під контролем</h3>
+            <p style="margin: 0; color: #6B6560; font-size: 14.5px; text-wrap: pretty;">Чорнові, інженерія, чистові — з щотижневим звітом по етапу.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <span style="width: 9px; height: 9px; border-radius: 50%; background: #A8BC22; flex: none; margin-top: -4px;"></span>
+            <h3 style="margin: 0; font-size: clamp(16px, 1.35vw, 19px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25;">Здача і гарантія</h3>
+            <p style="margin: 0; color: #6B6560; font-size: 14.5px; text-wrap: pretty;">Приймання, акт і гарантійний сертифікат на 5 років.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="design" data-screen-label="Дизайн і стилі" style="scroll-margin-top: 96px; background: #FFFFFF; padding: clamp(72px, 10vw, 152px) 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: clamp(32px, 5vw, 88px); align-items: start;">
+          <div data-reveal="1">
+            <h2 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.06; max-width: 20ch; text-wrap: balance;">Проєкт під ваш ритм життя</h2>
+            <p style="margin: 20px 0 0; color: #6B6560; font-size: 17px; max-width: 48ch; text-wrap: pretty;">Планування, матеріали й деталі з урахуванням звичок і сценаріїв у квартирі. Далі — підбір фінішів у чотирьох стилях, зібраний дизайном і постачанням.</p>
+            <ul style="margin: 30px 0 0; padding: 0; list-style: none;">
+              <li style="padding: 15px 0; border-top: 1px solid #DCD8D2; font-size: 16px; display: flex; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #7E8F1C; padding-top: 4px;">01</span>Робочі креслення й відомість оздоблювальних матеріалів</li>
+              <li style="padding: 15px 0; border-top: 1px solid #DCD8D2; font-size: 16px; display: flex; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #7E8F1C; padding-top: 4px;">02</span>Плани електрики, сантехніки, освітлення</li>
+              <li style="padding: 15px 0; border-top: 1px solid #DCD8D2; font-size: 16px; display: flex; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #7E8F1C; padding-top: 4px;">03</span>Підбір фінішів спільно з дизайнером і постачанням</li>
+              <li style="padding: 15px 0; border-top: 1px solid #DCD8D2; border-bottom: 1px solid #DCD8D2; font-size: 16px; display: flex; gap: 14px;"><span style="font-family: 'Space Grotesk', monospace; font-size: 12px; color: #7E8F1C; padding-top: 4px;">04</span>За потреби — 3D-візуалізація ключових зон</li>
+            </ul>
+            <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px;">
+              <button type="button" onClick="{{ openDesign }}" style="min-height: 50px; padding: 13px 26px; background: #16181A; color: #F7F6F4; border: none; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 220ms ease;" style-hover="background: #33383C;">Замовити проєкт</button>
+              <button type="button" onClick="{{ openStyles }}" style="min-height: 50px; padding: 13px 26px; background: none; border: 1px solid #DCD8D2; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: border-color 220ms ease;" style-hover="border-color: #A8BC22;">Підбір матеріалів</button>
+            </div>
+          </div>
+
+          <div data-reveal="1">
+            <div style="position: relative; aspect-ratio: 4 / 5; min-height: 300px;">
+              <image-slot id="kp2-design" shape="rect" fit="cover" placeholder="Дизайн-проєкт: креслення або візуалізація" style="width: 100%; height: 100%; position: absolute; inset: 0; filter: saturate(0.76);"></image-slot>
+            </div>
+            <div style="margin-top: 2px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-bottom: 1px solid #DCD8D2;">
+              <div style="padding: 20px 20px 20px 0; border-top: 1px solid #DCD8D2;">
+                <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 11.5px; color: #7E8F1C; letter-spacing: 0.1em;">01</p>
+                <h3 style="margin: 8px 0 0; font-size: 17px; font-weight: 500;">Лофт</h3>
+                <p style="margin: 6px 0 0; color: #6B6560; font-size: 14px; text-wrap: pretty;">Текстури й відкриті акценти для вторинки.</p>
+              </div>
+              <div style="padding: 20px; border-top: 1px solid #DCD8D2;">
+                <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 11.5px; color: #7E8F1C; letter-spacing: 0.1em;">02</p>
+                <h3 style="margin: 8px 0 0; font-size: 17px; font-weight: 500;">Мінімалізм</h3>
+                <p style="margin: 6px 0 0; color: #6B6560; font-size: 14px; text-wrap: pretty;">Чисті лінії й спокійна палітра.</p>
+              </div>
+              <div style="padding: 20px 20px 20px 0; border-top: 1px solid #DCD8D2;">
+                <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 11.5px; color: #7E8F1C; letter-spacing: 0.1em;">03</p>
+                <h3 style="margin: 8px 0 0; font-size: 17px; font-weight: 500;">Контемпорарі</h3>
+                <p style="margin: 6px 0 0; color: #6B6560; font-size: 14px; text-wrap: pretty;">Актуально й довговічно, без моди заради моди.</p>
+              </div>
+              <div style="padding: 20px; border-top: 1px solid #DCD8D2;">
+                <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 11.5px; color: #7E8F1C; letter-spacing: 0.1em;">04</p>
+                <h3 style="margin: 8px 0 0; font-size: 17px; font-weight: 500;">Скандинавський</h3>
+                <p style="margin: 6px 0 0; color: #6B6560; font-size: 14px; text-wrap: pretty;">Світло, тепло дерева, функціональні деталі.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof" data-screen-label="Роботи" style="scroll-margin-top: 96px; padding: clamp(72px, 10vw, 152px) 0 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px);">
+        <div data-reveal="1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(20px, 4vw, 72px); align-items: end;">
+          <div>
+            <h2 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.06; max-width: 20ch; text-wrap: balance;">Кейси, до і після, відгуки</h2>
+          </div>
+          <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+            <span style="font-family: 'Space Grotesk', monospace; font-size: 40px; font-weight: 500; letter-spacing: -0.04em; line-height: 1;">4.9</span>
+            <span style="display: flex; gap: 3px;">
+              <svg viewBox="0 0 16 16" width="15" height="15" fill="#A8BC22"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"></path></svg>
+              <svg viewBox="0 0 16 16" width="15" height="15" fill="#A8BC22"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"></path></svg>
+              <svg viewBox="0 0 16 16" width="15" height="15" fill="#A8BC22"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"></path></svg>
+              <svg viewBox="0 0 16 16" width="15" height="15" fill="#A8BC22"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"></path></svg>
+              <svg viewBox="0 0 16 16" width="15" height="15" fill="#A8BC22"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"></path></svg>
+            </span>
+            <span style="font-size: 14px; color: #6B6560;">Google · відгуки клієнтів</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal="1" style="margin-top: clamp(36px, 4.5vw, 64px); position: relative; background: #16181A;">
+        <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 320px; max-height: 76dvh; overflow: hidden;">
+          <div style="{{ case0Photo0 }}"><image-slot id="kp2-case-1a" shape="rect" fit="cover" placeholder="Кейс 1 — кадр 1" style="width: 100%; height: 100%;"></image-slot></div>
+          <div style="{{ case0Photo1 }}"><image-slot id="kp2-case-1b" shape="rect" fit="cover" placeholder="Кейс 1 — кадр 2" style="width: 100%; height: 100%;"></image-slot></div>
+          <div style="{{ case1Photo0 }}"><image-slot id="kp2-case-2a" shape="rect" fit="cover" placeholder="Кейс 2 — кадр 1" style="width: 100%; height: 100%;"></image-slot></div>
+          <div style="{{ case1Photo1 }}"><image-slot id="kp2-case-2b" shape="rect" fit="cover" placeholder="Кейс 2 — кадр 2" style="width: 100%; height: 100%;"></image-slot></div>
+          <div style="{{ case2Photo0 }}"><image-slot id="kp2-case-3a" shape="rect" fit="cover" placeholder="Кейс 3 — кадр 1" style="width: 100%; height: 100%;"></image-slot></div>
+          <div style="{{ case2Photo1 }}"><image-slot id="kp2-case-3b" shape="rect" fit="cover" placeholder="Кейс 3 — кадр 2" style="width: 100%; height: 100%;"></image-slot></div>
+
+          <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(22,24,26,0.82) 0%, rgba(22,24,26,0.32) 44%, rgba(22,24,26,0.06) 70%);"></div>
+
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(22px, 3.5vw, 56px); pointer-events: none;">
+            <div style="max-width: 520px; pointer-events: auto;">
+              <h3 style="margin: 0; color: #F7F6F4; font-size: clamp(24px, 2.8vw, 38px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.08;">{{ caseTitle }}</h3>
+              <p style="margin: 12px 0 0; color: rgba(247,246,244,0.74); font-size: 15.5px; max-width: 48ch; text-wrap: pretty;">{{ caseText }}</p>
+              <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 22px; color: rgba(247,246,244,0.62); font-size: 13.5px;">
+                <span>{{ caseArea }}</span><span>Пакет: {{ casePkg }}</span><span>{{ caseTerm }}</span>
+              </div>
+              <div style="margin-top: 22px; display: flex; align-items: center; gap: 10px;">
+                <button type="button" onClick="{{ prevCase }}" aria-label="Попередній кейс" style="width: 48px; height: 48px; background: rgba(247,246,244,0.1); border: 1px solid rgba(247,246,244,0.34); border-radius: 10px; color: #F7F6F4; cursor: pointer; font-size: 16px; transition: background 220ms ease;" style-hover="background: #DFF250; border-color: #A8BC22; color: #16181A;">←</button>
+                <button type="button" onClick="{{ nextCase }}" aria-label="Наступний кейс" style="width: 48px; height: 48px; background: rgba(247,246,244,0.1); border: 1px solid rgba(247,246,244,0.34); border-radius: 10px; color: #F7F6F4; cursor: pointer; font-size: 16px; transition: background 220ms ease;" style-hover="background: #DFF250; border-color: #A8BC22; color: #16181A;">→</button>
+                <span style="width: 1px; height: 28px; background: rgba(247,246,244,0.26); margin: 0 6px;"></span>
+                <button type="button" onClick="{{ togglePhoto }}" style="min-height: 48px; padding: 12px 18px; background: none; border: 1px solid rgba(247,246,244,0.34); border-radius: 10px; color: #F7F6F4; cursor: pointer; font-size: 14px; transition: border-color 220ms ease;" style-hover="border-color: #A8BC22;">{{ photoLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="max-width: 1360px; margin: 0 auto; padding: clamp(56px, 7vw, 104px) clamp(20px, 3.5vw, 56px) 0;">
+        <div data-reveal="1" style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px;">
+          <h3 style="margin: 0; font-size: clamp(22px, 2.2vw, 30px); font-weight: 500; letter-spacing: -0.03em;">До і після</h3>
+          <p style="margin: 0; color: #6B6560; font-size: 15px;">Потягніть роздільник, щоб порівняти кадри</p>
+        </div>
+        <div data-reveal="1" onPointerDown="{{ baDown }}" onPointerMove="{{ baMove }}" onPointerUp="{{ baUp }}" onPointerLeave="{{ baUp }}" style="margin-top: 22px; position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 280px; overflow: hidden; touch-action: none; cursor: ew-resize; background: #EAE6E0;">
+          <div style="position: absolute; inset: 0;">
+            <image-slot id="kp2-after" shape="rect" fit="cover" placeholder="ПІСЛЯ — готовий інтер'єр" style="width: 100%; height: 100%;"></image-slot>
+          </div>
+          <div style="{{ baClipStyle }}">
+            <image-slot id="kp2-before" shape="rect" fit="cover" placeholder="ДО — стан до ремонту" style="width: 100%; height: 100%; filter: saturate(0.55);"></image-slot>
+          </div>
+          <div style="{{ baHandleStyle }}">
+            <span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #DFF250; color: #16181A; display: flex; align-items: center; justify-content: center; font-size: 14px;">↔</span>
+          </div>
+          <span style="position: absolute; top: 16px; left: 16px; padding: 6px 12px; background: rgba(22,24,26,0.72); color: #F7F6F4; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; pointer-events: none;">До</span>
+          <span style="position: absolute; top: 16px; right: 16px; padding: 6px 12px; background: rgba(22,24,26,0.72); color: #F7F6F4; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; pointer-events: none;">Після</span>
+        </div>
+
+        <div data-reveal="1" style="margin-top: clamp(48px, 6vw, 88px); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(2px, 0.3vw, 3px); background: #DCD8D2; border: 1px solid #DCD8D2;">
+          <article style="background: #FFFFFF; padding: clamp(24px, 2.6vw, 34px);">
+            <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 12px; color: #A8BC22; letter-spacing: 0.12em;">★★★★★</p>
+            <p style="margin: 16px 0 0; font-size: 16px; color: #2E2C29; text-wrap: pretty;">Ціну зафіксували в договорі. Етапи оплати збіглися з роботами — без тиску «доплатити зараз».</p>
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #DCD8D2; display: flex; justify-content: space-between; font-size: 13.5px; color: #6B6560;"><span>Олена К.</span><span>лют 2026</span></div>
+          </article>
+          <article style="background: #FFFFFF; padding: clamp(24px, 2.6vw, 34px);">
+            <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 12px; color: #A8BC22; letter-spacing: 0.12em;">★★★★★</p>
+            <p style="margin: 16px 0 0; font-size: 16px; color: #2E2C29; text-wrap: pretty;">Новобудова в Одесі: пакет «Оптимальний», строки й приймання — усе по пунктах. Рекомендую.</p>
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #DCD8D2; display: flex; justify-content: space-between; font-size: 13.5px; color: #6B6560;"><span>Андрій М.</span><span>січ 2026</span></div>
+          </article>
+          <article style="background: #FFFFFF; padding: clamp(24px, 2.6vw, 34px);">
+            <p style="margin: 0; font-family: 'Space Grotesk', monospace; font-size: 12px; color: #A8BC22; letter-spacing: 0.12em;">★★★★★</p>
+            <p style="margin: 16px 0 0; font-size: 16px; color: #2E2C29; text-wrap: pretty;">Після поганого досвіду з іншою бригадою шукали прозорий кошторис. У Kontur+ саме так і вийшло.</p>
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #DCD8D2; display: flex; justify-content: space-between; font-size: 13.5px; color: #6B6560;"><span>Ірина С.</span><span>груд 2025</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" data-screen-label="FAQ" style="scroll-margin-top: 96px; padding: clamp(72px, 10vw, 152px) 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: start;">
+        <div data-reveal="1">
+          <h2 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.06; max-width: 16ch; text-wrap: balance;">Питання до старту</h2>
+          <p style="margin: 20px 0 0; color: #6B6560; font-size: 16px; max-width: 36ch; text-wrap: pretty;">Не знайшли відповідь? Зателефонуйте — відповімо без скриптів.</p>
+          <a href="{{ telHref }}" style="margin-top: 18px; display: inline-flex; align-items: center; gap: 12px; color: #16181A; text-decoration: none; font-size: 18px; font-weight: 500;" style-hover="color: #5F6E12;">{{ phone }}<span style="display: block; width: 30px; height: 1px; background: #A8BC22;"></span></a>
+        </div>
+
+        <div data-reveal="1" style="border-top: 1px solid #DCD8D2;">
+          <div style="border-bottom: 1px solid #DCD8D2;">
+            <button type="button" onClick="{{ toggle0 }}" style="width: 100%; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; background: none; border: none; cursor: pointer; text-align: left; font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em;">Чи справді ціна фіксована?<span style="{{ icon0 }}">+</span></button>
+            <sc-if value="{{ open0 }}" hint-placeholder-val="{{ true }}">
+              <p style="margin: 0; padding: 0 0 26px; color: #6B6560; font-size: 16px; max-width: 62ch; text-wrap: pretty;">Так — у межах обраного пакету й обсягу, зафіксованих у договорі. Зміни лише письмово, з перерахунком до виконання.</p>
+            </sc-if>
+          </div>
+          <div style="border-bottom: 1px solid #DCD8D2;">
+            <button type="button" onClick="{{ toggle1 }}" style="width: 100%; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; background: none; border: none; cursor: pointer; text-align: left; font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em;">Що входить у пакет?<span style="{{ icon1 }}">+</span></button>
+            <sc-if value="{{ open1 }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; padding: 0 0 26px; color: #6B6560; font-size: 16px; max-width: 62ch; text-wrap: pretty;">Роботи, матеріали й супутні процеси (логістика, замовлення, вивіз сміття) згідно з описом пакету. Детальний склад — після заміру.</p>
+            </sc-if>
+          </div>
+          <div style="border-bottom: 1px solid #DCD8D2;">
+            <button type="button" onClick="{{ toggle2 }}" style="width: 100%; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; background: none; border: none; cursor: pointer; text-align: left; font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em;">Скільки триває ремонт квартири?<span style="{{ icon2 }}">+</span></button>
+            <sc-if value="{{ open2 }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; padding: 0 0 26px; color: #6B6560; font-size: 16px; max-width: 62ch; text-wrap: pretty;">Орієнтир для комплексного пакетного ремонту — 60 робочих днів. Точний строк фіксуємо в договорі після обміру.</p>
+            </sc-if>
+          </div>
+          <div style="border-bottom: 1px solid #DCD8D2;">
+            <button type="button" onClick="{{ toggle3 }}" style="width: 100%; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; background: none; border: none; cursor: pointer; text-align: left; font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em;">Хто обирає матеріали?<span style="{{ icon3 }}">+</span></button>
+            <sc-if value="{{ open3 }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; padding: 0 0 26px; color: #6B6560; font-size: 16px; max-width: 62ch; text-wrap: pretty;">Базовий склад — у пакеті та підбірках стилів. Заміну на аналоги узгоджуємо з вами до закупівлі.</p>
+            </sc-if>
+          </div>
+          <div style="border-bottom: 1px solid #DCD8D2;">
+            <button type="button" onClick="{{ toggle4 }}" style="width: 100%; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; background: none; border: none; cursor: pointer; text-align: left; font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em;">Як працює оплата 30/30/30/10?<span style="{{ icon4 }}">+</span></button>
+            <sc-if value="{{ open4 }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; padding: 0 0 26px; color: #6B6560; font-size: 16px; max-width: 62ch; text-wrap: pretty;">Етапи: договір → чистові матеріали → 75% робіт → підписання акту. Суми видно в калькуляторі як орієнтир.</p>
+            </sc-if>
+          </div>
+          <div style="border-bottom: 1px solid #DCD8D2;">
+            <button type="button" onClick="{{ toggle5 }}" style="width: 100%; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; background: none; border: none; cursor: pointer; text-align: left; font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em;">Яка гарантія на роботи?<span style="{{ icon5 }}">+</span></button>
+            <sc-if value="{{ open5 }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; padding: 0 0 26px; color: #6B6560; font-size: 16px; max-width: 62ch; text-wrap: pretty;">Гарантія на роботи — 5 років за договором. Після здачі видаємо гарантійний сертифікат і умови сервісу.</p>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="Фінальний CTA" style="background: #16181A; color: #F7F6F4; padding: clamp(64px, 8vw, 120px) 0;">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 72px); align-items: center;">
+        <div>
+          <h2 style="margin: 0; font-size: clamp(28px, 3.4vw, 50px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; max-width: 24ch; text-wrap: balance;">Порахуємо ваш об'єм і назвемо строк</h2>
+          <p style="margin: 18px 0 0; color: rgba(247,246,244,0.66); font-size: 17px; max-width: 46ch; text-wrap: pretty;">Безкоштовний виїзд і обмір в Одесі. Відповідь на заявку — протягом 30 хвилин у робочий час.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px; width: 100%; justify-self: end;">
+          <button type="button" onClick="{{ openFinal }}" style="min-height: 58px; background: #DFF250; color: #16181A; border: none; border-radius: 10px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background 220ms ease;" style-hover="background: #EAFF6B;">Замовити дзвінок</button>
+          <a href="{{ telHref }}" style="min-height: 58px; display: inline-flex; align-items: center; justify-content: center; color: #F7F6F4; text-decoration: none; border: 1px solid rgba(247,246,244,0.34); border-radius: 10px; font-size: 16px; font-weight: 500;" style-hover="border-color: #F7F6F4;">{{ phone }}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacts" data-screen-label="Контакти" style="scroll-margin-top: 96px; background: #16181A; color: rgba(247,246,244,0.78); padding: clamp(48px, 6vw, 80px) 0 calc(28px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(247,246,244,0.14);">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 3.5vw, 56px);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(28px, 4vw, 56px);">
+        <div>
+          <div style="display: flex; flex-direction: column; line-height: 1.05; color: #F7F6F4;">
+            <span style="font-size: 26px; font-weight: 600; letter-spacing: -0.035em;">Kontur+</span>
+            <span style="font-size: 10.5px; color: rgba(247,246,244,0.56); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 5px;">ремонтна організація</span>
+          </div>
+          <p style="margin: 18px 0 0; font-size: 15px; max-width: 32ch; color: rgba(247,246,244,0.56); text-wrap: pretty;">Ремонт квартир і будинків під ключ з фіксованою ціною за м². Одеса.</p>
+        </div>
+        <div>
+          <h3 style="margin: 0 0 16px; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,246,244,0.44); font-weight: 500;">Контакти</h3>
+          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 16px;">
+            <a href="{{ telHref }}" style="color: #F7F6F4; text-decoration: none;" style-hover="color: #DFF250;">{{ phone }}</a>
+            <span style="color: rgba(247,246,244,0.56);">Одеса та передмістя</span>
+            <span style="color: rgba(247,246,244,0.56);">Пн–Сб · 09:00–19:00</span>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin: 0 0 16px; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,246,244,0.44); font-weight: 500;">Секції</h3>
+          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px;">
+            <a href="#packages" style="color: rgba(247,246,244,0.72); text-decoration: none;" style-hover="color: #DFF250;">Пакети</a>
+            <a href="#calculator" style="color: rgba(247,246,244,0.72); text-decoration: none;" style-hover="color: #DFF250;">Розрахунок</a>
+            <a href="#proof" style="color: rgba(247,246,244,0.72); text-decoration: none;" style-hover="color: #DFF250;">Роботи</a>
+            <a href="#faq" style="color: rgba(247,246,244,0.72); text-decoration: none;" style-hover="color: #DFF250;">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin: 0 0 16px; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,246,244,0.44); font-weight: 500;">Документи</h3>
+          <a href="Kontur+ Privacy.dc.html" style="color: rgba(247,246,244,0.72); font-size: 15px;">Політика конфіденційності</a>
+        </div>
+      </div>
+      <div style="margin-top: clamp(36px, 5vw, 64px); padding-top: 22px; border-top: 1px solid rgba(247,246,244,0.14); display: flex; flex-wrap: wrap; gap: 10px 32px; font-size: 13px; color: rgba(247,246,244,0.44);">
+        <span>© 2026 Kontur+. Усі права захищено.</span>
+        <span>Ціни орієнтовні; точна вартість — після заміру й кошторису.</span>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: clamp(16px, 4vw, 32px); padding-bottom: calc(clamp(16px, 4vw, 32px) + env(safe-area-inset-bottom));">
+      <div onClick="{{ closeModal }}" style="position: absolute; inset: 0; background: rgba(22,24,26,0.62); backdrop-filter: blur(3px);"></div>
+      <div style="position: relative; width: 100%; max-width: 440px; max-height: 92dvh; overflow-y: auto; background: #FFFFFF; border-radius: 3px; padding: clamp(26px, 4vw, 36px); animation: kp-fade 240ms ease;">
+        <button type="button" onClick="{{ closeModal }}" aria-label="Закрити" style="position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; background: none; border: none; cursor: pointer; font-size: 17px; color: #6B6560;">✕</button>
+
+        <sc-if value="{{ isSuccess }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="width: 46px; height: 46px; border: 1px solid #3F6B52; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #3F6B52; font-size: 19px;">✓</div>
+            <h2 style="margin: 22px 0 0; font-size: 25px; font-weight: 500; letter-spacing: -0.03em;">Дякуємо</h2>
+            <p style="margin: 12px 0 0; color: #6B6560; font-size: 16px; text-wrap: pretty;">Заявку отримано. Передзвонимо протягом 30 хвилин у робочий час.</p>
+            <button type="button" onClick="{{ closeModal }}" style="margin-top: 28px; width: 100%; min-height: 50px; background: none; border: 1px solid #DCD8D2; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer;">Закрити</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h2 style="margin: 0; padding-right: 40px; font-size: 25px; font-weight: 500; letter-spacing: -0.03em;">Замовити дзвінок</h2>
+            <p style="margin: 12px 0 0; color: #6B6560; font-size: 15px; text-wrap: pretty;">Залиште ім'я й телефон — передзвонимо в робочий час і узгодимо безкоштовний замір.</p>
+            <p style="margin: 18px 0 0; padding: 11px 14px; background: #EAE6E0; font-size: 13px; color: #4A4642; border-left: 2px solid #A8BC22;">{{ ctxLabel }}</p>
+
+            <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <label for="kp2-name" style="display: block; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6B6560; margin-bottom: 8px;">Ім'я</label>
+                <input id="kp2-name" value="{{ name }}" onChange="{{ onName }}" autocomplete="name" style="{{ nameInputStyle }}" />
+                <sc-if value="{{ nameError }}" hint-placeholder-val="{{ false }}">
+                  <span style="display: block; margin-top: 7px; font-size: 13px; color: #9E4038;">Вкажіть ім'я</span>
+                </sc-if>
+              </div>
+              <div>
+                <label for="kp2-phone" style="display: block; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6B6560; margin-bottom: 8px;">Телефон</label>
+                <input id="kp2-phone" type="tel" inputMode="tel" placeholder="+380 __ ___ __ __" value="{{ phoneValue }}" onChange="{{ onPhone }}" autocomplete="tel" style="{{ phoneInputStyle }}" />
+                <sc-if value="{{ phoneError }}" hint-placeholder-val="{{ false }}">
+                  <span style="display: block; margin-top: 7px; font-size: 13px; color: #9E4038;">Вкажіть номер у форматі +380 XX XXX XX XX</span>
+                </sc-if>
+              </div>
+              <label style="display: flex; gap: 12px; align-items: center; font-size: 14px; color: #6B6560; cursor: pointer; min-height: 44px;">
+                <input type="checkbox" checked="{{ agree }}" onChange="{{ onAgree }}" style="width: 20px; height: 20px; accent-color: #A8BC22; flex: none;" />
+                <span>Погоджуюсь з <a href="Kontur+ Privacy.dc.html" target="_blank" rel="noopener">політикою конфіденційності</a></span>
+              </label>
+              <sc-if value="{{ agreeError }}" hint-placeholder-val="{{ false }}">
+                <span style="display: block; margin-top: -8px; font-size: 13px; color: #9E4038;">Потрібна згода на обробку даних</span>
+              </sc-if>
+              <button type="button" onClick="{{ submit }}" disabled="{{ isLoading }}" style="{{ submitStyle }}">{{ submitLabel }}</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;phone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;+380 44 123 45 67&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Контакти&quot;},&quot;heroAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;defaultPackage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;basic&quot;,&quot;optimal&quot;,&quot;maximum&quot;],&quot;default&quot;:&quot;optimal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Калькулятор&quot;},&quot;defaultArea&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;default&quot;:62,&quot;unit&quot;:&quot;м²&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Калькулятор&quot;}}">
+const RATES = { basic: 460, optimal: 580, maximum: 700 };
+const PKG_NAMES = { basic: 'Базовий', optimal: 'Оптимальний', maximum: 'Максимальний' };
+const CASES = [
+  { title: 'Новобудова, ЖК на Таїрова', text: 'Повний цикл від дизайн-проєкту до фінального прибирання — квартира готова до заселення.', area: '78 м²', pkg: 'Оптимальний', term: '58 робочих днів' },
+  { title: 'Вторинне житло, центр Одеси', text: 'Оновили стару квартиру в лофті: практичні матеріали, збережений характер приміщення.', area: '64 м²', pkg: 'Максимальний', term: '62 робочих дні' },
+  { title: 'Квартира під оренду, ЖК Елегія Парк', text: 'Сучасне житло з попитом на довгострокову оренду — без зайвих витрат і втрати якості.', area: '42 м²', pkg: 'Базовий', term: '46 робочих днів' }
+];
+
+class Component extends DCLogic {
+  state = {
+    isDesktop: true,
+    scrolled: false,
+    navOpen: false,
+    heroSlide: 0,
+    caseIndex: 0,
+    casePhoto: 0,
+    ba: 52,
+    baDrag: false,
+    objType: 'flat',
+    pkg: 'optimal',
+    area: 62,
+    faqOpen: 0,
+    modalOpen: false,
+    modalStatus: 'form',
+    ctx: '',
+    name: '',
+    phone: '',
+    agree: false,
+    errors: {}
+  };
+
+  componentDidMount() {
+    this.mq = window.matchMedia('(min-width: 1024px)');
+    this.onMq = () => this.setState({ isDesktop: this.mq.matches });
+    this.onMq();
+    this.mq.addEventListener('change', this.onMq);
+
+    this.onScroll = () => {
+      const s = window.scrollY > 90;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onScroll();
+
+    this.onKey = (e) => {
+      if (e.key === 'Escape') {
+        if (this.state.modalOpen) this.setState({ modalOpen: false });
+        else if (this.state.navOpen) this.setState({ navOpen: false });
+      }
+    };
+    window.addEventListener('keydown', this.onKey);
+
+    if (this.props.heroAutoplay !== false) {
+      this.timer = setInterval(() => {
+        if (!this.state.modalOpen && !this.state.navOpen) {
+          this.setState((st) => ({ heroSlide: (st.heroSlide + 1) % 3 }));
+        }
+      }, 6200);
+    }
+
+    const p = this.props.defaultPackage;
+    if (p && RATES[p]) this.setState({ pkg: p });
+    if (this.props.defaultArea) this.setState({ area: this.props.defaultArea });
+
+    this.initReveal();
+  }
+
+  initReveal() {
+    const nodes = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+    if (!nodes.length) return;
+    if (!('IntersectionObserver' in window)) return;
+    nodes.forEach((n) => {
+      n.style.opacity = '0';
+      n.style.transform = 'translateY(16px)';
+      n.style.transition = 'opacity 700ms cubic-bezier(0.22,0.61,0.36,1), transform 700ms cubic-bezier(0.22,0.61,0.36,1)';
+    });
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'none';
+          this.io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    nodes.forEach((n) => this.io.observe(n));
+    this.revealFallback = setTimeout(() => {
+      nodes.forEach((n) => { n.style.opacity = '1'; n.style.transform = 'none'; });
+    }, 2600);
+  }
+
+  componentWillUnmount() {
+    if (this.mq) this.mq.removeEventListener('change', this.onMq);
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('keydown', this.onKey);
+    if (this.timer) clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    if (this.revealFallback) clearTimeout(this.revealFallback);
+  }
+
+  fmt(n) {
+    return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u2009');
+  }
+
+  coef(area) {
+    if (area <= 30) return 1.4;
+    if (area <= 34) return 1.25;
+    if (area <= 39) return 1.1;
+    return 1;
+  }
+
+  calcSummary() {
+    const area = this.state.area;
+    const rate = RATES[this.state.pkg];
+    const k = this.coef(area);
+    const billArea = Math.max(area, 40);
+    return { area, rate, k, billArea, sum: rate * k * billArea };
+  }
+
+  open(ctx) {
+    this.setState({ modalOpen: true, modalStatus: 'form', ctx, errors: {} });
+  }
+
+  slideStyle(i) {
+    const active = this.state.heroSlide === i;
+    return 'position:absolute;inset:0;opacity:' + (active ? '1' : '0')
+      + ';transition:opacity 1400ms cubic-bezier(0.4,0,0.2,1);will-change:opacity,transform;'
+      + (active ? 'animation:kp-zoom 9000ms ease-out forwards;' : 'transform:scale(1.02);');
+  }
+
+  dotStyle(i) {
+    const active = this.state.heroSlide === i;
+    return 'display:block;width:' + (active ? '46px' : '20px') + ';height:2px;'
+      + 'background:' + (active ? '#DFF250' : 'rgba(247,246,244,0.34)')
+      + ';transition:width 400ms ease, background 400ms ease;';
+  }
+
+  casePhotoStyle(ci, pi) {
+    const active = this.state.caseIndex === ci && this.state.casePhoto === pi;
+    return 'position:absolute;inset:0;opacity:' + (active ? '1' : '0')
+      + ';transition:opacity 800ms cubic-bezier(0.4,0,0.2,1);pointer-events:' + (active ? 'auto' : 'none') + ';';
+  }
+
+  segStyle(active) {
+    return 'min-height:50px;padding:13px 14px;border-radius:10px;cursor:pointer;font-size:15px;font-weight:500;transition:all 220ms ease;text-align:center;'
+      + (active ? 'background:#16181A;color:#F7F6F4;border:1px solid #16181A;' : 'background:#FBFAF8;color:#16181A;border:1px solid #DCD8D2;');
+  }
+
+  pkgStyle(active) {
+    return 'min-height:54px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:10px;cursor:pointer;font-size:16px;font-weight:500;text-align:left;transition:all 220ms ease;'
+      + (active ? 'background:#F7FBE4;border:1px solid #A8BC22;' : 'background:#fff;border:1px solid #DCD8D2;');
+  }
+
+  inputStyle(err) {
+    return 'width:100%;min-height:50px;padding:0 14px;border-radius:10px;background:#fff;font-size:16px;color:#16181A;outline:none;transition:border-color 200ms ease;'
+      + (err ? 'border:1px solid #9E4038;' : 'border:1px solid #DCD8D2;');
+  }
+
+  iconStyle(open) {
+    return 'font-size:22px;line-height:1;color:#7E8F1C;flex:none;display:inline-block;transition:transform 320ms cubic-bezier(0.22,0.61,0.36,1);transform:rotate(' + (open ? '45deg' : '0deg') + ');';
+  }
+
+  maskPhone(raw) {
+    let d = raw.replace(/\D/g, '');
+    if (d.startsWith('380')) d = d.slice(3);
+    else if (d.startsWith('0')) d = d.slice(1);
+    d = d.slice(0, 9);
+    let out = '+380';
+    if (d.length) out += ' ' + d.slice(0, 2);
+    if (d.length > 2) out += ' ' + d.slice(2, 5);
+    if (d.length > 5) out += ' ' + d.slice(5, 7);
+    if (d.length > 7) out += ' ' + d.slice(7, 9);
+    return out;
+  }
+
+  submitForm() {
+    const digits = this.state.phone.replace(/\D/g, '');
+    const errors = {
+      name: this.state.name.trim().length < 2,
+      phone: digits.length !== 12,
+      agree: !this.state.agree
+    };
+    if (errors.name || errors.phone || errors.agree) {
+      this.setState({ errors });
+      return;
+    }
+    this.setState({ errors: {}, modalStatus: 'loading' });
+    const lead = {
+      name: this.state.name.trim(),
+      phone: this.state.phone,
+      context: this.state.ctx,
+      objType: this.state.objType,
+      pkg: PKG_NAMES[this.state.pkg],
+      calc: this.state.objType === 'flat' ? this.calcSummary() : null
+    };
+    setTimeout(() => {
+      console.log('[Kontur+] lead', lead);
+      this.setState({ modalStatus: 'success', name: '', phone: '', agree: false });
+    }, 900);
+  }
+
+  baFromEvent(e) {
+    const r = e.currentTarget.getBoundingClientRect();
+    const pct = ((e.clientX - r.left) / r.width) * 100;
+    return Math.min(98, Math.max(2, pct));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const phoneNumber = this.props.phone || '+380 44 123 45 67';
+    const c = this.calcSummary();
+    const isFlat = s.objType === 'flat';
+    const cs = CASES[s.caseIndex];
+    const loading = s.modalStatus === 'loading';
+    const dark = !s.scrolled;
+
+    return {
+      headerBarStyle: 'max-width:1400px;margin:0 auto;padding:8px clamp(10px,1.4vw,18px);min-height:clamp(60px,5vw,68px);display:flex;align-items:center;gap:clamp(10px,2vw,24px);border-radius:999px;'
+        + '-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);'
+        + 'transition:background 420ms ease, box-shadow 420ms ease, border-color 420ms ease;'
+        + 'border:1px solid rgba(247,246,244,' + (dark ? '0.16' : '0.1') + ');'
+        + 'background:rgba(22,24,26,' + (dark ? '0.42' : '0.78') + ');'
+        + 'box-shadow:0 ' + (dark ? '6px 24px rgba(22,24,26,0.14)' : '10px 34px rgba(22,24,26,0.24)') + ';',
+
+      isDesktop: s.isDesktop,
+      isMobileNav: !s.isDesktop,
+      navOpen: s.navOpen,
+      openNav: () => this.setState({ navOpen: true }),
+      closeNav: () => this.setState({ navOpen: false }),
+      phone: phoneNumber,
+      telHref: 'tel:' + phoneNumber.replace(/[^\d+]/g, ''),
+
+      slide0Style: this.slideStyle(0),
+      slide1Style: this.slideStyle(1),
+      slide2Style: this.slideStyle(2),
+      dot0Style: this.dotStyle(0),
+      dot1Style: this.dotStyle(1),
+      dot2Style: this.dotStyle(2),
+      goSlide0: () => this.setState({ heroSlide: 0 }),
+      goSlide1: () => this.setState({ heroSlide: 1 }),
+      goSlide2: () => this.setState({ heroSlide: 2 }),
+
+      processGridStyle: s.isDesktop
+        ? 'display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(14px,1.6vw,28px);border-top:1px solid #DCD8D2;padding-top:clamp(26px,3vw,40px);'
+        : 'display:flex;flex-direction:column;gap:28px;border-top:1px solid #DCD8D2;padding-top:26px;',
+
+      caseCounter: '0' + (s.caseIndex + 1) + ' / 0' + CASES.length,
+      caseTitle: cs.title,
+      caseText: cs.text,
+      caseArea: cs.area,
+      casePkg: cs.pkg,
+      caseTerm: cs.term,
+      case0Photo0: this.casePhotoStyle(0, 0),
+      case0Photo1: this.casePhotoStyle(0, 1),
+      case1Photo0: this.casePhotoStyle(1, 0),
+      case1Photo1: this.casePhotoStyle(1, 1),
+      case2Photo0: this.casePhotoStyle(2, 0),
+      case2Photo1: this.casePhotoStyle(2, 1),
+      prevCase: () => this.setState({ caseIndex: (s.caseIndex + CASES.length - 1) % CASES.length, casePhoto: 0 }),
+      nextCase: () => this.setState({ caseIndex: (s.caseIndex + 1) % CASES.length, casePhoto: 0 }),
+      togglePhoto: () => this.setState({ casePhoto: s.casePhoto === 0 ? 1 : 0 }),
+      photoLabel: 'Кадр ' + (s.casePhoto + 1) + ' / 2',
+
+      baClipStyle: 'position:absolute;inset:0;clip-path:inset(0 ' + (100 - s.ba).toFixed(2) + '% 0 0);'
+        + (s.baDrag ? '' : 'transition:clip-path 240ms ease;'),
+      baHandleStyle: 'position:absolute;top:0;bottom:0;left:' + s.ba.toFixed(2) + '%;width:2px;background:#DFF250;display:flex;align-items:center;justify-content:center;pointer-events:none;'
+        + (s.baDrag ? '' : 'transition:left 240ms ease;'),
+      baDown: (e) => { e.currentTarget.setPointerCapture && e.currentTarget.setPointerCapture(e.pointerId); this.setState({ baDrag: true, ba: this.baFromEvent(e) }); },
+      baMove: (e) => { if (this.state.baDrag) this.setState({ ba: this.baFromEvent(e) }); },
+      baUp: () => { if (this.state.baDrag) this.setState({ baDrag: false }); },
+
+      openFromHeader: () => this.open('Джерело: шапка сайту'),
+      openFromNav: () => { this.setState({ navOpen: false }); this.open('Джерело: мобільне меню'); },
+      openFromHero: () => this.open('Джерело: перший екран'),
+      openBasic: () => this.open('Пакет: Базовий · 460 $/м²'),
+      openOptimal: () => this.open('Пакет: Оптимальний · 580 $/м²'),
+      openMaximum: () => this.open('Пакет: Максимальний · 700 $/м²'),
+      openDesign: () => this.open('Запит: дизайн-проєкт'),
+      openStyles: () => this.open('Запит: підбір матеріалів'),
+      openFinal: () => this.open('Джерело: фінальний блок'),
+      openCalc: () => this.open(isFlat
+        ? 'Розрахунок: ' + PKG_NAMES[s.pkg] + ' · ' + c.area + ' м² · ~' + this.fmt(c.sum) + ' $'
+        : 'Розрахунок: будинок / котедж · індивідуальний кошторис'),
+
+      isFlat,
+      isHouse: !isFlat,
+      setFlat: () => this.setState({ objType: 'flat' }),
+      setHouse: () => this.setState({ objType: 'house' }),
+      segFlatStyle: this.segStyle(isFlat),
+      segHouseStyle: this.segStyle(!isFlat),
+      setBasic: () => this.setState({ pkg: 'basic' }),
+      setOptimal: () => this.setState({ pkg: 'optimal' }),
+      setMaximum: () => this.setState({ pkg: 'maximum' }),
+      pkgBasicStyle: this.pkgStyle(s.pkg === 'basic'),
+      pkgOptimalStyle: this.pkgStyle(s.pkg === 'optimal'),
+      pkgMaximumStyle: this.pkgStyle(s.pkg === 'maximum'),
+      area: s.area,
+      areaLabel: s.area + ' м²',
+      onArea: (e) => {
+        let v = parseInt(e.target.value, 10);
+        if (isNaN(v)) return;
+        v = Math.min(150, Math.max(20, v));
+        this.setState({ area: v });
+      },
+      areaNote: c.area < 40
+        ? 'Площа менше 40 м²: рахуємо за мінімальною площею 40 м² і коефіцієнтом ×' + c.k.toFixed(2) + '.'
+        : 'Базова ставка пакету без надбавки за малу площу.',
+      sumLabel: this.fmt(c.sum) + ' $',
+      rateNote: 'Ставка ' + c.rate + ' $/м² × коефіцієнт ' + c.k.toFixed(2) + ' × ' + c.billArea + ' м². Точна ціна — після безкоштовного заміру.',
+      pay1: this.fmt(c.sum * 0.3) + ' $',
+      pay2: this.fmt(c.sum * 0.3) + ' $',
+      pay3: this.fmt(c.sum * 0.3) + ' $',
+      pay4: this.fmt(c.sum * 0.1) + ' $',
+      calcCtaLabel: isFlat ? 'Отримати точний розрахунок' : 'Замовити виїзд і кошторис',
+
+      open0: s.faqOpen === 0, open1: s.faqOpen === 1, open2: s.faqOpen === 2,
+      open3: s.faqOpen === 3, open4: s.faqOpen === 4, open5: s.faqOpen === 5,
+      icon0: this.iconStyle(s.faqOpen === 0), icon1: this.iconStyle(s.faqOpen === 1),
+      icon2: this.iconStyle(s.faqOpen === 2), icon3: this.iconStyle(s.faqOpen === 3),
+      icon4: this.iconStyle(s.faqOpen === 4), icon5: this.iconStyle(s.faqOpen === 5),
+      toggle0: () => this.setState({ faqOpen: s.faqOpen === 0 ? -1 : 0 }),
+      toggle1: () => this.setState({ faqOpen: s.faqOpen === 1 ? -1 : 1 }),
+      toggle2: () => this.setState({ faqOpen: s.faqOpen === 2 ? -1 : 2 }),
+      toggle3: () => this.setState({ faqOpen: s.faqOpen === 3 ? -1 : 3 }),
+      toggle4: () => this.setState({ faqOpen: s.faqOpen === 4 ? -1 : 4 }),
+      toggle5: () => this.setState({ faqOpen: s.faqOpen === 5 ? -1 : 5 }),
+
+      modalOpen: s.modalOpen,
+      closeModal: () => this.setState({ modalOpen: false }),
+      isSuccess: s.modalStatus === 'success',
+      isForm: s.modalStatus !== 'success',
+      ctxLabel: s.ctx || 'Джерело: сайт',
+      name: s.name,
+      phoneValue: s.phone,
+      agree: s.agree,
+      onName: (e) => this.setState({ name: e.target.value }),
+      onPhone: (e) => this.setState({ phone: this.maskPhone(e.target.value) }),
+      onAgree: (e) => this.setState({ agree: e.target.checked }),
+      nameError: !!s.errors.name,
+      phoneError: !!s.errors.phone,
+      agreeError: !!s.errors.agree,
+      nameInputStyle: this.inputStyle(s.errors.name),
+      phoneInputStyle: this.inputStyle(s.errors.phone),
+      isLoading: loading,
+      submitLabel: loading ? 'Надсилаємо…' : 'Надіслати',
+      submitStyle: 'width:100%;min-height:54px;border:none;border-radius:10px;font-size:16px;font-weight:500;color:#16181A;background:'
+        + (loading ? '#EDF5B0' : '#DFF250') + ';cursor:' + (loading ? 'default' : 'pointer') + ';transition:background 220ms ease;',
+      submit: () => { if (!loading) this.submitForm(); }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

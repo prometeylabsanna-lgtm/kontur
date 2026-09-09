@@ -1,0 +1,39 @@
+/* Motion notes — MOTION_INTENSITY 3–4 · transform/opacity only */
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+  }
+
+  .modal-root.is-open .modal {
+    animation: kp-rise 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .modal-root.is-open .modal-root__backdrop {
+    animation: kp-fade 200ms ease-out;
+  }
+}
+
+@keyframes kp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kp-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kontur+ — стани лід-форми</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/tokens.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components-1.css" />
+  <link rel="stylesheet" href="../css/components-2.css" />
+  <style>
+    body { background: var(--surface-soft); padding: 2rem var(--pad-x) 3rem; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .intro { color: var(--muted); margin-bottom: 2rem; }
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 1200px) {
+      .grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .shot {
+      background: rgba(28, 34, 41, 0.48);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius-modal);
+      min-height: 420px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .shot .modal { position: relative; }
+    .label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Модальна лід-форма — стани</h1>
+  <p class="intro">Один контейнер · без окремої thank-you page</p>
+
+  <div class="grid">
+    <div>
+      <div class="label">1 · Default</div>
+      <div class="shot">
+        <div class="modal">
+          <h2 class="modal__title">Замовити дзвінок</h2>
+          <p class="modal__sub">Залиште контакти — передзвонимо в робочий час.</p>
+          <p class="modal__context">Контекст: Hero</p>
+          <div class="field">
+            <label class="field__label">Ім’я</label>
+            <input class="field__input" value="" placeholder="" />
+          </div>
+          <div class="field">
+            <label class="field__label">Телефон</label>
+            <input class="field__input" placeholder="+380" />
+          </div>
+          <label class="checkbox"><input type="checkbox" /><span>Погоджуюсь з політикою конфіденційності</span></label>
+          <button class="btn btn--primary btn--block" type="button">Надіслати</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">2 · Validation error</div>
+      <div class="shot">
+        <div class="modal">
+          <h2 class="modal__title">Замовити дзвінок</h2>
+          <p class="modal__sub">Залиште контакти — передзвонимо в робочий час.</p>
+          <p class="modal__context">Контекст: Пакет: Оптимальний</p>
+          <div class="field field--error">
+            <label class="field__label">Ім’я</label>
+            <input class="field__input" value="" />
+            <span class="field__hint">Вкажіть ім’я</span>
+          </div>
+          <div class="field field--error">
+            <label class="field__label">Телефон</label>
+            <input class="field__input" value="050" />
+            <span class="field__hint">Вкажіть номер у форматі України</span>
+          </div>
+          <label class="checkbox"><input type="checkbox" checked /><span>Погоджуюсь з політикою конфіденційності</span></label>
+          <button class="btn btn--primary btn--block" type="button">Надіслати</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">3 · Loading</div>
+      <div class="shot">
+        <div class="modal">
+          <h2 class="modal__title">Замовити дзвінок</h2>
+          <p class="modal__sub">Залиште контакти — передзвонимо в робочий час.</p>
+          <p class="modal__context">Контекст: Калькулятор: Оптимальний, 62 м²</p>
+          <div class="field">
+            <label class="field__label">Ім’я</label>
+            <input class="field__input" value="Марина" />
+          </div>
+          <div class="field">
+            <label class="field__label">Телефон</label>
+            <input class="field__input" value="+380 67 123 45 67" />
+          </div>
+          <label class="checkbox"><input type="checkbox" checked /><span>Погоджуюсь з політикою конфіденційності</span></label>
+          <button class="btn btn--primary btn--block" type="button" disabled>Надсилаємо…</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">4 · Success</div>
+      <div class="shot">
+        <div class="modal">
+          <div class="modal__success-icon" aria-hidden="true">✓</div>
+          <h2 class="modal__title">Дякуємо</h2>
+          <p class="modal__sub">Заявку отримано. Очікуйте дзвінок протягом 30 хвилин у робочий час.</p>
+          <button class="btn btn--ghost btn--block" type="button">Закрити</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

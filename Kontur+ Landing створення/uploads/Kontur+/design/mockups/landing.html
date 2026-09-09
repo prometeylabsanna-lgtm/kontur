@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kontur+ — ремонт під ключ в Одесі</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/tokens.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components-1.css" />
+  <link rel="stylesheet" href="../css/components-2.css" />
+  <link rel="stylesheet" href="../css/sections-1.css" />
+  <link rel="stylesheet" href="../css/sections-2.css" />
+  <link rel="stylesheet" href="../css/motion.css" />
+</head>
+<body>
+  <header class="site-header is-scrolled" id="siteHeader">
+    <div class="container site-header__inner">
+      <a class="brand" href="#hero" aria-label="Kontur+ — на головну">
+        <span class="brand__name">Kontur+</span>
+        <span class="brand__desc">ремонтна організація</span>
+      </a>
+      <nav class="site-header__nav" aria-label="Секції">
+        <a href="#advantages">Переваги</a>
+        <a href="#packages">Пакети</a>
+        <a href="#design">Дизайн</a>
+        <a href="#styles">Стилі</a>
+        <a href="#calculator">Розрахунок</a>
+        <a href="#proof">Роботи</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="site-header__actions">
+        <a class="link-tel site-header__tel" href="tel:+380441234567">+380 44 123 45 67</a>
+        <button class="btn btn--primary" type="button" data-open-modal data-ctx="Шапка">Замовити дзвінок</button>
+        <button class="burger" type="button" aria-label="Меню" data-open-nav>
+          <span class="burger__lines" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-sheet" id="navSheet" hidden>
+    <div class="nav-sheet__top">
+      <a class="brand" href="#hero">
+        <span class="brand__name">Kontur+</span>
+        <span class="brand__desc">ремонтна організація</span>
+      </a>
+      <button class="modal__close" type="button" aria-label="Закрити" data-close-nav>
+        <span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav-sheet__list">
+      <li><a href="#advantages" data-close-nav>Переваги</a></li>
+      <li><a href="#packages" data-close-nav>Пакети</a></li>
+      <li><a href="#design" data-close-nav>Дизайн</a></li>
+      <li><a href="#styles" data-close-nav>Стилі</a></li>
+      <li><a href="#calculator" data-close-nav>Розрахунок</a></li>
+      <li><a href="#proof" data-close-nav>Роботи</a></li>
+      <li><a href="#faq" data-close-nav>FAQ</a></li>
+    </ul>
+    <div class="nav-sheet__footer">
+      <a class="link-tel" href="tel:+380441234567">+380 44 123 45 67</a>
+      <button class="btn btn--primary btn--block" type="button" data-open-modal data-ctx="Меню" data-close-nav>Замовити дзвінок</button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero__media" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1800&q=80"
+          alt=""
+          width="1800"
+          height="1200"
+        />
+      </div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+      <div class="hero__content">
+        <div class="hero__brand">
+          <div class="hero__brand-name">Kontur+</div>
+          <div class="hero__brand-desc">ремонтна організація</div>
+        </div>
+        <h1 class="hero__title">Готові пакети ремонту з фіксованою ціною за м²</h1>
+        <p class="hero__lead">Kontur+ в Одесі — повний цикл під ключ: дизайн, матеріали, роботи й здача за 60 робочих днів.</p>
+        <div class="hero__cta">
+          <button class="btn btn--light" type="button" data-open-modal data-ctx="Hero">Замовити дзвінок</button>
+          <a class="btn btn--ghost btn--on-dark" href="tel:+380441234567">+380 44 123 45 67</a>
+        </div>
+        <p class="hero__trust">Фіксована ціна · 60 днів · Гарантія 5 років</p>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="advantages">
+      <div class="container">
+        <p class="section__eyebrow">Переваги</p>
+        <h2 class="section__title">Ремонт під контролем — від заміру до ключів</h2>
+        <p class="section__lead">Готові пакетні рішення Kontur+ в Одесі: фіксована ставка за м², строк у договорі та повний склад робіт і матеріалів.</p>
+        <ul class="advantages__list">
+          <li class="advantages__item">
+            <div class="advantages__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/></svg></div>
+            <div class="advantages__text">
+              <h3>Фіксована ціна за м²</h3>
+              <p>Ставка й обсяг пакету фіксуються в договорі до старту — без прихованих доплат у процесі.</p>
+            </div>
+          </li>
+          <li class="advantages__item">
+            <div class="advantages__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 12h8M8 8h5M8 16h6"/></svg></div>
+            <div class="advantages__text">
+              <h3>Усе в пакеті</h3>
+              <p>Роботи, матеріали, логістика й вивіз сміття — у складі обраного пакету, без «дрібниць окремо».</p>
+            </div>
+          </li>
+          <li class="advantages__item">
+            <div class="advantages__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+            <div class="advantages__text">
+              <h3>60 робочих днів</h3>
+              <p>Строк комплексного ремонту квартири прописуємо в договорі після обміру.</p>
+            </div>
+          </li>
+          <li class="advantages__item">
+            <div class="advantages__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7l8-4z"/></svg></div>
+            <div class="advantages__text">
+              <h3>Гарантія 5 років</h3>
+              <p>Після здачі — гарантійний сертифікат і сервісний супровід у межах договору.</p>
+            </div>
+          </li>
+          <li class="advantages__item">
+            <div class="advantages__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+            <div class="advantages__text">
+              <h3>Працюємо в Одесі</h3>
+              <p>Замір, супровід і здача об’єкта — локально, з зрозумілим графіком виїздів.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="packages">
+      <div class="container">
+        <p class="section__eyebrow">Пакети</p>
+        <h2 class="section__title">Готові пакети ремонту під ключ</h2>
+        <p class="section__lead">Фіксована ціна за м² і строк у договорі. Рекомендуємо «Оптимальний» — баланс складу, комфорту й бюджету.</p>
+        <div class="packages__grid">
+          <article class="card">
+            <h3 class="card__title">Базовий</h3>
+            <p class="card__desc">Чорнові й чистові роботи плюс ключові фінішні позиції для готової квартири.</p>
+            <div class="card__price"><span class="card__price-value" data-cms="price">460</span><span class="card__price-unit">$/м²</span></div>
+            <p class="card__cms-hint">поле CMS · орієнтир</p>
+            <ul class="card__list">
+              <li>Підготовка, чорнові роботи, електрика й сантехніка</li>
+              <li>Санфаянс, натяжні стелі, двері</li>
+              <li>Шпалери, ламінат і плитка, освітлення</li>
+            </ul>
+            <button class="btn btn--ghost btn--block" type="button" data-open-modal data-ctx="Пакет: Базовий" data-pkg="Базовий">Замовити</button>
+          </article>
+          <article class="card card--rec">
+            <span class="card__badge">Рекомендуємо</span>
+            <h3 class="card__title">Оптимальний</h3>
+            <p class="card__desc">Усе з «Базового» плюс кухня та інженерний комфорт для щоденного життя.</p>
+            <div class="card__price"><span class="card__price-value" data-cms="price">580</span><span class="card__price-unit">$/м²</span></div>
+            <p class="card__cms-hint">поле CMS · орієнтир</p>
+            <ul class="card__list">
+              <li>Усе з пакету «Базовий»</li>
+              <li>Кухня на замовлення, штори, кондиціонери</li>
+              <li>Бойлер, рушникосушка, дзеркало з LED</li>
+            </ul>
+            <button class="btn btn--primary btn--block" type="button" data-open-modal data-ctx="Пакет: Оптимальний" data-pkg="Оптимальний">Замовити</button>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Максимальний</h3>
+            <p class="card__desc">Розширена комплектація з технікою та меблями — заїхали й живете.</p>
+            <div class="card__price"><span class="card__price-value" data-cms="price">700</span><span class="card__price-unit">$/м²</span></div>
+            <p class="card__cms-hint">поле CMS · орієнтир</p>
+            <ul class="card__list">
+              <li>Усе з пакету «Оптимальний»</li>
+              <li>Техніка: ТВ, холодильник, варильна, витяжка, духовка, пральна</li>
+              <li>Спальний гарнітур у складі пакету</li>
+            </ul>
+            <button class="btn btn--ghost btn--block" type="button" data-open-modal data-ctx="Пакет: Максимальний" data-pkg="Максимальний">Замовити</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="design">
+      <div class="container">
+        <p class="section__eyebrow">Дизайн</p>
+        <h2 class="section__title">Дизайн-проєкт під ваш ритм життя</h2>
+        <p class="section__lead">Проєкт Kontur+ — стиль і зручність: планування, матеріали й деталі з урахуванням звичок і сценаріїв у квартирі.</p>
+        <div class="feature-split">
+          <div class="feature-split__text">
+            <ul class="feature-split__list">
+              <li>Робочі креслення й відомість оздоблювальних матеріалів</li>
+              <li>Плани електрики, сантехніки, освітлення</li>
+              <li>Підбір фінішів спільно з дизайнером і відділом постачання</li>
+              <li>За потреби — 3D-візуалізація ключових зон</li>
+            </ul>
+            <button class="btn btn--primary" type="button" data-open-modal data-ctx="Дизайн-проєкт">Замовити проєкт</button>
+          </div>
+          <div class="feature-split__media" aria-hidden="true">
+            <img
+              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80"
+              alt=""
+              width="1200"
+              height="900"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="styles">
+      <div class="container">
+        <p class="section__eyebrow">Стилі</p>
+        <h2 class="section__title">Чотири стилі з підбором фінішів</h2>
+        <p class="section__lead">Дизайн і постачання зібрали фінішні матеріали з кращим співвідношенням ціна–якість у чотирьох напрямках.</p>
+        <ul class="styles-grid">
+          <li class="styles-grid__item">
+            <h3>Лофт</h3>
+            <p>Текстури, відкриті акценти, практичність для вторинки й сучасних планувань.</p>
+          </li>
+          <li class="styles-grid__item">
+            <h3>Мінімалізм</h3>
+            <p>Чисті лінії, спокійна палітра, менше зайвого — більше повітря в просторі.</p>
+          </li>
+          <li class="styles-grid__item">
+            <h3>Контемпорарі</h3>
+            <p>Актуальні рішення без моди заради моди: комфорт і довговічність матеріалів.</p>
+          </li>
+          <li class="styles-grid__item">
+            <h3>Скандинавський</h3>
+            <p>Світло, тепло дерева й функціональні деталі для щоденного життя.</p>
+          </li>
+        </ul>
+        <button class="btn btn--ghost" type="button" data-open-modal data-ctx="Стилі / підбір матеріалів">Отримати підбір матеріалів</button>
+      </div>
+    </section>
+
+    <section class="section section--soft" id="calculator">
+      <div class="container">
+        <p class="section__eyebrow">Розрахунок</p>
+        <h2 class="section__title">Орієнтовна вартість</h2>
+        <p class="section__lead">Для квартири в новобудові — миттєвий орієнтир. Для будинку — індивідуальний кошторис.</p>
+        <div class="calc-shell">
+          <div class="calc-panel">
+            <p class="calc-panel__label">Тип об’єкта</p>
+            <div class="seg" role="group" aria-label="Тип об’єкта">
+              <button type="button" class="seg__btn is-active" data-obj="flat">Квартира у новобудові</button>
+              <button type="button" class="seg__btn" data-obj="house">Будинок / Котедж</button>
+            </div>
+            <div id="calcFlatFields">
+              <p class="calc-panel__label">Пакет</p>
+              <div class="calc-panel__packages">
+                <button type="button" class="calc-panel__pkg" data-rate="460" data-pkg-name="Базовий">Базовий <span>460 $/м²</span></button>
+                <button type="button" class="calc-panel__pkg is-active" data-rate="580" data-pkg-name="Оптимальний">Оптимальний <span>580 $/м²</span></button>
+                <button type="button" class="calc-panel__pkg" data-rate="700" data-pkg-name="Максимальний">Максимальний <span>700 $/м²</span></button>
+              </div>
+              <p class="calc-panel__label">Площа, м²</p>
+              <div class="range-row">
+                <input type="range" id="areaRange" min="20" max="150" value="62" />
+                <input class="range-row__num" type="number" id="areaNum" min="20" max="150" value="62" />
+              </div>
+            </div>
+          </div>
+          <div class="calc-panel">
+            <div class="calc-out" id="calcOut">
+              <p class="calc-out__label">Орієнтовна сума</p>
+              <p class="calc-out__sum" id="calcSum">35 960 $</p>
+              <p class="calc-out__note" id="calcNote">Розрахунок за формулою пакету. Точна ціна — після безкоштовного заміру.</p>
+              <div class="pay-grid" id="payGrid">
+                <div class="pay-grid__item"><strong id="p1">10 788 $</strong><span>30% · договір</span></div>
+                <div class="pay-grid__item"><strong id="p2">10 788 $</strong><span>30% · матеріали</span></div>
+                <div class="pay-grid__item"><strong id="p3">10 788 $</strong><span>30% · 75% робіт</span></div>
+                <div class="pay-grid__item"><strong id="p4">3 596 $</strong><span>10% · акт</span></div>
+              </div>
+              <button class="btn btn--primary btn--block" type="button" id="calcCta" data-open-modal data-ctx="Калькулятор">Отримати точний розрахунок</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="proof">
+      <div class="container">
+        <p class="section__eyebrow">Довіра</p>
+        <h2 class="section__title">Відгуки та кейси в Одесі</h2>
+        <div class="proof__rating">
+          <span class="proof__score">4.9</span>
+          <span class="proof__stars" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1.5l1.8 3.7 4 .6-2.9 2.8.7 4.1L8 10.8 4.4 12.7l.7-4.1L2.2 5.8l4-.6L8 1.5z"/></svg>
+          </span>
+          <span class="proof__meta">Google · на основі відгуків клієнтів</span>
+        </div>
+        <div class="reviews" tabindex="0" aria-label="Відгуки, гортайте горизонтально">
+          <article class="review"><div class="review__head"><span class="review__name">Олена К.</span><span class="review__date">лют 2026</span></div><p>Ціну зафіксували в договорі. Етапи оплати збіглися з роботами — без тиску «доплатити зараз».</p></article>
+          <article class="review"><div class="review__head"><span class="review__name">Андрій М.</span><span class="review__date">січ 2026</span></div><p>Новобудова в Одесі: пакет «Оптимальний», строки й приймання — усе по пунктах. Рекомендую.</p></article>
+          <article class="review"><div class="review__head"><span class="review__name">Ірина С.</span><span class="review__date">груд 2025</span></div><p>Після поганого досвіду з іншою бригадою шукали прозорий кошторис. У Kontur+ саме так і вийшло.</p></article>
+        </div>
+        <div class="cases">
+          <article class="case">
+            <div class="case__img"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Ремонт у новобудові" width="900" height="675" /></div>
+            <div class="case__meta"><strong>Новобудова, Одеса</strong><span>Оптимальний</span></div>
+            <p class="case__text">Повний цикл від дизайн-проєкту до фінального прибирання — квартира готова до заселення.</p>
+          </article>
+          <article class="case">
+            <div class="case__img"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80" alt="Ремонт вторинного житла" width="900" height="675" /></div>
+            <div class="case__meta"><strong>Вторинне житло</strong><span>Максимальний · лофт</span></div>
+            <p class="case__text">Завдання — оновити стару квартиру. Обрали лофт: практично й добре поєднується з іншими акцентами.</p>
+          </article>
+          <article class="case">
+            <div class="case__img"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80" alt="Ремонт під оренду" width="900" height="675" /></div>
+            <div class="case__meta"><strong>Під оренду · ЖК Елегія Парк</strong><span>Базовий</span></div>
+            <p class="case__text">Комфортне сучасне житло з попитом на довгострокову оренду — без зайвих витрат і втрати якості.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <p class="section__eyebrow">FAQ</p>
+        <h2 class="section__title">Питання до старту</h2>
+        <div class="faq__wrap accordion" id="faqAcc">
+          <div class="accordion__item is-open">
+            <button class="accordion__btn" type="button">Чи справді ціна фіксована?<span class="accordion__icon" aria-hidden="true"></span></button>
+            <div class="accordion__panel">Так — у межах обраного пакету й обсягу, зафіксованих у договорі. Зміни лише письмово, з перерахунком до виконання.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button">Що входить у пакет?<span class="accordion__icon" aria-hidden="true"></span></button>
+            <div class="accordion__panel">Роботи, матеріали й супутні процеси (логістика, замовлення, вивіз сміття) згідно з описом пакету. Детальний склад — після заміру.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button">Скільки триває ремонт квартири?<span class="accordion__icon" aria-hidden="true"></span></button>
+            <div class="accordion__panel">Орієнтир для комплексного пакетного ремонту — 60 робочих днів. Точний строк фіксуємо в договорі після обміру.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button">Хто обирає матеріали?<span class="accordion__icon" aria-hidden="true"></span></button>
+            <div class="accordion__panel">Базовий склад — у пакеті та підбірках стилів. Заміну на аналоги узгоджуємо з вами до закупівлі.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button">Як працює оплата 30/30/30/10?<span class="accordion__icon" aria-hidden="true"></span></button>
+            <div class="accordion__panel">Етапи: договір → матеріали → 75% робіт → акт. Суми видно в калькуляторі як орієнтир.</div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__btn" type="button">Яка гарантія?<span class="accordion__icon" aria-hidden="true"></span></button>
+            <div class="accordion__panel">Гарантія на роботи — 5 років за договором. Після здачі видаємо гарантійний сертифікат і умови сервісу.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="brand">
+          <span class="brand__name">Kontur+</span>
+          <span class="brand__desc">ремонтна організація</span>
+        </div>
+        <div class="site-footer__block">
+          <h3>Контакти</h3>
+          <a href="tel:+380441234567">+380 44 123 45 67</a>
+          <p>Одеса</p>
+          <p>Пн–Сб · 09:00–19:00</p>
+        </div>
+        <div class="site-footer__block">
+          <h3>Документи</h3>
+          <a href="privacy.html">Політика конфіденційності</a>
+          <button class="btn btn--primary site-footer__cta" type="button" data-open-modal data-ctx="Footer">Замовити дзвінок</button>
+        </div>
+      </div>
+      <div class="site-footer__legal">
+        <span>© 2026 Kontur+. Усі права захищено.</span>
+        <span>Ціни на сайті — орієнтовні та можуть змінюватись у CMS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-root" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-root__backdrop" data-close-modal></div>
+    <div class="modal">
+      <button class="modal__close" type="button" aria-label="Закрити" data-close-modal><span></span><span></span></button>
+      <div id="modalDefault">
+        <h2 class="modal__title" id="modalTitle">Замовити дзвінок</h2>
+        <p class="modal__sub">Залиште контакти — передзвонимо в робочий час.</p>
+        <p class="modal__context" id="modalCtx">Контекст: Hero</p>
+        <form id="leadForm" novalidate>
+          <div class="field" id="fieldName">
+            <label class="field__label" for="name">Ім’я</label>
+            <input class="field__input" id="name" name="name" autocomplete="name" required />
+            <span class="field__hint" hidden>Вкажіть ім’я</span>
+          </div>
+          <div class="field" id="fieldPhone">
+            <label class="field__label" for="phone">Телефон</label>
+            <input class="field__input" id="phone" name="phone" type="tel" inputmode="tel" placeholder="+380" autocomplete="tel" required />
+            <span class="field__hint" hidden>Вкажіть номер у форматі України</span>
+          </div>
+          <label class="checkbox"><input type="checkbox" id="agree" required /><span>Погоджуюсь з <a href="privacy.html" target="_blank" rel="noopener">політикою конфіденційності</a></span></label>
+          <button class="btn btn--primary btn--block" type="submit" id="submitBtn">Надіслати</button>
+        </form>
+      </div>
+      <div id="modalSuccess" hidden>
+        <div class="modal__success-icon" aria-hidden="true">✓</div>
+        <h2 class="modal__title">Дякуємо</h2>
+        <p class="modal__sub">Заявку отримано. Очікуйте дзвінок протягом 30 хвилин у робочий час.</p>
+        <button class="btn btn--ghost btn--block" type="button" data-close-modal>Закрити</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/landing.js"></script>
+</body>
+</html>

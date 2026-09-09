@@ -1,0 +1,48 @@
+<section class="section section--soft" id="calculator">
+  <div class="container">
+    <div class="section__head reveal reveal--up">
+      <div>
+        <h2 class="section__title">Орієнтовна вартість за 30 секунд</h2>
+      </div>
+      <p class="section__lead">Для квартири в новобудові — миттєвий орієнтир із графіком оплат. Для будинку — індивідуальний кошторис після виїзду.</p>
+    </div>
+    <div class="calc-shell reveal reveal--up">
+      <div class="calc-panel">
+        <p class="calc-panel__label">Тип об’єкта</p>
+        <div class="seg" role="group" aria-label="Тип об’єкта">
+          <button type="button" class="seg__btn is-active" data-obj="flat">Квартира у новобудові</button>
+          <button type="button" class="seg__btn" data-obj="house">Будинок / Котедж</button>
+        </div>
+        <div id="calcFlatFields">
+          <p class="calc-panel__label">Пакет</p>
+          <div class="calc-panel__packages">
+            <button type="button" class="calc-panel__pkg" data-rate="460" data-pkg-name="Базовий">Базовий <span>460 $/м²</span></button>
+            <button type="button" class="calc-panel__pkg is-active" data-rec data-rate="580" data-pkg-name="Оптимальний">Оптимальний <span>580 $/м²</span></button>
+            <button type="button" class="calc-panel__pkg" data-rate="700" data-pkg-name="Максимальний">Максимальний <span>700 $/м²</span></button>
+          </div>
+          <p class="calc-panel__label">Площа, м²</p>
+          <div class="range-row">
+            <input type="range" id="areaRange" min="20" max="150" value="62" />
+            <input class="range-row__num" type="number" id="areaNum" min="20" max="150" value="62" />
+          </div>
+        </div>
+      </div>
+      <div class="calc-panel calc-panel--dark">
+        <div class="calc-out" id="calcOut">
+          <div class="calc-out__main">
+            <p class="calc-out__label">Орієнтовна сума</p>
+            <p class="calc-out__sum" id="calcSum">35 960 $</p>
+            <p class="calc-out__note" id="calcNote">Розрахунок за формулою пакету. Точна ціна — після безкоштовного заміру.</p>
+            <div class="pay-grid" id="payGrid">
+              <div class="pay-grid__item"><strong id="p1">10 788 $</strong><span>30% · договір</span></div>
+              <div class="pay-grid__item"><strong id="p2">10 788 $</strong><span>30% · матеріали</span></div>
+              <div class="pay-grid__item"><strong id="p3">10 788 $</strong><span>30% · 75% робіт</span></div>
+              <div class="pay-grid__item"><strong id="p4">3 596 $</strong><span>10% · акт</span></div>
+            </div>
+          </div>
+          <button class="btn btn--primary btn--block" type="button" id="calcCta" data-open-modal data-ctx="Калькулятор">Отримати точний розрахунок</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

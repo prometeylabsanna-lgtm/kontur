@@ -1,0 +1,236 @@
+/* Reviews rail · Landing v2 — quote cards + slider */
+.reviews-rail {
+  margin-bottom: 2.5rem;
+}
+
+.reviews-rail__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.9rem;
+  margin-bottom: 1.15rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted-deep);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.reviews-rail__badge::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--accent-mark);
+  flex-shrink: 0;
+}
+
+.reviews {
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0;
+  padding: 0.15rem 0.1rem 0.85rem;
+  margin: 0 -0.1rem 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.reviews::-webkit-scrollbar {
+  display: none;
+}
+
+.review {
+  position: relative;
+  flex: 0 0 min(88%, 22.5rem);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 14.5rem;
+  padding: 1.35rem 1.35rem 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-modal);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.review__quote {
+  display: block;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 0.75;
+  letter-spacing: -0.04em;
+  color: var(--accent-deep);
+}
+
+.review__text {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9875rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.review__author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.review__name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.review__meta {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.01em;
+}
+
+.reviews-rail__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.35rem;
+}
+
+.reviews-rail__google {
+  border-color: var(--accent-mark);
+  min-width: min(100%, 12.5rem);
+  padding-inline: 1.5rem;
+}
+
+.reviews-rail__google:hover:not(:disabled) {
+  border-color: var(--accent-deep);
+  background: var(--accent-soft);
+}
+
+.reviews-rail__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-left: auto;
+}
+
+.reviews-rail__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.reviews-rail__btn svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  display: block;
+}
+
+.reviews-rail__btn--next {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+.reviews-rail__btn:hover:not(:disabled) {
+  border-color: var(--accent-mark);
+}
+
+.reviews-rail__btn--next:hover:not(:disabled) {
+  background: #2a2e32;
+  border-color: #2a2e32;
+}
+
+.reviews-rail__btn:focus-visible {
+  outline: 2px solid var(--accent-mark);
+  outline-offset: 2px;
+}
+
+.reviews-rail__btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .reviews {
+    -webkit-scroll-snap-type: x mandatory;
+  }
+
+  .review {
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+  }
+}
+
+@media (min-width: 640px) {
+  .review {
+    flex-basis: min(72%, 20.5rem);
+    min-height: 15.25rem;
+    padding: 1.5rem 1.5rem 1.55rem;
+  }
+
+  .review__quote {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .reviews {
+    gap: 1rem;
+  }
+
+  .review {
+    flex-basis: calc((100% - 2rem) / 2.35);
+    min-height: 16rem;
+  }
+
+  .reviews-rail__foot {
+    margin-top: 0.65rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .review {
+    flex-basis: calc((100% - 2.4rem) / 2.85);
+    padding: 1.65rem 1.6rem 1.7rem;
+  }
+
+  .review__text {
+    font-size: 1.0125rem;
+  }
+
+  .reviews-rail__btn {
+    width: 3rem;
+    height: 3rem;
+  }
+}

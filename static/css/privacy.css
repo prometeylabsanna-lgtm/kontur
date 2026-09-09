@@ -1,0 +1,34 @@
+.privacy {
+  padding: calc(5.5rem + var(--safe-t, 0px)) 0 3rem;
+  max-width: 720px;
+}
+
+.privacy h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+}
+
+.privacy h2 {
+  font-size: 1.125rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.privacy p {
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.privacy a {
+  color: var(--accent-link);
+}
+
+.field__hint--form {
+  display: block;
+  margin: 0 0 0.75rem;
+  color: #b42318;
+  text-align: center;
+}
+
+.field__hint--form[hidden] {
+  display: none;
+}

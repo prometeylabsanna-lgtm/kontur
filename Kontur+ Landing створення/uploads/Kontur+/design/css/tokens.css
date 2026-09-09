@@ -1,0 +1,53 @@
+/* Kontur+ design tokens — cool steel utilitarian */
+:root {
+  --canvas: #f3f5f7;
+  --surface: #ffffff;
+  --surface-soft: #e8ecf0;
+  --ink: #1c2229;
+  --muted: #5e6874;
+  --border: #d0d6de;
+  --accent: #4a6478;
+  --accent-hover: #3a5162;
+  --accent-soft: rgba(74, 100, 120, 0.12);
+  --success: #2e6b52;
+  --success-soft: rgba(46, 107, 82, 0.1);
+  --error: #a13d3d;
+  --error-soft: rgba(161, 61, 61, 0.08);
+  --overlay: rgba(28, 34, 41, 0.48);
+  --scrim: linear-gradient(
+    180deg,
+    rgba(28, 34, 41, 0.15) 0%,
+    rgba(28, 34, 41, 0.55) 45%,
+    rgba(28, 34, 41, 0.78) 100%
+  );
+  --scrim-side: linear-gradient(
+    105deg,
+    rgba(28, 34, 41, 0.82) 0%,
+    rgba(28, 34, 41, 0.55) 42%,
+    rgba(28, 34, 41, 0.2) 70%,
+    rgba(28, 34, 41, 0.08) 100%
+  );
+
+  --font: "Outfit", "Geist", "Helvetica Neue", sans-serif;
+  --lh-body: 1.62;
+  --measure: 65ch;
+  --radius: 2px;
+  --radius-modal: 4px;
+  --header-h: 64px;
+  --space-section: clamp(4rem, 10vw, 7.5rem);
+  --content-max: 1400px;
+  --pad-x: clamp(1.25rem, 4vw, 2.5rem);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 220ms;
+
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 72px;
+  }
+}

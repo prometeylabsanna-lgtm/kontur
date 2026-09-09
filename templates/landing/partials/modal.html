@@ -1,0 +1,41 @@
+<div class="modal-root" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal-root__backdrop" data-close-modal></div>
+  <div class="modal">
+    <button class="modal__close" type="button" aria-label="Закрити" data-close-modal><span></span><span></span></button>
+    <div id="modalDefault">
+      <h2 class="modal__title" id="modalTitle">Замовити дзвінок</h2>
+      <p class="modal__sub">Залиште контакти — передзвонимо в робочий час.</p>
+      <p class="modal__context" id="modalCtx">Контекст: Hero</p>
+      <form id="leadForm" action="{% url 'landing:lead_create' %}" method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="context" id="leadContext" value="" />
+        <input type="hidden" name="package" id="leadPackage" value="" />
+        <input type="hidden" name="object_type" id="leadObjectType" value="" />
+        <input type="hidden" name="area" id="leadArea" value="" />
+        <input type="hidden" name="calc_summary" id="leadCalcSummary" value="" />
+        <div class="field" id="fieldName">
+          <label class="field__label" for="name">Ім’я</label>
+          <input class="field__input" id="name" name="name" autocomplete="name" required />
+          <span class="field__hint" hidden>Вкажіть ім’я</span>
+        </div>
+        <div class="field" id="fieldPhone">
+          <label class="field__label" for="phone">Телефон</label>
+          <input class="field__input" id="phone" name="phone" type="tel" inputmode="tel" placeholder="+380" autocomplete="tel" required />
+          <span class="field__hint" hidden>Вкажіть номер у форматі України</span>
+        </div>
+        <label class="checkbox">
+          <input type="checkbox" id="agree" name="agree" required />
+          <span>Погоджуюсь з <a href="{% url 'landing:privacy' %}" target="_blank" rel="noopener">політикою конфіденційності</a></span>
+        </label>
+        <p class="field__hint field__hint--form" id="formError" hidden>Спробуйте ще раз</p>
+        <button class="btn btn--primary btn--block" type="submit" id="submitBtn">Надіслати</button>
+      </form>
+    </div>
+    <div id="modalSuccess" hidden>
+      <div class="modal__success-icon" aria-hidden="true">✓</div>
+      <h2 class="modal__title">Дякуємо</h2>
+      <p class="modal__sub">Заявку отримано. Очікуйте дзвінок протягом 30 хвилин у робочий час.</p>
+      <button class="btn btn--ghost btn--block" type="button" data-close-modal>Закрити</button>
+    </div>
+  </div>
+</div>
