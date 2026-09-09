@@ -10,12 +10,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY", default="django-insecure-dev-only-change-me")
 DEBUG = config("DEBUG", default=True, cast=bool)
-ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS",
-    default="localhost,127.0.0.1,testserver",
-    cast=Csv(),
+ALLOWED_HOSTS = list(
+    config(
+        "ALLOWED_HOSTS",
+        default="localhost,127.0.0.1,testserver",
+        cast=Csv(),
+    )
 )
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="", cast=Csv())
+CSRF_TRUSTED_ORIGINS = list(
+    config("CSRF_TRUSTED_ORIGINS", default="", cast=Csv())
+)
+
+# Vercel sets VERCEL=1 — cover production + preview *.vercel.app hosts
+if config("VERCEL", default=False, cast=bool):
+    if ".vercel.app" not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(".vercel.app")
+    _vercel_csrf = "https://*.vercel.app"
+    if _vercel_csrf not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(_vercel_csrf)
 
 INSTALLED_APPS = [
     "unfold",
