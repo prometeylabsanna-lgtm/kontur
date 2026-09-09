@@ -52,6 +52,22 @@
       {% include "admin/landing/collection_fieldset.html" with collection=collection %}
     {% endfor %}
 
+    {% if extra_form %}
+      <fieldset class="site-content-editor__fieldset">
+        <h2 class="text-font-important-light dark:text-font-important-dark">{{ extra_form_title }}</h2>
+        <div class="site-content-editor__fields">
+          {% for field in extra_form %}
+            <div class="site-content-editor__field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}
+              {% if field.errors %}<div class="errors">{{ field.errors }}</div>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+
     <div class="site-content-editor__actions">
       <button type="submit" name="_save" class="bg-primary-600 border border-transparent font-medium px-3 py-2 rounded-default text-white">
         Зберегти

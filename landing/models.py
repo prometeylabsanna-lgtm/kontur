@@ -63,6 +63,78 @@ class SiteSettings(models.Model):
         blank=True,
         help_text="Короткий текст у результатах пошуку (до ~160 символів)",
     )
+    google_rating = models.DecimalField(
+        "Рейтинг Google",
+        max_digits=2,
+        decimal_places=1,
+        null=True,
+        blank=True,
+        help_text="Наприклад 4.9. Пізніше можна підтягувати з Places API.",
+    )
+    google_reviews_count = models.PositiveIntegerField(
+        "Кількість відгуків Google",
+        null=True,
+        blank=True,
+    )
+    google_reviews_url = models.URLField(
+        "Посилання на Google-відгуки",
+        blank=True,
+        help_text="Кнопка «дивитись у Google» / Places API пізніше",
+    )
+    calc_area_min = models.PositiveSmallIntegerField(
+        "Мін. площа калькулятора, м²", default=20
+    )
+    calc_area_max = models.PositiveSmallIntegerField(
+        "Макс. площа калькулятора, м²", default=150
+    )
+    calc_billable_min = models.PositiveSmallIntegerField(
+        "Мін. розрахункова площа, м²",
+        default=40,
+        help_text="Якщо фактична менша — для суми береться це значення",
+    )
+    calc_coef_to_30 = models.DecimalField(
+        "Коеф. до 30 м²",
+        max_digits=4,
+        decimal_places=2,
+        default=1.40,
+    )
+    calc_coef_31_34 = models.DecimalField(
+        "Коеф. 31–34 м²",
+        max_digits=4,
+        decimal_places=2,
+        default=1.25,
+    )
+    calc_coef_35_39 = models.DecimalField(
+        "Коеф. 35–39 м²",
+        max_digits=4,
+        decimal_places=2,
+        default=1.10,
+    )
+    calc_pay_1 = models.DecimalField(
+        "Оплата 1 · договір",
+        max_digits=4,
+        decimal_places=2,
+        default=0.30,
+        help_text="Частка від суми (0.30 = 30%)",
+    )
+    calc_pay_2 = models.DecimalField(
+        "Оплата 2 · матеріали",
+        max_digits=4,
+        decimal_places=2,
+        default=0.30,
+    )
+    calc_pay_3 = models.DecimalField(
+        "Оплата 3 · 75% робіт",
+        max_digits=4,
+        decimal_places=2,
+        default=0.30,
+    )
+    calc_pay_4 = models.DecimalField(
+        "Оплата 4 · акт",
+        max_digits=4,
+        decimal_places=2,
+        default=0.10,
+    )
 
     class Meta:
         verbose_name = "Налаштування сайту"
@@ -79,6 +151,20 @@ class SiteSettings(models.Model):
     @classmethod
     def load(cls):
         return cls.get_solo()
+
+    def calc_config_dict(self) -> dict:
+        return {
+            "areaMin": int(self.calc_area_min),
+            "areaMax": int(self.calc_area_max),
+            "billableMin": int(self.calc_billable_min),
+            "coefTo30": float(self.calc_coef_to_30),
+            "coef3134": float(self.calc_coef_31_34),
+            "coef3539": float(self.calc_coef_35_39),
+            "pay1": float(self.calc_pay_1),
+            "pay2": float(self.calc_pay_2),
+            "pay3": float(self.calc_pay_3),
+            "pay4": float(self.calc_pay_4),
+        }
 
 
 class SiteBlock(models.Model):
@@ -124,25 +210,36 @@ class SiteBlock(models.Model):
 
 
 class HeroSlide(models.Model):
-    image = models.ImageField("Фото", upload_to="hero/", blank=True)
+    image = models.ImageField("Фото / постер", upload_to="hero/", blank=True)
     image_url = models.URLField(
         "Посилання на фото",
         blank=True,
         help_text="Якщо файл не завантажено — можна вставити посилання на зображення",
     )
+    video = models.FileField(
+        "Відео (файл)",
+        upload_to="hero/video/",
+        blank=True,
+        help_text="Опційно: MP4/WebM замість фото. Фото тоді стає постером.",
+    )
+    video_url = models.URLField(
+        "Посилання на відео",
+        blank=True,
+        help_text="Альтернатива файлу — пряме посилання на MP4/WebM",
+    )
     alt_text = models.CharField(
-        "Короткий опис фото",
+        "Короткий опис",
         max_length=200,
         blank=True,
-        help_text="Для доступності: що зображено на фото",
+        help_text="Для доступності: що зображено на кадрі",
     )
     sort_order = models.PositiveSmallIntegerField("Порядок", default=0)
     is_active = models.BooleanField("Показувати на сайті", default=True)
 
     class Meta:
         ordering = ("sort_order", "pk")
-        verbose_name = "Фото банера"
-        verbose_name_plural = "Фото банера"
+        verbose_name = "Кадр банера"
+        verbose_name_plural = "Кадри банера"
 
     def __str__(self):
         return self.alt_text or f"Слайд {self.pk or self.sort_order}"
@@ -152,6 +249,16 @@ class HeroSlide(models.Model):
         if self.image:
             return self.image.url
         return self.image_url or ""
+
+    @property
+    def video_src(self) -> str:
+        if self.video:
+            return self.video.url
+        return self.video_url or ""
+
+    @property
+    def is_video(self) -> bool:
+        return bool(self.video_src)
 
 
 class AdvantageItem(models.Model):

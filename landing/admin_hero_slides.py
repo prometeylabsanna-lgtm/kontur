@@ -18,10 +18,20 @@ except Exception:  # pragma: no cover
 class HeroSlideForm(forms.ModelForm):
     class Meta:
         model = HeroSlide
-        fields = ("image", "image_url", "alt_text", "is_active", "sort_order")
+        fields = (
+            "image",
+            "image_url",
+            "video",
+            "video_url",
+            "alt_text",
+            "is_active",
+            "sort_order",
+        )
         widgets = {
             "image": UnfoldAdminFileFieldWidget(),
             "image_url": CmsAdminTextInputWidget(),
+            "video": UnfoldAdminFileFieldWidget(),
+            "video_url": CmsAdminTextInputWidget(),
             "alt_text": CmsAdminTextInputWidget(),
             "is_active": UnfoldBooleanWidget(),
             "sort_order": forms.HiddenInput(),
@@ -32,6 +42,8 @@ class HeroSlideForm(forms.ModelForm):
         self.fields["image"].help_text = get_image_hint("hero")
         self.fields["image"].required = False
         self.fields["image_url"].required = False
+        self.fields["video"].required = False
+        self.fields["video_url"].required = False
         self.fields["alt_text"].required = False
         self.fields["is_active"].label = "Показувати на сайті"
 
@@ -41,13 +53,20 @@ class HeroSlideForm(forms.ModelForm):
             return cleaned
         image = cleaned.get("image")
         image_url = (cleaned.get("image_url") or "").strip()
+        video = cleaned.get("video")
+        video_url = (cleaned.get("video_url") or "").strip()
         alt_text = (cleaned.get("alt_text") or "").strip()
-        has_media = bool(image) or bool(image_url) or bool(
+        has_image = bool(image) or bool(image_url) or bool(
             getattr(self.instance, "image", None)
         )
-        if alt_text and not has_media:
-            self.add_error("image", "Додайте фото або посилання, якщо заповнено опис.")
-        if not has_media and not alt_text:
+        has_video = bool(video) or bool(video_url) or bool(
+            getattr(self.instance, "video", None)
+        )
+        if alt_text and not has_image and not has_video:
+            self.add_error(
+                "image", "Додайте фото/відео або посилання, якщо заповнено опис."
+            )
+        if not has_image and not has_video and not alt_text:
             cleaned["_skip"] = True
         return cleaned
 

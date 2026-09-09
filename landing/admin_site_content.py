@@ -12,6 +12,7 @@ from .admin_site_content_widgets import (
     CmsAdminTextInputWidget,
     CmsAdminTextareaWidget,
 )
+from .admin_section_extras import build_section_extra_form
 from .block_defaults import (
     BLOCK_CONTENT_TYPES,
     BLOCK_DEFAULTS,
@@ -229,25 +230,34 @@ def site_content_section_view(request, page_slug: str, section_slug: str, model_
     SiteSettings.get_solo()
     blocks = load_section_blocks(section)
     collections = []
+    extra_form = None
 
     if request.method == "POST":
         form = SitePageContentForm(section, blocks, request.POST, request.FILES)
         collections = build_section_collections(
             section.slug, data=request.POST, files=request.FILES
         )
+        extra_form = build_section_extra_form(section.slug, data=request.POST)
         valid = form.is_valid() and all(c["formset"].is_valid() for c in collections)
+        if extra_form is not None:
+            valid = valid and extra_form.is_valid()
         if valid:
             form.save()
             save_section_collections(collections)
+            if extra_form is not None:
+                extra_form.save()
             messages.success(request, "Збережено.")
             return redirect(request.path)
     else:
         form = SitePageContentForm(section, blocks)
         collections = build_section_collections(section.slug)
+        extra_form = build_section_extra_form(section.slug)
 
     media = form.media
     for item in collections:
         media = media + item["formset"].media
+    if extra_form is not None:
+        media = media + extra_form.media
 
     opts = model_admin.model._meta
     context = build_admin_context(
@@ -259,6 +269,14 @@ def site_content_section_view(request, page_slug: str, section_slug: str, model_
             "form": form,
             "field_groups": _grouped_fields(form, section),
             "collections": collections,
+            "extra_form": extra_form,
+            "extra_form_title": (
+                "Параметри формули"
+                if section.slug == "calculator"
+                else "Рейтинг Google"
+                if section.slug == "proof"
+                else ""
+            ),
             "opts": opts,
             "original": SiteSettings.get_solo(),
             "has_view_permission": True,

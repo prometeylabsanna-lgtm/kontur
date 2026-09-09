@@ -3,13 +3,21 @@
   margin-bottom: 2.5rem;
 }
 
+.reviews-rail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: 1.15rem;
+}
+
 .reviews-rail__badge {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   min-height: 2rem;
   padding: 0.35rem 0.9rem;
-  margin-bottom: 1.15rem;
+  margin-bottom: 0;
   border-radius: var(--radius-pill);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -19,6 +27,50 @@
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.reviews-rail__rating {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted-deep);
+}
+
+.reviews-rail__rating strong {
+  color: var(--ink);
+  font-family: var(--font-display, inherit);
+  font-size: 1.15rem;
+}
+
+.reviews-rail__rating a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.reviews-empty {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem 0 0.5rem;
+  max-width: 40rem;
+}
+
+.reviews-empty__rating {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  color: var(--muted-deep);
+}
+
+.reviews-empty__rating strong {
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-family: var(--font-display, inherit);
+}
+
+.reviews-empty__text {
+  margin: 0 0 1rem;
+  color: var(--muted-deep);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .reviews-rail__badge::before {

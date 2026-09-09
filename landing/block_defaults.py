@@ -262,6 +262,13 @@ _reg(
     default="Що зробили",
     inline=True,
 )
+_reg(
+    "home",
+    "proof_reviews_empty",
+    label="Текст, якщо немає відгуків",
+    default="Відгуки з’являться незабаром. Поки що можете переглянути рейтинг або залишити заявку.",
+    multiline=True,
+)
 
 # --- faq ---
 _reg("home", "faq_section_visible", label="Показувати секцію", default="1")

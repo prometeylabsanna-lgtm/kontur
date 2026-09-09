@@ -1,6 +1,7 @@
 {% load kontur_content %}
 {% section_visible 'home' 'calculator_section_visible' as show_calc %}
 {% if show_calc %}
+{{ site_settings.calc_config_dict|json_script:"calc-config" }}
 <section class="section section--soft" id="calculator">
   <div class="container">
     <div class="section__head reveal reveal--up">
@@ -25,8 +26,8 @@
           </div>
           <p class="calc-panel__label">Площа, м²</p>
           <div class="range-row">
-            <input type="range" id="areaRange" min="20" max="150" value="62" />
-            <input class="range-row__num" type="number" id="areaNum" min="20" max="150" value="62" />
+            <input type="range" id="areaRange" min="{{ site_settings.calc_area_min }}" max="{{ site_settings.calc_area_max }}" value="62" />
+            <input class="range-row__num" type="number" id="areaNum" min="{{ site_settings.calc_area_min }}" max="{{ site_settings.calc_area_max }}" value="62" />
           </div>
         </div>
       </div>
@@ -37,10 +38,10 @@
             <p class="calc-out__sum" id="calcSum">—</p>
             <p class="calc-out__note" id="calcNote">{% block_plain 'home' 'calculator_note' %}</p>
             <div class="pay-grid" id="payGrid">
-              <div class="pay-grid__item"><strong id="p1">—</strong><span>30% · договір</span></div>
-              <div class="pay-grid__item"><strong id="p2">—</strong><span>30% · матеріали</span></div>
-              <div class="pay-grid__item"><strong id="p3">—</strong><span>30% · 75% робіт</span></div>
-              <div class="pay-grid__item"><strong id="p4">—</strong><span>10% · акт</span></div>
+              <div class="pay-grid__item"><strong id="p1">—</strong><span id="p1Label">договір</span></div>
+              <div class="pay-grid__item"><strong id="p2">—</strong><span id="p2Label">матеріали</span></div>
+              <div class="pay-grid__item"><strong id="p3">—</strong><span id="p3Label">75% робіт</span></div>
+              <div class="pay-grid__item"><strong id="p4">—</strong><span id="p4Label">акт</span></div>
             </div>
           </div>
           <button class="btn btn--primary btn--block" type="button" id="calcCta" data-open-modal data-ctx="Калькулятор">{% block_plain 'home' 'calculator_cta_label' %}</button>

@@ -4,7 +4,20 @@
 <section class="hero" id="hero">
   <div class="hero__media" aria-hidden="true">
     {% for slide in hero_slides %}
-    <div class="hero__slide{% if forloop.first %} is-active{% endif %}">
+    <div class="hero__slide{% if forloop.first %} is-active{% endif %}" data-hero-kind="{{ slide.kind }}">
+      {% if slide.kind == 'video' %}
+      <video
+        class="hero__video"
+        {% if slide.poster %}poster="{{ slide.poster }}"{% endif %}
+        muted
+        loop
+        playsinline
+        preload="{% if forloop.first %}metadata{% else %}none{% endif %}"
+        {% if forloop.first %}autoplay{% endif %}
+      >
+        <source src="{{ slide.src }}" type="video/mp4" />
+      </video>
+      {% else %}
       <img
         src="{{ slide.src }}"
         alt="{{ slide.alt }}"
@@ -12,6 +25,7 @@
         height="1333"
         {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
       />
+      {% endif %}
     </div>
     {% endfor %}
   </div>

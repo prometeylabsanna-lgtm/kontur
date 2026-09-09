@@ -191,7 +191,7 @@ CONTENT_SECTIONS: tuple[ContentSection, ...] = (
         sidebar_title="Калькулятор",
         sidebar_icon="calculate",
         preview_url="/#calculator",
-        description="Тексти секції. Ставки пакетів беруться з карток пакетів.",
+        description="Тексти, формула (коефіцієнти, площі, графік оплат). Ставки пакетів — з карток пакетів.",
         visibility_key="calculator_section_visible",
         admin_model_name="homecalculatorsettings",
         blocks=_b(
@@ -221,7 +221,7 @@ CONTENT_SECTIONS: tuple[ContentSection, ...] = (
         sidebar_title="Відгуки та кейси",
         sidebar_icon="rate_review",
         preview_url="/#proof",
-        description="Заголовки, відгуки та кейси — усе на цій сторінці.",
+        description="Заголовки, відгуки, кейси, рейтинг Google і текст порожнього стану.",
         visibility_key="proof_section_visible",
         admin_model_name="homeproofsettings",
         blocks=_b(
@@ -230,11 +230,17 @@ CONTENT_SECTIONS: tuple[ContentSection, ...] = (
             "proof_title",
             "proof_reviews_badge",
             "proof_cases_did_label",
+            "proof_reviews_empty",
         ),
         field_groups=(
             FieldGroup(
                 "Тексти",
-                ("proof_title", "proof_reviews_badge", "proof_cases_did_label"),
+                (
+                    "proof_title",
+                    "proof_reviews_badge",
+                    "proof_cases_did_label",
+                    "proof_reviews_empty",
+                ),
             ),
         ),
     ),

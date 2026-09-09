@@ -10,7 +10,20 @@
     </div>
     {% if reviews %}
     <div class="reviews-rail reveal reveal--up" data-reviews-rail>
-      <span class="reviews-rail__badge">{% block_plain 'home' 'proof_reviews_badge' %}</span>
+      <div class="reviews-rail__meta">
+        <span class="reviews-rail__badge">{% block_plain 'home' 'proof_reviews_badge' %}</span>
+        {% if site_settings.google_rating %}
+        <p class="reviews-rail__rating" aria-label="Рейтинг Google {{ site_settings.google_rating }}">
+          <strong>{{ site_settings.google_rating }}</strong>
+          {% if site_settings.google_reviews_count %}
+          <span>· {{ site_settings.google_reviews_count }} відгуків</span>
+          {% endif %}
+          {% if site_settings.google_reviews_url %}
+          <a href="{{ site_settings.google_reviews_url }}" target="_blank" rel="noopener noreferrer" data-google-reviews>Google</a>
+          {% endif %}
+        </p>
+        {% endif %}
+      </div>
       <div class="reviews" tabindex="0" aria-label="Відгуки, гортайте горизонтально" data-reviews-track>
         {% for review in reviews %}
         <article class="review">
@@ -33,6 +46,23 @@
           </button>
         </div>
       </div>
+    </div>
+    {% else %}
+    <div class="reviews-empty reveal reveal--up">
+      {% if site_settings.google_rating %}
+      <p class="reviews-empty__rating">
+        <strong>{{ site_settings.google_rating }}</strong>
+        {% if site_settings.google_reviews_count %}
+        <span>· {{ site_settings.google_reviews_count }} відгуків у Google</span>
+        {% else %}
+        <span>· рейтинг Google</span>
+        {% endif %}
+      </p>
+      {% endif %}
+      <p class="reviews-empty__text">{% block_plain 'home' 'proof_reviews_empty' %}</p>
+      {% if site_settings.google_reviews_url %}
+      <a class="btn btn--ghost" href="{{ site_settings.google_reviews_url }}" target="_blank" rel="noopener noreferrer" data-google-reviews>Дивитись у Google</a>
+      {% endif %}
     </div>
     {% endif %}
     {% if cases %}

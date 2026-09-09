@@ -103,4 +103,32 @@ class SiteSettingsAdmin(ReadableUnfoldFieldsMixin, SingletonModelAdminMixin, Mod
         ),
         ("Соцмережі", {"fields": ("instagram_url", "telegram_url")}),
         ("Пошук у Google", {"fields": ("meta_description",)}),
+        (
+            "Google-відгуки (до Places API)",
+            {
+                "fields": (
+                    "google_rating",
+                    "google_reviews_count",
+                    "google_reviews_url",
+                )
+            },
+        ),
+        (
+            "Калькулятор (формула)",
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "calc_area_min",
+                    "calc_area_max",
+                    "calc_billable_min",
+                    "calc_coef_to_30",
+                    "calc_coef_31_34",
+                    "calc_coef_35_39",
+                    "calc_pay_1",
+                    "calc_pay_2",
+                    "calc_pay_3",
+                    "calc_pay_4",
+                ),
+            },
+        ),
     )

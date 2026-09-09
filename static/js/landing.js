@@ -1,14 +1,6 @@
 (function () {
   "use strict";
 
-  var state = {
-    obj: "flat",
-    rate: 580,
-    pkg: "Оптимальний",
-    area: 62,
-    total: null,
-  };
-
   function getCookie(name) {
     var match = document.cookie.match(
       new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, "\\$1") + "=([^;]*)")
@@ -16,112 +8,56 @@
     return match ? decodeURIComponent(match[1]) : "";
   }
 
-  function coef(area) {
-    if (area <= 30) return 1.4;
-    if (area <= 34) return 1.25;
-    if (area <= 39) return 1.1;
-    return 1;
+  function readUtm() {
+    var params = new URLSearchParams(window.location.search);
+    return {
+      source: params.get("utm_source") || "",
+      medium: params.get("utm_medium") || "",
+      campaign: params.get("utm_campaign") || "",
+    };
   }
 
-  function formatMoney(n) {
-    return Math.round(n).toLocaleString("uk-UA") + " $";
+  function applyUtmFields() {
+    var utm = readUtm();
+    setHidden("leadUtmSource", utm.source);
+    setHidden("leadUtmMedium", utm.medium);
+    setHidden("leadUtmCampaign", utm.campaign);
   }
 
-  function recalc() {
-    var out = document.getElementById("calcOut");
-    var sumEl = document.getElementById("calcSum");
-    var note = document.getElementById("calcNote");
-    var pay = document.getElementById("payGrid");
-    var cta = document.getElementById("calcCta");
-    var flatFields = document.getElementById("calcFlatFields");
-    if (!out) return;
-
-    if (state.obj === "house") {
-      out.classList.add("calc-out--custom");
-      flatFields.hidden = true;
-      sumEl.textContent = "";
-      note.textContent =
-        "Для будинку / котеджу потрібен індивідуальний кошторис після обміру.";
-      pay.hidden = true;
-      state.total = null;
-      cta.textContent = "Залишити заявку на кошторис";
-      cta.setAttribute("data-ctx", "Калькулятор: Будинок / Котедж");
-      return;
+  function trackLeadConversion() {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "generate_lead",
+      event_category: "lead",
+      event_label: "lead_form",
+    });
+    if (typeof window.fbq === "function") {
+      window.fbq("track", "Lead");
     }
-
-    out.classList.remove("calc-out--custom");
-    flatFields.hidden = false;
-    pay.hidden = false;
-    cta.textContent = "Отримати точний розрахунок";
-
-    var k = coef(state.area);
-    var billable = Math.max(state.area, 40);
-    var total = state.rate * k * billable;
-    state.total = total;
-    sumEl.textContent = formatMoney(total);
-    note.textContent =
-      "Ефективна ставка " +
-      Math.round(state.rate * k) +
-      " $/м² · розрахункова площа " +
-      billable +
-      " м². Точна ціна — після заміру.";
-    document.getElementById("p1").textContent = formatMoney(total * 0.3);
-    document.getElementById("p2").textContent = formatMoney(total * 0.3);
-    document.getElementById("p3").textContent = formatMoney(total * 0.3);
-    document.getElementById("p4").textContent = formatMoney(total * 0.1);
-    cta.setAttribute(
-      "data-ctx",
-      "Калькулятор: " + state.pkg + ", " + state.area + " м², ~" + formatMoney(total)
-    );
-  }
-
-  document.querySelectorAll("[data-obj]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      document.querySelectorAll("[data-obj]").forEach(function (b) {
-        b.classList.remove("is-active");
-      });
-      btn.classList.add("is-active");
-      state.obj = btn.getAttribute("data-obj");
-      recalc();
-    });
-  });
-
-  document.querySelectorAll(".calc-panel__pkg").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      document.querySelectorAll(".calc-panel__pkg").forEach(function (b) {
-        b.classList.remove("is-active");
-      });
-      btn.classList.add("is-active");
-      state.rate = Number(btn.getAttribute("data-rate"));
-      state.pkg = btn.getAttribute("data-pkg-name");
-      recalc();
-    });
-  });
-
-  var range = document.getElementById("areaRange");
-  var num = document.getElementById("areaNum");
-  function setArea(v) {
-    v = Math.min(150, Math.max(20, Number(v) || 20));
-    state.area = v;
-    if (range) range.value = v;
-    if (num) num.value = v;
-    recalc();
-  }
-  if (range) {
-    range.addEventListener("input", function () {
-      setArea(range.value);
-    });
-  }
-  if (num) {
-    num.addEventListener("change", function () {
-      setArea(num.value);
-    });
   }
 
   var slides = document.querySelectorAll(".hero__slide");
   var dots = document.querySelectorAll("[data-hero-dot]");
   var heroIndex = 0;
   var heroTimer;
+
+  function syncHeroMedia(activeIndex) {
+    slides.forEach(function (el, n) {
+      var video = el.querySelector("video");
+      if (!video) return;
+      if (n === activeIndex) {
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(function () {});
+        }
+      } else {
+        video.pause();
+        try {
+          video.currentTime = 0;
+        } catch (e) {}
+      }
+    });
+  }
 
   function goHero(i) {
     if (!slides.length) return;
@@ -132,6 +68,7 @@
     dots.forEach(function (el, n) {
       el.classList.toggle("is-active", n === heroIndex);
     });
+    syncHeroMedia(heroIndex);
   }
 
   function startHero() {
@@ -149,6 +86,7 @@
       startHero();
     });
   });
+  syncHeroMedia(0);
   startHero();
 
   var nav = document.getElementById("navSheet");
@@ -190,26 +128,36 @@
     var ctx = (trigger && trigger.getAttribute("data-ctx")) || "Заявка";
     var pkg = (trigger && trigger.getAttribute("data-pkg")) || "";
     var fromCalc = trigger && trigger.id === "calcCta";
+    var calc =
+      window.KonturCalc && typeof window.KonturCalc.getState === "function"
+        ? window.KonturCalc.getState()
+        : null;
+    var money =
+      window.KonturCalc && typeof window.KonturCalc.formatMoney === "function"
+        ? window.KonturCalc.formatMoney
+        : function (n) {
+            return Math.round(n).toLocaleString("uk-UA") + " $";
+          };
 
-    if (fromCalc) {
-      pkg = state.obj === "flat" ? state.pkg : "";
+    if (fromCalc && calc) {
+      pkg = calc.obj === "flat" ? calc.pkg : "";
       setHidden(
         "leadObjectType",
-        state.obj === "house" ? "Будинок / Котедж" : "Квартира у новобудові"
+        calc.obj === "house" ? "Будинок / Котедж" : "Квартира у новобудові"
       );
-      setHidden("leadArea", state.obj === "flat" ? state.area : "");
+      setHidden("leadArea", calc.obj === "flat" ? calc.area : "");
       setHidden(
         "leadCalcSummary",
-        state.obj === "house"
+        calc.obj === "house"
           ? "Індивідуальний кошторис"
           : "Пакет " +
-              state.pkg +
+              calc.pkg +
               "; площа " +
-              state.area +
+              calc.area +
               " м²; ставка " +
-              state.rate +
+              calc.rate +
               "; сума ~" +
-              (state.total != null ? formatMoney(state.total) : "—")
+              (calc.total != null ? money(calc.total) : "—")
       );
     } else {
       setHidden("leadObjectType", "");
@@ -219,6 +167,7 @@
 
     setHidden("leadContext", ctx);
     setHidden("leadPackage", pkg);
+    applyUtmFields();
     if (modalCtx) modalCtx.textContent = "Контекст: " + ctx;
   }
 
@@ -273,10 +222,12 @@
   }
 
   if (form) {
+    applyUtmFields();
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       clearErrors();
       if (formError) formError.hidden = true;
+      applyUtmFields();
 
       var name = document.getElementById("name");
       var phone = document.getElementById("phone");
@@ -342,6 +293,7 @@
             }
             return;
           }
+          trackLeadConversion();
           modalDefault.hidden = true;
           modalSuccess.hidden = false;
         })
@@ -460,6 +412,4 @@
       }
     });
   });
-
-  recalc();
 })();

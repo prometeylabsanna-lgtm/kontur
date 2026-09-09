@@ -27,11 +27,17 @@
   opacity: 1;
 }
 
-.hero__slide img {
+.hero__slide img,
+.hero__slide .hero__video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: saturate(0.7) contrast(1.06) brightness(0.92);
+}
+
+.hero__video {
+  display: block;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {

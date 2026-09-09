@@ -54,8 +54,9 @@ def ensure_default_hero_slides(*, repair_placeholders: bool = True) -> int:
     repaired = 0
     rows = list(HeroSlide.objects.all().order_by("sort_order", "pk"))
     for idx, row in enumerate(rows):
-        has_file = bool(row.image)
-        if has_file or not _is_placeholder_url(row.image_url):
+        if row.image or row.video or row.video_url:
+            continue
+        if not _is_placeholder_url(row.image_url):
             continue
         defaults = DEFAULT_HERO_SLIDES[min(idx, len(DEFAULT_HERO_SLIDES) - 1)]
         row.image_url = defaults["image_url"]
@@ -73,12 +74,31 @@ def get_hero_slides() -> list[dict]:
     )
     slides = []
     for row in rows:
-        src = row.src
-        if not src or _is_placeholder_url(src):
+        video_src = row.video_src
+        image_src = row.src
+        if video_src and not _is_placeholder_url(video_src):
+            poster = (
+                image_src
+                if image_src and not _is_placeholder_url(image_src)
+                else ""
+            )
+            slides.append(
+                {
+                    "kind": "video",
+                    "src": video_src,
+                    "poster": poster,
+                    "alt": row.alt_text or "",
+                    "pk": row.pk,
+                }
+            )
+            continue
+        if not image_src or _is_placeholder_url(image_src):
             continue
         slides.append(
             {
-                "src": src,
+                "kind": "image",
+                "src": image_src,
+                "poster": "",
                 "alt": row.alt_text or "",
                 "pk": row.pk,
             }
@@ -87,7 +107,9 @@ def get_hero_slides() -> list[dict]:
         return slides
     return [
         {
+            "kind": "image",
             "src": item["image_url"],
+            "poster": "",
             "alt": item["alt_text"],
             "pk": None,
         }

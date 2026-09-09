@@ -1,7 +1,7 @@
 {% load i18n %}
 <fieldset class="site-content-editor__fieldset" id="hero-slides-fieldset" data-hero-slides>
-  <h2 class="text-font-important-light dark:text-font-important-dark">Фото банера</h2>
-  <p class="text-font-subtle-light dark:text-font-subtle-dark">Додавайте, видаляйте та змінюйте порядок фото. Можна завантажити файл з комп’ютера або вставити посилання на зображення.</p>
+  <h2 class="text-font-important-light dark:text-font-important-dark">Кадри банера</h2>
+  <p class="text-font-subtle-light dark:text-font-subtle-dark">Фото або відео (опція). Для відео можна додати постер (фото). Порядок — перетягуванням.</p>
   {{ hero_formset.management_form }}
   <div class="hero-slides" data-hero-slides-list>
     {% for f in hero_formset %}
@@ -23,6 +23,18 @@
             <div class="site-content-editor__field">
               <label>{{ f.image_url.label }}</label>
               {{ f.image_url }}
+            </div>
+            <div class="site-content-editor__field">
+              <label>{{ f.video.label }}</label>
+              {{ f.video }}
+              {% if f.instance.video %}
+                <p class="help">Завантажено: {{ f.instance.video.name }}</p>
+              {% endif %}
+              {% if f.video.errors %}<div class="errors">{{ f.video.errors }}</div>{% endif %}
+            </div>
+            <div class="site-content-editor__field">
+              <label>{{ f.video_url.label }}</label>
+              {{ f.video_url }}
             </div>
             <div class="site-content-editor__field">
               <label>{{ f.alt_text.label }}</label>
@@ -63,6 +75,14 @@
               {{ f.image_url }}
             </div>
             <div class="site-content-editor__field">
+              <label>{{ f.video.label }}</label>
+              {{ f.video }}
+            </div>
+            <div class="site-content-editor__field">
+              <label>{{ f.video_url.label }}</label>
+              {{ f.video_url }}
+            </div>
+            <div class="site-content-editor__field">
               <label>{{ f.alt_text.label }}</label>
               {{ f.alt_text }}
             </div>
@@ -85,5 +105,5 @@
       </div>
     </div>
   </template>
-  <button type="button" class="hero-slides__add" data-hero-slides-add>Додати фото</button>
+  <button type="button" class="hero-slides__add" data-hero-slides-add>Додати кадр</button>
 </fieldset>
