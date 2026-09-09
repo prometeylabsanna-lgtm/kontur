@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.cache import cache
 
 from .models import SiteBlock, SiteSettings
@@ -29,4 +30,6 @@ def site_context(request):
         "SITE_TELEGRAM": settings_obj.telegram_url or "#",
         "SITE_NAME": settings_obj.site_name or "Kontur+",
         "SITE_BRAND_DESC": settings_obj.brand_desc or "ремонтна організація",
+        "GTM_ID": getattr(settings, "GTM_ID", "") or "",
+        "META_PIXEL_ID": getattr(settings, "META_PIXEL_ID", "") or "",
     }

@@ -87,6 +87,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Marketing analytics — load only after cookie consent ("Прийняти")
+GTM_ID = config("GTM_ID", default="")
+META_PIXEL_ID = config("META_PIXEL_ID", default="")
+
 TINYMCE_DEFAULT_CONFIG = {
     "height": 360,
     "menubar": False,

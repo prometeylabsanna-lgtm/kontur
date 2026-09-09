@@ -19,6 +19,19 @@ class FooterDeveloperLinkTests(TestCase):
         self.assertNotContains(response, "site-footer__credit-link")
 
 
+class CookieConsentTests(TestCase):
+    def test_home_includes_cookie_consent_banner(self):
+        response = self.client.get(reverse("landing:home"))
+        self.assertContains(response, 'id="cookie-consent"')
+        self.assertContains(response, 'data-cookie-choice="necessary"')
+        self.assertContains(response, 'data-cookie-choice="all"')
+        self.assertContains(response, "cookie-consent.js")
+
+    def test_privacy_includes_cookie_consent_banner(self):
+        response = self.client.get(reverse("landing:privacy"))
+        self.assertContains(response, 'id="cookie-consent"')
+
+
 class AdminUrlHardeningTests(TestCase):
     def test_legacy_admin_paths_return_400(self):
         for path in ("/admin", "/admin/", "/admin/login/"):

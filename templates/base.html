@@ -22,13 +22,16 @@
   <link rel="stylesheet" href="{% static 'css/cases.css' %}" />
   <link rel="stylesheet" href="{% static 'css/reviews.css' %}" />
   <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/cookie-consent.css' %}" />
   <link rel="stylesheet" href="{% static 'css/motion.css' %}" />
   <link rel="stylesheet" href="{% static 'css/privacy.css' %}" />
   {% block extra_css %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
   {% block body %}{% endblock %}
+  {% include "landing/partials/cookie_consent.html" %}
   <script src="{% static 'js/motion.js' %}" defer></script>
+  <script src="{% static 'js/cookie-consent.js' %}" defer></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,26 @@
+<div
+  id="cookie-consent"
+  class="cookie-consent"
+  hidden
+  role="dialog"
+  aria-live="polite"
+  aria-label="Згода на cookie"
+  data-gtm-id="{{ GTM_ID }}"
+  data-meta-pixel-id="{{ META_PIXEL_ID }}"
+>
+  <div class="cookie-consent__inner">
+    <p class="cookie-consent__text">
+      Ми використовуємо cookie для аналітики та реклами.
+      Детальніше — у
+      <a class="cookie-consent__link" href="{% url 'landing:privacy' %}" target="_blank" rel="noopener noreferrer">політиці конфіденційності</a>.
+    </p>
+    <div class="cookie-consent__actions">
+      <button type="button" class="btn btn--ghost btn--pill cookie-consent__btn" data-cookie-choice="necessary">
+        Лише необхідні
+      </button>
+      <button type="button" class="btn btn--primary btn--pill cookie-consent__btn" data-cookie-choice="all">
+        Прийняти
+      </button>
+    </div>
+  </div>
+</div>
