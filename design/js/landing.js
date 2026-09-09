@@ -27,8 +27,6 @@
     return Math.round(n).toLocaleString("uk-UA") + " $";
   }
 
-  var calcDockApply = null;
-
   function recalc() {
     var out = document.getElementById("calcOut");
     var sumEl = document.getElementById("calcSum");
@@ -48,7 +46,6 @@
       state.total = null;
       cta.textContent = "Залишити заявку на кошторис";
       cta.setAttribute("data-ctx", "Калькулятор: Будинок / Котедж");
-      if (calcDockApply) window.requestAnimationFrame(calcDockApply);
       return;
     }
 
@@ -76,7 +73,6 @@
       "data-ctx",
       "Калькулятор: " + state.pkg + ", " + state.area + " м², ~" + formatMoney(total)
     );
-    if (calcDockApply) window.requestAnimationFrame(calcDockApply);
   }
 
   document.querySelectorAll("[data-obj]").forEach(function (btn) {
@@ -464,59 +460,6 @@
       }
     });
   });
-
-  (function initCalcDock() {
-    var section = document.getElementById("calculator");
-    var shell = section && section.querySelector(".calc-shell");
-    var dock = section && section.querySelector(".calc-panel--dark");
-    if (!section || !shell || !dock) return;
-
-    var mq = window.matchMedia("(max-width: 767.98px)");
-    var visible = false;
-
-    function apply() {
-      var on = mq.matches && visible;
-      dock.classList.toggle("is-docked", on);
-      shell.classList.toggle("is-dock-pad", on);
-      if (on) {
-        shell.style.setProperty(
-          "--calc-dock-h",
-          Math.ceil(dock.getBoundingClientRect().height) + "px"
-        );
-      } else {
-        shell.style.removeProperty("--calc-dock-h");
-      }
-    }
-
-    calcDockApply = apply;
-
-    if (typeof IntersectionObserver !== "undefined") {
-      var io = new IntersectionObserver(
-        function (entries) {
-          visible = entries.some(function (e) {
-            return e.isIntersecting;
-          });
-          apply();
-        },
-        { threshold: 0.08, rootMargin: "0px" }
-      );
-      io.observe(section);
-    }
-
-    function onMq() {
-      apply();
-    }
-    if (mq.addEventListener) mq.addEventListener("change", onMq);
-    else if (mq.addListener) mq.addListener(onMq);
-
-    window.addEventListener(
-      "resize",
-      function () {
-        if (dock.classList.contains("is-docked")) apply();
-      },
-      { passive: true }
-    );
-  })();
 
   recalc();
 })();

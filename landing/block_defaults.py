@@ -318,10 +318,7 @@ _reg(
     "site",
     "footer_legal",
     label="Юридичний рядок",
-    default=(
-        "© 2026 Kontur+. Усі права захищено. Ціни на сайті — орієнтовні "
-        "та можуть змінюватись у CMS."
-    ),
+    default="© 2026 Kontur+. Усі права захищено.",
     multiline=True,
 )
 _reg(

@@ -4,8 +4,8 @@ from landing.hero_slides import ensure_default_hero_slides
 
 
 class Command(BaseCommand):
-    help = "Ідемпотентний seed HeroSlide"
+    help = "Ідемпотентний seed HeroSlide (створює або лагодить example.com)"
 
     def handle(self, *args, **options):
-        created = ensure_default_hero_slides()
-        self.stdout.write(self.style.SUCCESS(f"Hero slides created: {created}"))
+        changed = ensure_default_hero_slides(repair_placeholders=True)
+        self.stdout.write(self.style.SUCCESS(f"Hero slides created/repaired: {changed}"))

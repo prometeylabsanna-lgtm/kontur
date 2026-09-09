@@ -8,13 +8,13 @@
       <span class="brand__desc">{% block_plain 'site' 'header_brand_desc' %}</span>
     </a>
     <nav class="site-header__nav" aria-label="Секції">
-      <a href="#advantages">Переваги</a>
-      <a href="#packages">Пакети</a>
-      <a href="#design">Дизайн</a>
-      <a href="#styles">Стилі</a>
-      <a href="#calculator">Розрахунок</a>
-      <a href="#proof">Роботи</a>
-      <a href="#faq">FAQ</a>
+      <a href="{% url 'landing:home' %}#advantages">Переваги</a>
+      <a href="{% url 'landing:home' %}#packages">Пакети</a>
+      <a href="{% url 'landing:home' %}#design">Дизайн</a>
+      <a href="{% url 'landing:home' %}#styles">Стилі</a>
+      <a href="{% url 'landing:home' %}#calculator">Розрахунок</a>
+      <a href="{% url 'landing:home' %}#proof">Роботи</a>
+      <a href="{% url 'landing:home' %}#faq">FAQ</a>
     </nav>
     <div class="site-header__actions">
       {% if show_header_phone %}
@@ -37,7 +37,7 @@
 </header>
 <div class="nav-sheet" id="navSheet" hidden>
   <div class="nav-sheet__top">
-    <a class="brand" href="#hero" data-close-nav>
+    <a class="brand" href="{% url 'landing:home' %}#hero" data-close-nav>
       <span class="brand__name">{% block_plain 'site' 'header_brand_name' %}</span>
       <span class="brand__desc">{% block_plain 'site' 'header_brand_desc' %}</span>
     </a>
@@ -46,13 +46,13 @@
     </button>
   </div>
   <ul class="nav-sheet__list">
-    <li><a href="#advantages" data-close-nav>Переваги</a></li>
-    <li><a href="#packages" data-close-nav>Пакети</a></li>
-    <li><a href="#design" data-close-nav>Дизайн</a></li>
-    <li><a href="#styles" data-close-nav>Стилі</a></li>
-    <li><a href="#calculator" data-close-nav>Розрахунок</a></li>
-    <li><a href="#proof" data-close-nav>Роботи</a></li>
-    <li><a href="#faq" data-close-nav>FAQ</a></li>
+    <li><a href="{% url 'landing:home' %}#advantages" data-close-nav>Переваги</a></li>
+    <li><a href="{% url 'landing:home' %}#packages" data-close-nav>Пакети</a></li>
+    <li><a href="{% url 'landing:home' %}#design" data-close-nav>Дизайн</a></li>
+    <li><a href="{% url 'landing:home' %}#styles" data-close-nav>Стилі</a></li>
+    <li><a href="{% url 'landing:home' %}#calculator" data-close-nav>Розрахунок</a></li>
+    <li><a href="{% url 'landing:home' %}#proof" data-close-nav>Роботи</a></li>
+    <li><a href="{% url 'landing:home' %}#faq" data-close-nav>FAQ</a></li>
   </ul>
   <div class="nav-sheet__footer">
     {% if show_header_phone %}

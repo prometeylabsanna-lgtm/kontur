@@ -29,15 +29,42 @@ DEFAULT_HERO_SLIDES = (
     },
 )
 
+_PLACEHOLDER_HOSTS = ("example.com", "example.org", "example.net")
 
-def ensure_default_hero_slides() -> int:
-    if HeroSlide.objects.exists():
+
+def _is_placeholder_url(url: str) -> bool:
+    low = (url or "").strip().lower()
+    if not low:
+        return True
+    return any(host in low for host in _PLACEHOLDER_HOSTS)
+
+
+def ensure_default_hero_slides(*, repair_placeholders: bool = True) -> int:
+    """Create defaults if empty; optionally replace example.com placeholders."""
+    if not HeroSlide.objects.exists():
+        created = 0
+        for item in DEFAULT_HERO_SLIDES:
+            HeroSlide.objects.create(**item, is_active=True)
+            created += 1
+        return created
+
+    if not repair_placeholders:
         return 0
-    created = 0
-    for item in DEFAULT_HERO_SLIDES:
-        HeroSlide.objects.create(**item, is_active=True)
-        created += 1
-    return created
+
+    repaired = 0
+    rows = list(HeroSlide.objects.all().order_by("sort_order", "pk"))
+    for idx, row in enumerate(rows):
+        has_file = bool(row.image)
+        if has_file or not _is_placeholder_url(row.image_url):
+            continue
+        defaults = DEFAULT_HERO_SLIDES[min(idx, len(DEFAULT_HERO_SLIDES) - 1)]
+        row.image_url = defaults["image_url"]
+        if not (row.alt_text or "").strip() or len(row.alt_text.strip()) <= 2:
+            row.alt_text = defaults["alt_text"]
+        row.is_active = True
+        row.save(update_fields=["image_url", "alt_text", "is_active"])
+        repaired += 1
+    return repaired
 
 
 def get_hero_slides() -> list[dict]:
@@ -47,7 +74,7 @@ def get_hero_slides() -> list[dict]:
     slides = []
     for row in rows:
         src = row.src
-        if not src:
+        if not src or _is_placeholder_url(src):
             continue
         slides.append(
             {
