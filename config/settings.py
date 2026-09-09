@@ -8,8 +8,18 @@ from decouple import Csv, config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config("SECRET_KEY", default="django-insecure-dev-only-change-me")
-DEBUG = config("DEBUG", default=True, cast=bool)
+# Vercel sets VERCEL=1 on every deployment (Hobby included).
+IS_VERCEL = config("VERCEL", default=False, cast=bool)
+
+# Empty SECRET_KEY="" in the platform env would otherwise override the default.
+_SECRET_FALLBACK = (
+    "django-insecure-kontur-vercel-demo-7f3a9c2e1b8d4e6a0c5f"
+    if IS_VERCEL
+    else "django-insecure-dev-only-change-me"
+)
+SECRET_KEY = str(config("SECRET_KEY", default=_SECRET_FALLBACK) or "").strip() or _SECRET_FALLBACK
+
+DEBUG = config("DEBUG", default=not IS_VERCEL, cast=bool)
 ALLOWED_HOSTS = list(
     config(
         "ALLOWED_HOSTS",
@@ -21,8 +31,7 @@ CSRF_TRUSTED_ORIGINS = list(
     config("CSRF_TRUSTED_ORIGINS", default="", cast=Csv())
 )
 
-# Vercel sets VERCEL=1 — cover production + preview *.vercel.app hosts
-if config("VERCEL", default=False, cast=bool):
+if IS_VERCEL:
     if ".vercel.app" not in ALLOWED_HOSTS:
         ALLOWED_HOSTS.append(".vercel.app")
     _vercel_csrf = "https://*.vercel.app"
@@ -86,10 +95,13 @@ if _database_url:
         )
     }
 else:
+    _sqlite_default = (
+        "/tmp/kontur-vercel.sqlite3" if IS_VERCEL else str(BASE_DIR / "db.sqlite3")
+    )
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": config("SQLITE_PATH", default=str(BASE_DIR / "db.sqlite3")),
+            "NAME": config("SQLITE_PATH", default=_sqlite_default),
         }
     }
 
@@ -107,7 +119,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = Path("/tmp/kontur-staticfiles") if IS_VERCEL else (BASE_DIR / "staticfiles")
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -122,7 +134,8 @@ STORAGES = {
 }
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = Path(config("MEDIA_ROOT", default=str(BASE_DIR / "media")))
+_media_default = "/tmp/kontur-media" if IS_VERCEL else str(BASE_DIR / "media")
+MEDIA_ROOT = Path(config("MEDIA_ROOT", default=_media_default))
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

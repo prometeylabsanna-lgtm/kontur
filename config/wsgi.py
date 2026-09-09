@@ -11,6 +11,12 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 application = get_wsgi_application()
+
+# Vercel: prepare DB/static/content without dashboard env vars.
+if os.environ.get("VERCEL"):
+    from config.vercel_runtime import ensure_ready
+
+    ensure_ready()
