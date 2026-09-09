@@ -61,6 +61,20 @@ def seed_site_blocks() -> int:
 def seed_list_items() -> dict[str, int]:
     stats = {}
 
+    icon_by_title = {
+        "Фіксована ціна за м²": "price",
+        "Усе в пакеті": "package",
+        "60 робочих днів": "calendar",
+        "Гарантія 5 років": "shield",
+        "Працюємо в Одесі": "pin",
+        "Ще не визначились?": "none",
+    }
+    for item in AdvantageItem.objects.all():
+        wanted = icon_by_title.get(item.title)
+        if wanted and item.icon != wanted:
+            item.icon = wanted
+            item.save(update_fields=["icon"])
+
     if not AdvantageItem.objects.exists():
         items = [
             {
@@ -69,6 +83,7 @@ def seed_list_items() -> dict[str, int]:
                 "text": "Ставка й обсяг пакету фіксуються в договорі до старту — без прихованих доплат у процесі.",
                 "image_static": "img/advantages/adv-fixed-price.jpg",
                 "image_alt": "Замір і фіксація вартості ремонту",
+                "icon": "price",
                 "sort_order": 0,
             },
             {
@@ -77,6 +92,7 @@ def seed_list_items() -> dict[str, int]:
                 "text": "Роботи, матеріали, логістика й вивіз сміття — у складі обраного пакету, без «дрібниць окремо».",
                 "image_static": "img/advantages/adv-all-in-package.jpg",
                 "image_alt": "Матеріали та комплектація ремонтного пакету",
+                "icon": "package",
                 "sort_order": 1,
             },
             {
@@ -85,6 +101,7 @@ def seed_list_items() -> dict[str, int]:
                 "text": "Строк комплексного ремонту квартири прописуємо в договорі після обміру.",
                 "image_static": "img/advantages/adv-60-days.jpg",
                 "image_alt": "Ремонт квартири в процесі за графіком",
+                "icon": "calendar",
                 "sort_order": 2,
             },
             {
@@ -93,6 +110,7 @@ def seed_list_items() -> dict[str, int]:
                 "text": "Після здачі — гарантійний сертифікат і сервісний супровід у межах договору.",
                 "image_static": "img/advantages/adv-warranty.jpg",
                 "image_alt": "Готовий інтер’єр після здачі об’єкта",
+                "icon": "shield",
                 "sort_order": 3,
             },
             {
@@ -101,6 +119,7 @@ def seed_list_items() -> dict[str, int]:
                 "text": "Замір, супровід і здача об’єкта — локально, з зрозумілим графіком виїздів.",
                 "image_static": "img/advantages/adv-odesa.jpg",
                 "image_alt": "Інтер’єр квартири в Одесі після ремонту",
+                "icon": "pin",
                 "sort_order": 4,
             },
             {
@@ -109,6 +128,7 @@ def seed_list_items() -> dict[str, int]:
                 "text": "Кожен проєкт починається з заміру на об’єкті та фіксованої ціни в договорі — без тиску й зобов’язань.",
                 "cta_label": "Дивитись усі пакети",
                 "cta_href": "#packages",
+                "icon": "none",
                 "sort_order": 5,
             },
         ]

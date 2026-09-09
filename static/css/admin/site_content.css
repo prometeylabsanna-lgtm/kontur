@@ -14,22 +14,56 @@
 .site-content-editor__preview {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #374151;
+  border: 1px solid #e5e7eb;
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
   text-decoration: none;
 }
 
+.dark .site-content-editor__preview {
+  border-color: #374151;
+}
+
 .site-content-editor__fieldset {
-  border: 1px solid #374151;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   padding: 1rem 1.25rem;
   margin: 0 0 1.25rem;
+  background: #fff;
+}
+
+.dark .site-content-editor__fieldset {
+  border-color: #374151;
+  background: transparent;
 }
 
 .site-content-editor__fieldset h2 {
   margin: 0 0 0.75rem;
   font-size: 1.05rem;
+}
+
+.site-content-editor input[type="text"],
+.site-content-editor input[type="url"],
+.site-content-editor input[type="email"],
+.site-content-editor input[type="number"],
+.site-content-editor input[type="search"],
+.site-content-editor textarea,
+.site-content-editor select {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.dark .site-content-editor input[type="text"],
+.dark .site-content-editor input[type="url"],
+.dark .site-content-editor input[type="email"],
+.dark .site-content-editor input[type="number"],
+.dark .site-content-editor input[type="search"],
+.dark .site-content-editor textarea,
+.dark .site-content-editor select {
+  background-color: #111827;
+  color: #f3f4f6;
+  border-color: #374151;
 }
 
 .site-content-editor__fields {
@@ -62,10 +96,16 @@
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.75rem;
-  border: 1px solid #374151;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   padding: 0.75rem;
   cursor: grab;
+  background: #fff;
+}
+
+.dark .hero-slide-row {
+  border-color: #374151;
+  background: transparent;
 }
 
 .hero-slide-row__handle {
@@ -125,12 +165,31 @@
 /* Custom file picker label (UA-friendly companion text) */
 .site-content-editor input[type="file"]::file-selector-button {
   margin-right: 0.75rem;
-  border: 1px solid #374151;
+  border: 1px solid #e5e7eb;
   border-radius: 0.375rem;
   padding: 0.35rem 0.75rem;
-  background: transparent;
+  background: #fff;
   color: inherit;
   cursor: pointer;
+}
+
+.dark .site-content-editor input[type="file"]::file-selector-button {
+  border-color: #374151;
+  background: transparent;
+}
+
+.hero-slides__add {
+  margin-top: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.dark .hero-slides__add {
+  border-color: #374151;
+  background: transparent;
 }
 
 @media (max-width: 767px) {

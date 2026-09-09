@@ -1,0 +1,100 @@
+{% load i18n %}
+{% with formset=collection.formset prefix=collection.key %}
+<fieldset class="site-content-editor__fieldset" data-collection data-collection-prefix="{{ prefix }}">
+  <h2 class="text-font-important-light dark:text-font-important-dark">{{ collection.title }}</h2>
+  {% if collection.hint %}
+    <p class="text-font-subtle-light dark:text-font-subtle-dark">{{ collection.hint }}</p>
+  {% endif %}
+  {{ formset.management_form }}
+  <div class="hero-slides" data-collection-list>
+    {% for f in formset %}
+      <div class="hero-slide-row" data-collection-row draggable="true">
+        <div class="hero-slide-row__handle" title="Перетягнути">⋮⋮</div>
+        <div class="hero-slide-row__body">
+          {% for hidden in f.hidden_fields %}{{ hidden }}{% endfor %}
+          <div class="hero-slide-row__grid">
+            {% for field in f.visible_fields %}
+              {% if field.name != 'is_active' and field.name != 'is_recommended' %}
+                <div class="site-content-editor__field">
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {{ field }}
+                  {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}
+                  {% if field.errors %}<div class="errors">{{ field.errors }}</div>{% endif %}
+                  {% if field.name == 'image' and f.instance.pk and f.instance.image %}
+                    <img class="hero-slide-row__preview" src="{{ f.instance.image.url }}" alt="">
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+            <div class="site-content-editor__field site-content-editor__field--inline">
+              <div class="hero-slide-row__toggles">
+                {% if 'is_recommended' in f.fields %}
+                  <label class="hero-slide-row__toggle">
+                    <span>{{ f.is_recommended.label }}</span>
+                    {{ f.is_recommended }}
+                  </label>
+                {% endif %}
+                {% if 'is_active' in f.fields %}
+                  <label class="hero-slide-row__toggle">
+                    <span>{{ f.is_active.label }}</span>
+                    {{ f.is_active }}
+                  </label>
+                {% endif %}
+                {% if f.DELETE %}
+                  <label class="hero-slide-row__toggle">
+                    {{ f.DELETE }}
+                    <span>Видалити</span>
+                  </label>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <template id="collection-empty-{{ prefix }}">
+    <div class="hero-slide-row" data-collection-row draggable="true">
+      <div class="hero-slide-row__handle" title="Перетягнути">⋮⋮</div>
+      <div class="hero-slide-row__body">
+        {% with f=formset.empty_form %}
+          {% for hidden in f.hidden_fields %}{{ hidden }}{% endfor %}
+          <div class="hero-slide-row__grid">
+            {% for field in f.visible_fields %}
+              {% if field.name != 'is_active' and field.name != 'is_recommended' %}
+                <div class="site-content-editor__field">
+                  <label>{{ field.label }}</label>
+                  {{ field }}
+                </div>
+              {% endif %}
+            {% endfor %}
+            <div class="site-content-editor__field site-content-editor__field--inline">
+              <div class="hero-slide-row__toggles">
+                {% if 'is_recommended' in f.fields %}
+                  <label class="hero-slide-row__toggle">
+                    <span>{{ f.is_recommended.label }}</span>
+                    {{ f.is_recommended }}
+                  </label>
+                {% endif %}
+                {% if 'is_active' in f.fields %}
+                  <label class="hero-slide-row__toggle">
+                    <span>{{ f.is_active.label }}</span>
+                    {{ f.is_active }}
+                  </label>
+                {% endif %}
+                {% if f.DELETE %}
+                  <label class="hero-slide-row__toggle">
+                    {{ f.DELETE }}
+                    <span>Видалити</span>
+                  </label>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endwith %}
+      </div>
+    </div>
+  </template>
+  <button type="button" class="hero-slides__add" data-collection-add>{{ collection.add_label }}</button>
+</fieldset>
+{% endwith %}

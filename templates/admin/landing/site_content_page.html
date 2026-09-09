@@ -19,9 +19,6 @@
       {% if section.description %}
         <p class="text-font-subtle-light dark:text-font-subtle-dark">{{ section.description }}</p>
       {% endif %}
-      {% if section.list_hint %}
-        <p class="text-font-subtle-light dark:text-font-subtle-dark">{{ section.list_hint }}</p>
-      {% endif %}
     </div>
     {% if section.preview_url %}
       <a class="site-content-editor__preview" href="{{ section.preview_url }}" target="_blank" rel="noopener">Переглянути на сайті</a>
@@ -51,9 +48,9 @@
       </fieldset>
     {% endfor %}
 
-    {% if hero_formset %}
-      {% include "admin/landing/hero_slides_fieldset.html" %}
-    {% endif %}
+    {% for collection in collections %}
+      {% include "admin/landing/collection_fieldset.html" with collection=collection %}
+    {% endfor %}
 
     <div class="site-content-editor__actions">
       <button type="submit" name="_save" class="bg-primary-600 border border-transparent font-medium px-3 py-2 rounded-default text-white">
@@ -66,7 +63,7 @@
 
 {% block footer %}
   {{ block.super }}
-  {% if hero_formset %}
-    <script src="{% static 'js/admin/hero_slides.js' %}" defer></script>
+  {% if collections %}
+    <script src="{% static 'js/admin/collection_rows.js' %}" defer></script>
   {% endif %}
 {% endblock %}

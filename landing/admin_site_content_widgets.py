@@ -31,21 +31,38 @@ except Exception:  # pragma: no cover
     TEXTAREA_CLASSES = list(INPUT_CLASSES)
 
 
+# Прибираємо конфліктні класи; далі ставимо theme-aware набір
 _SKIP_CLASSES = frozenset(
     {
         "bg-white",
+        "bg-base-900",
         "text-font-default-light",
+        "text-font-default-dark",
+        "text-base-100",
+        "text-base-900",
         "border-base-200",
+        "border-base-700",
         "dark:bg-base-900",
+        "dark:bg-white",
         "dark:border-base-700",
+        "dark:border-base-200",
         "dark:text-font-default-dark",
+        "dark:text-font-default-light",
+        "dark:text-base-100",
+        "dark:text-base-900",
     }
 )
+
+# Світла тема: білий фон + темний текст; темна: темний фон + світлий текст
 _FORCE_CLASSES = (
-    "bg-base-900",
-    "text-base-100",
-    "border-base-700",
+    "bg-white",
+    "text-base-900",
+    "border-base-200",
     "placeholder-base-400",
+    "dark:bg-base-900",
+    "dark:text-base-100",
+    "dark:border-base-700",
+    "dark:placeholder-base-400",
 )
 
 

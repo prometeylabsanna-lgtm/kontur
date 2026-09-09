@@ -6,8 +6,8 @@ from django.core.cache import cache
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from .admin_collections import build_section_collections, save_section_collections
 from .admin_guidelines import get_image_hint, get_text_limit_hint
-from .admin_hero_slides import build_hero_slide_formset, save_hero_slide_formset
 from .admin_site_content_widgets import (
     CmsAdminTextInputWidget,
     CmsAdminTextareaWidget,
@@ -213,23 +213,26 @@ def site_content_section_view(request, page_slug: str, section_slug: str, model_
 
     SiteSettings.get_solo()
     blocks = load_section_blocks(section)
-    hero_formset = None
+    collections = []
 
     if request.method == "POST":
         form = SitePageContentForm(section, blocks, request.POST, request.FILES)
-        if section.slug == "hero":
-            hero_formset = build_hero_slide_formset(request.POST, request.FILES)
-        valid = form.is_valid() and (hero_formset is None or hero_formset.is_valid())
+        collections = build_section_collections(
+            section.slug, data=request.POST, files=request.FILES
+        )
+        valid = form.is_valid() and all(c["formset"].is_valid() for c in collections)
         if valid:
             form.save()
-            if hero_formset is not None:
-                save_hero_slide_formset(hero_formset)
+            save_section_collections(collections)
             messages.success(request, "Збережено.")
             return redirect(request.path)
     else:
         form = SitePageContentForm(section, blocks)
-        if section.slug == "hero":
-            hero_formset = build_hero_slide_formset()
+        collections = build_section_collections(section.slug)
+
+    media = form.media
+    for item in collections:
+        media = media + item["formset"].media
 
     opts = model_admin.model._meta
     context = build_admin_context(
@@ -240,13 +243,13 @@ def site_content_section_view(request, page_slug: str, section_slug: str, model_
             "section": section,
             "form": form,
             "field_groups": _grouped_fields(form, section),
-            "hero_formset": hero_formset,
+            "collections": collections,
             "opts": opts,
             "original": SiteSettings.get_solo(),
             "has_view_permission": True,
             "has_editable_inline_admin_formsets": False,
             "show_save": True,
-            "media": form.media + (hero_formset.media if hero_formset else forms.Media()),
+            "media": media,
         },
     )
     return render(request, "admin/landing/site_content_page.html", context)

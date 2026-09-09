@@ -162,6 +162,20 @@ class AdvantageItem(models.Model):
     kind = models.CharField(
         "Тип картки", max_length=16, choices=Kind.choices, default=Kind.STANDARD
     )
+    icon = models.CharField(
+        "Іконка",
+        max_length=32,
+        choices=[
+            ("price", "Документ / ціна"),
+            ("package", "Пакет / коробка"),
+            ("calendar", "Календар / строк"),
+            ("shield", "Щит / гарантія"),
+            ("pin", "Мітка / локація"),
+            ("none", "Без іконки"),
+        ],
+        default="price",
+        blank=True,
+    )
     title = models.CharField("Заголовок", max_length=160)
     text = models.TextField("Текст", blank=True)
     image = models.ImageField("Фото", upload_to="advantages/", blank=True)

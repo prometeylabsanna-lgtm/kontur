@@ -112,50 +112,9 @@ def _sidebar_navigation(request=None):
             ],
         },
         {
-            "title": "Контент сторінок",
+            "title": "Блоки сайту",
             "separator": True,
             "items": build_content_sidebar_items(),
-        },
-        {
-            "title": "Картки сайту",
-            "separator": True,
-            "items": [
-                {
-                    "title": "Переваги",
-                    "icon": "star",
-                    "link": reverse_lazy("admin:landing_advantageitem_changelist"),
-                },
-                {
-                    "title": "Пакети",
-                    "icon": "inventory_2",
-                    "link": reverse_lazy("admin:landing_packageitem_changelist"),
-                },
-                {
-                    "title": "Пункти дизайну",
-                    "icon": "checklist",
-                    "link": reverse_lazy("admin:landing_designfeature_changelist"),
-                },
-                {
-                    "title": "Стилі",
-                    "icon": "grid_view",
-                    "link": reverse_lazy("admin:landing_styleitem_changelist"),
-                },
-                {
-                    "title": "Відгуки",
-                    "icon": "format_quote",
-                    "link": reverse_lazy("admin:landing_reviewitem_changelist"),
-                },
-                {
-                    "title": "Кейси",
-                    "icon": "photo_library",
-                    "link": reverse_lazy("admin:landing_caseitem_changelist"),
-                },
-                {
-                    "title": "Питання та відповіді",
-                    "icon": "help",
-                    "link": reverse_lazy("admin:landing_faqitem_changelist"),
-                },
-            ],
         },
         {
             "title": "Заявки",
@@ -172,8 +131,8 @@ def _sidebar_navigation(request=None):
 
 
 UNFOLD = {
-    "SITE_TITLE": "Kontur+ — кабінет",
-    "SITE_HEADER": "Kontur+ — редагування сайту",
+    "SITE_TITLE": "Kontur+",
+    "SITE_HEADER": "Kontur+",
     "SITE_SYMBOL": "home_repair_service",
     "COLORS": {
         "primary": {

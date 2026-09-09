@@ -26,6 +26,7 @@
           {% else %}
           <li class="adv-card">
             <div class="adv-card__content">
+              {% include "landing/partials/advantage_icon.html" with icon=item.icon %}
               <h3 class="adv-card__title">{{ item.title }}</h3>
               <p class="adv-card__text">{{ item.text }}</p>
             </div>
