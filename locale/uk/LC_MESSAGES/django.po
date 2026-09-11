@@ -131,3 +131,15 @@ msgstr "Вітаємо,"
 
 msgid "Documentation"
 msgstr "Документація"
+
+msgid "Choose file to upload"
+msgstr "Оберіть файл для завантаження"
+
+msgid "Image preview"
+msgstr "Перегляд зображення"
+
+msgid "Clear"
+msgstr "Очистити"
+
+msgid "Currently"
+msgstr "Зараз"

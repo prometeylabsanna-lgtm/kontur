@@ -191,11 +191,6 @@ def _sidebar_navigation(request=None):
             ],
         },
         {
-            "title": "Блоки сайту",
-            "separator": True,
-            "items": build_content_sidebar_items(),
-        },
-        {
             "title": "Заявки",
             "separator": True,
             "items": [
@@ -205,6 +200,11 @@ def _sidebar_navigation(request=None):
                     "link": reverse_lazy("admin:landing_lead_changelist"),
                 },
             ],
+        },
+        {
+            "title": "Блоки сайту",
+            "separator": True,
+            "items": build_content_sidebar_items(),
         },
     ]
 
