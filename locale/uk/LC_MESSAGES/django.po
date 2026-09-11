@@ -1,0 +1,133 @@
+# Ukrainian overrides for Unfold / Django admin UI strings.
+msgid ""
+msgstr ""
+"Project-Id-Version: Kontur+\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Type to search"
+msgstr "Пошук"
+
+msgid "No results found"
+msgstr "Нічого не знайдено"
+
+msgid "This page yielded into no results. Create a new item or reset your filters."
+msgstr "За цим запитом нічого немає. Додайте запис або скиньте фільтри."
+
+msgid "Apply Filters"
+msgstr "Застосувати"
+
+msgid "Reset filters"
+msgstr "Скинути фільтри"
+
+msgid "Filters"
+msgstr "Фільтри"
+
+msgid "Show counts"
+msgstr "Показати кількість"
+
+msgid "All"
+msgstr "Всі"
+
+msgid " By %(filter_title)s "
+msgstr "%(filter_title)s"
+
+msgid "Add %(name)s"
+msgstr "Додати %(name)s"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Home"
+msgstr "Головна"
+
+msgid "Log in"
+msgstr "Увійти"
+
+msgid "Log out"
+msgstr "Вийти"
+
+msgid "Please correct the error below."
+msgstr "Виправте помилку нижче."
+
+msgid "Please correct the errors below."
+msgstr "Виправте помилки нижче."
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "Unknown"
+msgstr "Невідомо"
+
+msgid "Any date"
+msgstr "Будь-яка дата"
+
+msgid "Today"
+msgstr "Сьогодні"
+
+msgid "Past 7 days"
+msgstr "Останні 7 днів"
+
+msgid "This month"
+msgstr "Цього місяця"
+
+msgid "This year"
+msgstr "Цього року"
+
+msgid "Filter"
+msgstr "Фільтр"
+
+msgid "Clear all filters"
+msgstr "Скинути всі фільтри"
+
+msgid "Go"
+msgstr "Перейти"
+
+msgid "Select all"
+msgstr "Вибрати все"
+
+msgid "Delete selected %(verbose_name_plural)s"
+msgstr "Видалити вибрані %(verbose_name_plural)s"
+
+msgid "Items must be selected in order to perform actions on them."
+msgstr "Щоб виконати дію, спочатку виберіть записи."
+
+msgid "No action selected."
+msgstr "Дію не вибрано."
+
+msgid "Change"
+msgstr "Змінити"
+
+msgid "View"
+msgstr "Переглянути"
+
+msgid "History"
+msgstr "Історія"
+
+msgid "View on site"
+msgstr "На сайті"
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "You don't have permission to view or edit anything."
+msgstr "У вас немає прав для перегляду чи редагування."
+
+msgid "Welcome,"
+msgstr "Вітаємо,"
+
+msgid "Documentation"
+msgstr "Документація"
