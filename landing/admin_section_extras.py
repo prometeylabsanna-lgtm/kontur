@@ -6,7 +6,10 @@ from decimal import Decimal
 
 from django import forms
 
-from .admin_site_content_widgets import CmsAdminTextInputWidget
+from .admin_site_content_widgets import (
+    CmsAdminNumberInputWidget,
+    CmsAdminTextInputWidget,
+)
 from .models import SiteSettings
 
 
@@ -26,16 +29,30 @@ class CalculatorConfigForm(forms.ModelForm):
             "calc_pay_4",
         )
         widgets = {
-            "calc_area_min": forms.NumberInput(attrs={"min": 1, "step": 1}),
-            "calc_area_max": forms.NumberInput(attrs={"min": 1, "step": 1}),
-            "calc_billable_min": forms.NumberInput(attrs={"min": 1, "step": 1}),
-            "calc_coef_to_30": forms.NumberInput(attrs={"min": 0, "step": "0.01"}),
-            "calc_coef_31_34": forms.NumberInput(attrs={"min": 0, "step": "0.01"}),
-            "calc_coef_35_39": forms.NumberInput(attrs={"min": 0, "step": "0.01"}),
-            "calc_pay_1": forms.NumberInput(attrs={"min": 0, "max": 1, "step": "0.01"}),
-            "calc_pay_2": forms.NumberInput(attrs={"min": 0, "max": 1, "step": "0.01"}),
-            "calc_pay_3": forms.NumberInput(attrs={"min": 0, "max": 1, "step": "0.01"}),
-            "calc_pay_4": forms.NumberInput(attrs={"min": 0, "max": 1, "step": "0.01"}),
+            "calc_area_min": CmsAdminNumberInputWidget(attrs={"min": 1, "step": 1}),
+            "calc_area_max": CmsAdminNumberInputWidget(attrs={"min": 1, "step": 1}),
+            "calc_billable_min": CmsAdminNumberInputWidget(attrs={"min": 1, "step": 1}),
+            "calc_coef_to_30": CmsAdminNumberInputWidget(
+                attrs={"min": 0, "step": "0.01"}
+            ),
+            "calc_coef_31_34": CmsAdminNumberInputWidget(
+                attrs={"min": 0, "step": "0.01"}
+            ),
+            "calc_coef_35_39": CmsAdminNumberInputWidget(
+                attrs={"min": 0, "step": "0.01"}
+            ),
+            "calc_pay_1": CmsAdminNumberInputWidget(
+                attrs={"min": 0, "max": 1, "step": "0.01"}
+            ),
+            "calc_pay_2": CmsAdminNumberInputWidget(
+                attrs={"min": 0, "max": 1, "step": "0.01"}
+            ),
+            "calc_pay_3": CmsAdminNumberInputWidget(
+                attrs={"min": 0, "max": 1, "step": "0.01"}
+            ),
+            "calc_pay_4": CmsAdminNumberInputWidget(
+                attrs={"min": 0, "max": 1, "step": "0.01"}
+            ),
         }
 
     def clean(self):

@@ -99,6 +99,17 @@ class CmsAdminTextInputWidget(AdminTextInputWidget):
         super().__init__(attrs=attrs)
 
 
+class CmsAdminNumberInputWidget(forms.NumberInput):
+    """Number input з тими ж рамкою/фоном, що й текстові CMS-поля."""
+
+    def __init__(self, attrs=None):
+        attrs = dict(attrs or {})
+        classes = cms_control_classes(INPUT_CLASSES)
+        existing = attrs.get("class", "")
+        attrs["class"] = f"{' '.join(classes)} {existing}".strip()
+        super().__init__(attrs=attrs)
+
+
 class CmsAdminTextareaWidget(AdminTextareaWidget):
     def __init__(self, attrs=None):
         attrs = dict(attrs or {})
@@ -111,7 +122,7 @@ class CmsAdminTextareaWidget(AdminTextareaWidget):
 
 
 def apply_readable_widget(widget) -> None:
-    from django.forms.widgets import CheckboxInput, FileInput, Select
+    from django.forms.widgets import CheckboxInput, FileInput, NumberInput, Select
 
     if isinstance(widget, (CheckboxInput, FileInput, Select)):
         return
@@ -127,7 +138,7 @@ def apply_readable_widget(widget) -> None:
             )
         )
         return
-    if isinstance(widget, AdminTextInputWidget) or "TextInput" in name:
+    if isinstance(widget, (AdminTextInputWidget, NumberInput)) or "TextInput" in name:
         widget.attrs["class"] = " ".join(
             cms_control_classes(
                 (widget.attrs.get("class") or "").split() or INPUT_CLASSES
