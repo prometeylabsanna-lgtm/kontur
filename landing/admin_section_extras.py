@@ -10,6 +10,7 @@ from .admin_site_content_widgets import (
     CmsAdminNumberInputWidget,
     CmsAdminTextInputWidget,
 )
+from .google_places import extract_place_id, is_configured
 from .models import SiteSettings
 
 
@@ -87,17 +88,48 @@ class ProofRatingForm(forms.ModelForm):
     class Meta:
         model = SiteSettings
         fields = (
+            "google_place_id",
+            "google_reviews_auto_sync",
             "google_rating",
             "google_reviews_count",
             "google_reviews_url",
         )
         widgets = {
+            "google_place_id": CmsAdminTextInputWidget(
+                attrs={"placeholder": "ChIJ… або посилання Google Maps"}
+            ),
             "google_rating": forms.NumberInput(
                 attrs={"min": 0, "max": 5, "step": "0.1"}
             ),
             "google_reviews_count": forms.NumberInput(attrs={"min": 0, "step": 1}),
             "google_reviews_url": CmsAdminTextInputWidget(),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        key_ok = is_configured()
+        base = self.fields["google_place_id"].help_text or ""
+        status = (
+            "Ключ API знайдено в .env."
+            if key_ok
+            else "Ключ ще не задано: додайте GOOGLE_PLACES_API_KEY у .env і перезапустіть."
+        )
+        self.fields["google_place_id"].help_text = f"{base} {status}".strip()
+
+    def clean_google_place_id(self):
+        raw = (self.cleaned_data.get("google_place_id") or "").strip()
+        if not raw:
+            return ""
+        extracted = extract_place_id(raw)
+        if extracted:
+            return extracted
+        if raw.startswith("http://") or raw.startswith("https://"):
+            raise forms.ValidationError(
+                "У посиланні не знайдено Place ID (ChIJ…). "
+                "Вставте Place ID з Google Business / Place ID Finder "
+                "або URL з параметром place_id=."
+            )
+        return raw
 
 
 def build_section_extra_form(section_slug: str, data=None):

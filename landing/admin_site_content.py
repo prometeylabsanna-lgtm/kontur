@@ -23,6 +23,7 @@ from .block_defaults import (
     is_visibility_key,
 )
 from .context_processors import SITE_BLOCKS_CACHE_KEY
+from .google_places import extract_place_id, is_configured
 from .models import SiteBlock, SiteSettings
 from .privacy_text import (
     PRIVACY_BODY_HELP,
@@ -237,6 +238,23 @@ def site_content_section_view(request, page_slug: str, section_slug: str, model_
     collections = []
     extra_form = None
 
+    if request.method == "POST" and section.slug == "proof" and "_sync_google" in request.POST:
+        from .google_places import sync_google_reviews
+
+        place_raw = (request.POST.get("proof_rating-google_place_id") or "").strip()
+        if place_raw:
+            settings_obj = SiteSettings.get_solo()
+            extracted = extract_place_id(place_raw) or place_raw
+            if extracted != settings_obj.google_place_id:
+                settings_obj.google_place_id = extracted
+                settings_obj.save(update_fields=["google_place_id"])
+        result = sync_google_reviews(force=True)
+        if result.ok:
+            messages.success(request, result.message)
+        else:
+            messages.error(request, result.message)
+        return redirect(request.path)
+
     if request.method == "POST":
         form = SitePageContentForm(section, blocks, request.POST, request.FILES)
         collections = build_section_collections(
@@ -264,6 +282,7 @@ def site_content_section_view(request, page_slug: str, section_slug: str, model_
     if extra_form is not None:
         media = media + extra_form.media
 
+    settings_obj = SiteSettings.get_solo()
     opts = model_admin.model._meta
     context = build_admin_context(
         request,
@@ -278,12 +297,19 @@ def site_content_section_view(request, page_slug: str, section_slug: str, model_
             "extra_form_title": (
                 "Параметри формули"
                 if section.slug == "calculator"
-                else "Рейтинг Google"
+                else "Google Places / рейтинг"
                 if section.slug == "proof"
                 else ""
             ),
+            "google_places_configured": is_configured() if section.slug == "proof" else False,
+            "google_reviews_synced_at": (
+                settings_obj.google_reviews_synced_at if section.slug == "proof" else None
+            ),
+            "google_reviews_sync_error": (
+                settings_obj.google_reviews_sync_error if section.slug == "proof" else ""
+            ),
             "opts": opts,
-            "original": SiteSettings.get_solo(),
+            "original": settings_obj,
             "has_view_permission": True,
             "has_editable_inline_admin_formsets": False,
             "show_save": True,

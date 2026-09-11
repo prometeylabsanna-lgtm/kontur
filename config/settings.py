@@ -150,6 +150,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GTM_ID = config("GTM_ID", default="")
 META_PIXEL_ID = config("META_PIXEL_ID", default="")
 
+# Google Places (New) — рейтинг і до 5 відгуків для #proof
+GOOGLE_PLACES_API_KEY = config("GOOGLE_PLACES_API_KEY", default="")
+GOOGLE_PLACE_ID = config("GOOGLE_PLACE_ID", default="")
+
+
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True

@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_POST
 
 from .forms import LeadForm
+from .google_places import public_reviews_queryset
 from .hero_slides import get_hero_slides
 from .models import (
     AdvantageItem,
@@ -12,7 +13,6 @@ from .models import (
     DesignFeature,
     FAQItem,
     PackageItem,
-    ReviewItem,
     StyleItem,
 )
 
@@ -39,9 +39,7 @@ def _landing_lists():
         "styles": list(
             StyleItem.objects.filter(is_active=True).order_by("sort_order", "pk")
         ),
-        "reviews": list(
-            ReviewItem.objects.filter(is_active=True).order_by("sort_order", "pk")
-        ),
+        "reviews": list(public_reviews_queryset()),
         "cases": list(
             CaseItem.objects.filter(is_active=True).order_by("sort_order", "pk")
         ),

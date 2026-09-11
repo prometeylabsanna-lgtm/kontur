@@ -40,6 +40,7 @@ sudo bash deploy/scripts/setup_droplet.sh your-domain.com
 - `ALLOWED_HOSTS=your-domain.com,www.your-domain.com`
 - `CSRF_TRUSTED_ORIGINS=https://your-domain.com,https://www.your-domain.com`
 - `GTM_ID` / `META_PIXEL_ID` за потреби
+- `GOOGLE_PLACES_API_KEY` / `GOOGLE_PLACE_ID` для автосинхронізації відгуків
 
 Суперкористувач:
 
@@ -85,6 +86,17 @@ systemctl status kontur
 journalctl -u kontur -f
 tail -f /var/log/kontur/error.log
 nginx -t && systemctl reload nginx
+```
+
+### Google Places (відгуки)
+
+1. У Google Cloud увімкніть **Places API (New)**, створіть API key, обмежте по IP сервера.
+2. У `.env`: `GOOGLE_PLACES_API_KEY=...` (і опційно `GOOGLE_PLACE_ID=ChIJ...`).
+3. В CMS → «Відгуки та кейси» вкажіть Place ID і натисніть «Синхронізувати з Google зараз».
+4. Cron (раз на добу):
+
+```bash
+cd /var/www/kontur && source .venv/bin/activate && python manage.py sync_google_reviews
 ```
 
 Адмінка: `https://your-domain.com/kontur-plus-cms/`

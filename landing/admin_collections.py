@@ -291,6 +291,13 @@ class ReviewForm(forms.ModelForm):
             cleaned["_skip"] = True
         return cleaned
 
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        obj.source = ReviewItem.Source.MANUAL
+        if commit:
+            obj.save()
+        return obj
+
 
 ReviewFormSet = _make_formset(ReviewItem, ReviewForm, "reviews")
 
@@ -299,7 +306,9 @@ def build_reviews_formset(data=None, files=None):
     return ReviewFormSet(
         data=data,
         files=files,
-        queryset=ReviewItem.objects.all().order_by("sort_order", "pk"),
+        queryset=ReviewItem.objects.filter(source=ReviewItem.Source.MANUAL).order_by(
+            "sort_order", "pk"
+        ),
         prefix="reviews",
     )
 
@@ -448,8 +457,11 @@ SECTION_COLLECTIONS: dict[str, tuple[dict, ...]] = {
     "proof": (
         {
             "key": "reviews",
-            "title": "Відгуки",
-            "hint": "Текст відгуку, ім’я та підпис.",
+            "title": "Резервні відгуки (вручну)",
+            "hint": (
+                "Показуються, якщо ще немає синхронізованих Google-відгуків. "
+                "Після успішного sync з Places на сайті будуть картки з Google."
+            ),
             "add_label": "Додати відгук",
             "build": build_reviews_formset,
             "save": _save_ordered_formset,

@@ -86,6 +86,7 @@ def register_site_content_section_admins():
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(ReadableUnfoldFieldsMixin, SingletonModelAdminMixin, ModelAdmin):
+    readonly_fields = ("google_reviews_synced_at", "google_reviews_sync_error")
     fieldsets = (
         (
             "Основне",
@@ -104,12 +105,16 @@ class SiteSettingsAdmin(ReadableUnfoldFieldsMixin, SingletonModelAdminMixin, Mod
         ("Соцмережі", {"fields": ("instagram_url", "telegram_url")}),
         ("Пошук у Google", {"fields": ("meta_description",)}),
         (
-            "Google-відгуки (до Places API)",
+            "Google Places",
             {
                 "fields": (
+                    "google_place_id",
+                    "google_reviews_auto_sync",
                     "google_rating",
                     "google_reviews_count",
                     "google_reviews_url",
+                    "google_reviews_synced_at",
+                    "google_reviews_sync_error",
                 )
             },
         ),

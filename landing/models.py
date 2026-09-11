@@ -63,23 +63,50 @@ class SiteSettings(models.Model):
         blank=True,
         help_text="Короткий текст у результатах пошуку (до ~160 символів)",
     )
+    google_place_id = models.CharField(
+        "Google Place ID",
+        max_length=255,
+        blank=True,
+        help_text=(
+            "Ідентифікатор місця (ChIJ…) або посилання Google Maps з place_id. "
+            "Ключ API — у .env (GOOGLE_PLACES_API_KEY)."
+        ),
+    )
+    google_reviews_auto_sync = models.BooleanField(
+        "Автосинхронізація відгуків",
+        default=True,
+        help_text="Оновлювати рейтинг і відгуки командою sync_google_reviews / кнопкою в CMS.",
+    )
     google_rating = models.DecimalField(
         "Рейтинг Google",
         max_digits=2,
         decimal_places=1,
         null=True,
         blank=True,
-        help_text="Наприклад 4.9. Пізніше можна підтягувати з Places API.",
+        help_text="Оновлюється з Places API; можна задати вручну як запасний варіант.",
     )
     google_reviews_count = models.PositiveIntegerField(
         "Кількість відгуків Google",
         null=True,
         blank=True,
+        help_text="Оновлюється з Places API; запасне значення — вручну.",
     )
     google_reviews_url = models.URLField(
         "Посилання на Google-відгуки",
         blank=True,
-        help_text="Кнопка «дивитись у Google» / Places API пізніше",
+        help_text="Кнопка «дивитись у Google». Підставляється з API або вручну.",
+    )
+    google_reviews_synced_at = models.DateTimeField(
+        "Остання синхронізація Google",
+        null=True,
+        blank=True,
+        editable=False,
+    )
+    google_reviews_sync_error = models.CharField(
+        "Помилка останньої синхронізації",
+        max_length=500,
+        blank=True,
+        editable=False,
     )
     calc_area_min = models.PositiveSmallIntegerField(
         "Мін. площа калькулятора, м²", default=20
@@ -423,9 +450,27 @@ class StyleItem(models.Model):
 
 
 class ReviewItem(models.Model):
+    class Source(models.TextChoices):
+        MANUAL = "manual", "Ручний (резерв)"
+        GOOGLE = "google", "Google Places"
+
     text = models.TextField("Відгук")
     name = models.CharField("Ім’я", max_length=80)
     meta = models.CharField("Підпис", max_length=120, blank=True)
+    source = models.CharField(
+        "Джерело",
+        max_length=16,
+        choices=Source.choices,
+        default=Source.MANUAL,
+        db_index=True,
+    )
+    external_key = models.CharField(
+        "Зовнішній ключ",
+        max_length=255,
+        blank=True,
+        db_index=True,
+        help_text="Ідентифікатор відгуку з Google Places (для sync).",
+    )
     sort_order = models.PositiveSmallIntegerField("Порядок", default=0)
     is_active = models.BooleanField("Показувати на сайті", default=True)
 
@@ -433,6 +478,13 @@ class ReviewItem(models.Model):
         ordering = ("sort_order", "pk")
         verbose_name = "Відгук"
         verbose_name_plural = "Відгуки"
+        constraints = [
+            models.UniqueConstraint(
+                fields=("source", "external_key"),
+                condition=~models.Q(external_key=""),
+                name="review_source_external_key_uniq",
+            ),
+        ]
 
     def __str__(self):
         return self.name

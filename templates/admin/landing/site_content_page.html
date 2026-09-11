@@ -55,6 +55,25 @@
     {% if extra_form %}
       <fieldset class="site-content-editor__fieldset">
         <h2 class="text-font-important-light dark:text-font-important-dark">{{ extra_form_title }}</h2>
+        {% if section.slug == "proof" %}
+          <p class="text-font-subtle-light dark:text-font-subtle-dark">
+            Ключ API тримаємо в <code>.env</code> (<code>GOOGLE_PLACES_API_KEY</code>).
+            Place ID — тут або в <code>GOOGLE_PLACE_ID</code>.
+            Ручні відгуки нижче — резерв, якщо Google ще не підключено або API недоступне.
+          </p>
+          <p class="text-font-subtle-light dark:text-font-subtle-dark">
+            Статус ключа:
+            {% if google_places_configured %}задано{% else %}не задано{% endif %}.
+            {% if google_reviews_synced_at %}
+              Остання синхронізація: {{ google_reviews_synced_at|date:"d.m.Y H:i" }}.
+            {% else %}
+              Синхронізацію ще не виконували.
+            {% endif %}
+          </p>
+          {% if google_reviews_sync_error %}
+            <p class="errors">Остання помилка: {{ google_reviews_sync_error }}</p>
+          {% endif %}
+        {% endif %}
         <div class="site-content-editor__fields">
           {% for field in extra_form %}
             <div class="site-content-editor__field">
@@ -65,6 +84,13 @@
             </div>
           {% endfor %}
         </div>
+        {% if section.slug == "proof" %}
+          <div class="site-content-editor__actions" style="margin-top: 1rem;">
+            <button type="submit" name="_sync_google" value="1" class="bg-primary-600 border border-transparent font-medium px-3 py-2 rounded-default text-white">
+              Синхронізувати з Google зараз
+            </button>
+          </div>
+        {% endif %}
       </fieldset>
     {% endif %}
 
