@@ -1,0 +1,100 @@
+/* Global Unfold admin — mobile / narrow viewport */
+html {
+  overflow-x: clip;
+}
+
+#page,
+#main,
+#content,
+#content-main {
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  #changelist {
+    max-width: 100%;
+  }
+
+  #changelist .result-list-wrapper {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Horizontal filters: не розпирати рядок (Unfold min-w-[260px]) */
+  #changelist form.flex .form-field,
+  #changelist form.flex [class*="form-field"] {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #changelist form.flex {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .filter-open-button {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  /* Таблиця: скрол лише всередині, не на всю сторінку */
+  #changelist .overflow-x-auto {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 767px) {
+  #main > .px-4,
+  #main > div.px-4 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  #header-inner,
+  #header-inner > .flex {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Toolbar search + filters: завжди стовпчик на вузькому екрані */
+  #changelist .flex.flex-col.flex-wrap.gap-3 {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #changelist .flex.flex-col.flex-wrap.gap-3 > * {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Change form rows / checkboxes — без зсуву вправо */
+  #content .flex.flex-col.gap-2,
+  #content .flex.flex-col.lg\:flex-row {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  #content .min-w-32 {
+    min-width: 0;
+    width: auto;
+    max-width: 100%;
+  }
+
+  #submit-row .container,
+  #submit-row .flex {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Сайдбар-оверлей не розширює документ */
+  #nav-sidebar {
+    max-width: min(360px, 85vw);
+  }
+}

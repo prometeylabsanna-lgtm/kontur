@@ -1,16 +1,22 @@
 {% load i18n %}
-<div class="cms-color-field">
+<div class="cms-color-field" data-cms-color-default="{{ widget.default_color }}">
   <input type="color"
          name="{{ widget.name }}"
-         value="{{ widget.value|default:'#b1a091' }}"
+         value="{{ widget.value|default:widget.default_color }}"
          class="cms-color-input__picker"
          {% include "django/forms/widgets/attrs.html" %}>
   <input type="text"
          class="cms-color-input__hex"
-         value="{{ widget.value|default:'#b1a091' }}"
+         value="{{ widget.value|default:widget.default_color }}"
          maxlength="7"
          spellcheck="false"
          autocomplete="off"
          aria-label="{% trans 'Hex color' %}"
          data-cms-color-hex>
+  <button type="button"
+          class="cms-color-input__reset"
+          data-cms-color-reset
+          title="Підставити колір за замовчуванням ({{ widget.default_color }})">
+    За замовчуванням
+  </button>
 </div>

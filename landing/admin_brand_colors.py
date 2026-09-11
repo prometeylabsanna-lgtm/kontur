@@ -27,13 +27,19 @@ class HexColorInput(forms.TextInput):
     input_type = "color"
     template_name = "admin/landing/widgets/cms_color_input.html"
 
-    def __init__(self, attrs=None):
+    def __init__(self, attrs=None, default_color="#b1a091"):
         base = {
             "class": "cms-color-input__picker",
         }
         if attrs:
             base.update(attrs)
+        self.default_color = (default_color or "#b1a091").lower()
         super().__init__(attrs=base)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context["widget"]["default_color"] = self.default_color
+        return context
 
 
 _COLOR_DEFAULTS = {
@@ -56,7 +62,7 @@ class BrandColorForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for name, fallback in _COLOR_DEFAULTS.items():
             field = self.fields[name]
-            field.widget = HexColorInput()
+            field.widget = HexColorInput(default_color=fallback)
             value = self.initial.get(name) or getattr(self.instance, name, None)
             if not value:
                 self.initial[name] = fallback

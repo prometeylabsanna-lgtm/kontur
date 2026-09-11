@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from django.templatetags.static import static
 from django.urls import reverse_lazy
 from decouple import Csv, config
 
@@ -256,6 +257,9 @@ UNFOLD = {
             "type": "image/x-icon",
             "href": _brand_favicon_href(),
         },
+    ],
+    "STYLES": [
+        lambda request: static("css/admin/unfold_mobile.css"),
     ],
     "COLORS": {
         "primary": {
