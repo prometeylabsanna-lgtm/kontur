@@ -159,6 +159,18 @@ class SiteSettings(models.Model):
         default="#dff250",
         help_text="Салатова заливка карток і акцентних блоків",
     )
+    color_accent_icon = models.CharField(
+        "Акцент · іконки",
+        max_length=7,
+        default="#a8bc22",
+        help_text="Крапки, лапки, іконки футера",
+    )
+    color_accent_text = models.CharField(
+        "Акцент · текст",
+        max_length=7,
+        default="#7e8f1c",
+        help_text="Ціни в активному пакеті, посилання, темний акцент тексту",
+    )
 
     class Meta:
         verbose_name = "Налаштування сайту"

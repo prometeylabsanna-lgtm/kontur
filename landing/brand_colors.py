@@ -10,6 +10,8 @@ DEFAULT_COLOR_BUTTON = "#dff250"
 DEFAULT_COLOR_BUTTON_TEXT = "#16181a"
 DEFAULT_COLOR_BUTTON_HOVER = "#eaff6b"
 DEFAULT_COLOR_FILL = "#dff250"
+DEFAULT_COLOR_ACCENT_ICON = "#a8bc22"
+DEFAULT_COLOR_ACCENT_TEXT = "#7e8f1c"
 
 
 def normalize_hex(value: str | None, fallback: str) -> str:
@@ -32,6 +34,12 @@ def build_brand_theme_css(settings_obj) -> str:
     fill = normalize_hex(
         getattr(settings_obj, "color_fill", None), DEFAULT_COLOR_FILL
     )
+    icon = normalize_hex(
+        getattr(settings_obj, "color_accent_icon", None), DEFAULT_COLOR_ACCENT_ICON
+    )
+    accent_text = normalize_hex(
+        getattr(settings_obj, "color_accent_text", None), DEFAULT_COLOR_ACCENT_TEXT
+    )
     return (
         f"--accent-button:{button};"
         f"--accent-button-hover:{hover};"
@@ -39,4 +47,8 @@ def build_brand_theme_css(settings_obj) -> str:
         f"--accent-fill:{fill};"
         f"--accent:{fill};"
         f"--on-accent:{text};"
+        f"--accent-mark:{icon};"
+        f"--accent-deep:{accent_text};"
+        f"--accent-link:{accent_text};"
+        f"--accent-hover:{hover};"
     )

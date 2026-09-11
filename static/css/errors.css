@@ -15,7 +15,7 @@
   font-family: var(--font, "Outfit", system-ui, sans-serif);
   color: var(--cream, #f7f6f4);
   background:
-    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(223, 242, 80, 0.12), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 20% 0%, color-mix(in srgb, var(--accent-fill) 12%, transparent), transparent 55%),
     var(--ink, #16181a);
   -webkit-font-smoothing: antialiased;
 }

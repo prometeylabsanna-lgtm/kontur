@@ -85,7 +85,7 @@
 
 .site-footer__social:hover {
   border-color: var(--accent-mark);
-  background: rgba(223, 242, 80, 0.12);
+  background: color-mix(in srgb, var(--accent-fill) 12%, transparent);
   color: var(--accent);
 }
 
@@ -148,8 +148,8 @@
   width: 1.85rem;
   height: 1.85rem;
   border-radius: 50%;
-  background: rgba(223, 242, 80, 0.14);
-  color: var(--accent);
+  background: color-mix(in srgb, var(--accent-fill) 14%, transparent);
+  color: var(--accent-mark);
   flex-shrink: 0;
 }
 

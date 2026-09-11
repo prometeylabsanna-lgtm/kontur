@@ -123,7 +123,7 @@
   font-weight: 700;
   line-height: 0.75;
   letter-spacing: -0.04em;
-  color: var(--accent-deep);
+  color: var(--accent-mark);
 }
 
 .review__text {

@@ -32,6 +32,31 @@ class CookieConsentTests(TestCase):
         self.assertContains(response, 'id="cookie-consent"')
 
 
+class PrivacyLayoutTests(TestCase):
+    def test_privacy_body_renders_headings_from_plain_text(self):
+        from landing.models import SiteBlock
+
+        SiteBlock.objects.update_or_create(
+            page="privacy",
+            key="privacy_body",
+            defaults={
+                "label": "Текст сторінки",
+                "content_type": "text",
+                "text_html": (
+                    "Вступний абзац.\n\n"
+                    "1. Оператор даних\n"
+                    "Kontur+ в Одесі.\n\n"
+                    "2. Які дані ми збираємо\n"
+                    "Ім’я та телефон."
+                ),
+            },
+        )
+        response = self.client.get(reverse("landing:privacy"))
+        self.assertContains(response, "<h2>1. Оператор даних</h2>", html=False)
+        self.assertContains(response, "<h2>2. Які дані ми збираємо</h2>", html=False)
+        self.assertContains(response, "<p>Kontur+ в Одесі.</p>", html=False)
+
+
 class AdminUrlHardeningTests(TestCase):
     def test_legacy_admin_paths_return_400(self):
         for path in ("/admin", "/admin/", "/admin/login/"):

@@ -10,6 +10,8 @@ from .admin_site_content_proxies import (
     SingletonModelAdminMixin,
 )
 from .brand_colors import (
+    DEFAULT_COLOR_ACCENT_ICON,
+    DEFAULT_COLOR_ACCENT_TEXT,
     DEFAULT_COLOR_BUTTON,
     DEFAULT_COLOR_BUTTON_HOVER,
     DEFAULT_COLOR_BUTTON_TEXT,
@@ -32,25 +34,24 @@ class HexColorInput(forms.TextInput):
         super().__init__(attrs=base)
 
 
+_COLOR_DEFAULTS = {
+    "color_button": DEFAULT_COLOR_BUTTON,
+    "color_button_text": DEFAULT_COLOR_BUTTON_TEXT,
+    "color_button_hover": DEFAULT_COLOR_BUTTON_HOVER,
+    "color_fill": DEFAULT_COLOR_FILL,
+    "color_accent_icon": DEFAULT_COLOR_ACCENT_ICON,
+    "color_accent_text": DEFAULT_COLOR_ACCENT_TEXT,
+}
+
+
 class BrandColorForm(forms.ModelForm):
     class Meta:
         model = BrandColorSettings
-        fields = (
-            "color_button",
-            "color_button_text",
-            "color_button_hover",
-            "color_fill",
-        )
+        fields = tuple(_COLOR_DEFAULTS.keys())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        defaults = {
-            "color_button": DEFAULT_COLOR_BUTTON,
-            "color_button_text": DEFAULT_COLOR_BUTTON_TEXT,
-            "color_button_hover": DEFAULT_COLOR_BUTTON_HOVER,
-            "color_fill": DEFAULT_COLOR_FILL,
-        }
-        for name, fallback in defaults.items():
+        for name, fallback in _COLOR_DEFAULTS.items():
             field = self.fields[name]
             field.widget = HexColorInput()
             value = self.initial.get(name) or getattr(self.instance, name, None)
@@ -68,6 +69,12 @@ class BrandColorForm(forms.ModelForm):
 
     def clean_color_fill(self):
         return self._clean_hex("color_fill", DEFAULT_COLOR_FILL)
+
+    def clean_color_accent_icon(self):
+        return self._clean_hex("color_accent_icon", DEFAULT_COLOR_ACCENT_ICON)
+
+    def clean_color_accent_text(self):
+        return self._clean_hex("color_accent_text", DEFAULT_COLOR_ACCENT_TEXT)
 
     def _clean_hex(self, field_name: str, fallback: str) -> str:
         value = (self.cleaned_data.get(field_name) or "").strip()
@@ -96,8 +103,18 @@ class BrandColorSettingsAdmin(
         (
             "Заливка блоків",
             {
-                "description": "Салатові картки (рекомендований пакет тощо) і акценти заливки.",
+                "description": "Картки, калькулятор (пакет / слайдер / сума), м’які салатові фони.",
                 "fields": ("color_fill",),
+            },
+        ),
+        (
+            "Темні акценти",
+            {
+                "description": "Окремо: іконки/крапки/лапки та акцентний текст (ціни, посилання).",
+                "fields": (
+                    "color_accent_icon",
+                    "color_accent_text",
+                ),
             },
         ),
     )

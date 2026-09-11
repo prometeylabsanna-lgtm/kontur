@@ -18,6 +18,7 @@ from landing.models import (
     SiteSettings,
     StyleItem,
 )
+from landing.privacy_text import ensure_privacy_html
 from landing.site_content_registry import all_registry_block_keys
 
 
@@ -40,21 +41,34 @@ def seed_site_settings() -> None:
         obj.save(update_fields=list(updates.keys()))
 
 
+def _default_block_text(page: str, key: str) -> str:
+    raw = BLOCK_DEFAULTS.get((page, key), "1" if is_visibility_key(key) else "")
+    if page == "privacy" and key == "privacy_body":
+        return ensure_privacy_html(raw)
+    return raw
+
+
 def seed_site_blocks() -> int:
     created = 0
     for page, key in all_registry_block_keys():
         defaults = {
             "label": BLOCK_FIELD_LABELS.get((page, key), key),
             "content_type": BLOCK_CONTENT_TYPES.get((page, key), "text"),
-            "text_html": BLOCK_DEFAULTS.get(
-                (page, key), "1" if is_visibility_key(key) else ""
-            ),
+            "text_html": _default_block_text(page, key),
         }
         _, was_created = SiteBlock.objects.get_or_create(
             page=page, key=key, defaults=defaults
         )
         if was_created:
             created += 1
+
+    # Upgrade plain privacy body → HTML (Vercel/old seeds stored newlines only)
+    privacy = SiteBlock.objects.filter(page="privacy", key="privacy_body").first()
+    if privacy and privacy.text_html:
+        converted = ensure_privacy_html(privacy.text_html)
+        if converted != privacy.text_html:
+            privacy.text_html = converted
+            privacy.save(update_fields=["text_html"])
     return created
 
 

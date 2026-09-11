@@ -25,10 +25,16 @@ def _get_block(page: str, key: str, site_blocks=None) -> SiteBlock | None:
 def get_block_text(page: str, key: str, site_blocks=None, fallback: str | None = None) -> str:
     block = _get_block(page, key, site_blocks=site_blocks)
     if block and block.text_html != "":
-        return block.text_html
-    if fallback is not None:
-        return fallback
-    return BLOCK_DEFAULTS.get((page, key), "")
+        text = block.text_html
+    elif fallback is not None:
+        text = fallback
+    else:
+        text = BLOCK_DEFAULTS.get((page, key), "")
+    if page == "privacy" and key == "privacy_body":
+        from landing.privacy_text import ensure_privacy_html
+
+        return ensure_privacy_html(text)
+    return text
 
 
 def is_section_visible(page, visibility_key, site_blocks=None) -> bool:

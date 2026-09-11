@@ -45,7 +45,7 @@
     ),
     linear-gradient(
       120deg,
-      rgba(223, 242, 80, 0.28) 0%,
+      color-mix(in srgb, var(--accent-fill) 28%, transparent) 0%,
       transparent 48%
     );
 }

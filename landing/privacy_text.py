@@ -118,6 +118,16 @@ def plain_to_html(text: str) -> str:
     return "".join(blocks)
 
 
+def ensure_privacy_html(text: str) -> str:
+    """Повертає HTML: якщо вже розмітка — як є, інакше plain → h2/p."""
+    raw = (text or "").strip()
+    if not raw:
+        return ""
+    if re.search(r"</?(p|h[1-6]|ul|ol|li|br)\b", raw, re.I):
+        return raw
+    return plain_to_html(raw)
+
+
 PRIVACY_BODY_HELP = (
     "Пишіть звичайним текстом без тегів. "
     "Заголовок розділу — окремим рядком, наприклад: «1. Оператор даних». "

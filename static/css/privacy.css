@@ -22,11 +22,18 @@
   font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   margin: 2rem 0 0.75rem;
   color: var(--ink, #1a1a1a);
+  font-weight: 600;
+  line-height: 1.35;
+  max-width: 70ch;
+}
+
+.privacy__body > h2:first-child {
+  margin-top: 1.25rem;
 }
 
 .privacy p {
   color: var(--muted);
-  margin-bottom: 0.85rem;
+  margin: 0 0 0.85rem;
   line-height: 1.65;
   max-width: 70ch;
 }
