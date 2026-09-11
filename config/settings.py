@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
     "tinymce",
     "landing.apps.LandingConfig",
 ]
@@ -64,6 +65,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
+
+# Custom admin widgets live under project templates/ — default DjangoTemplates
+# form renderer only searches django/forms + app templates.
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 TEMPLATES = [
     {
