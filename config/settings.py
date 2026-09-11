@@ -179,6 +179,13 @@ def _sidebar_navigation(request=None):
                     "icon": "settings",
                     "link": reverse_lazy("admin:landing_sitesettings_changelist"),
                 },
+                {
+                    "title": "Колір бренду",
+                    "icon": "palette",
+                    "link": reverse_lazy(
+                        "admin:landing_brandcolorsettings_changelist"
+                    ),
+                },
             ],
         },
         {

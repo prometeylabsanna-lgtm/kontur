@@ -135,6 +135,30 @@ class SiteSettings(models.Model):
         decimal_places=2,
         default=0.10,
     )
+    color_button = models.CharField(
+        "Колір кнопки",
+        max_length=7,
+        default="#dff250",
+        help_text="Заливка акцентних кнопок (формат #RRGGBB)",
+    )
+    color_button_text = models.CharField(
+        "Текст на кнопці",
+        max_length=7,
+        default="#16181a",
+        help_text="Колір тексту / іконок на акцентних кнопках",
+    )
+    color_button_hover = models.CharField(
+        "Кнопка · hover",
+        max_length=7,
+        default="#eaff6b",
+        help_text="Колір кнопки при наведенні",
+    )
+    color_fill = models.CharField(
+        "Заливка блоків",
+        max_length=7,
+        default="#dff250",
+        help_text="Салатова заливка карток і акцентних блоків",
+    )
 
     class Meta:
         verbose_name = "Налаштування сайту"
@@ -151,6 +175,11 @@ class SiteSettings(models.Model):
     @classmethod
     def load(cls):
         return cls.get_solo()
+
+    def brand_theme_css(self) -> str:
+        from .brand_colors import build_brand_theme_css
+
+        return build_brand_theme_css(self)
 
     def calc_config_dict(self) -> dict:
         return {

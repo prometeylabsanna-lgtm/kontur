@@ -1,6 +1,7 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 
+from . import admin_brand_colors  # noqa: F401
 from .admin_site_content_proxies import register_site_content_section_admins
 from .models import Lead
 

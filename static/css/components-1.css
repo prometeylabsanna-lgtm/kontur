@@ -26,12 +26,12 @@
 }
 
 .btn--primary {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--accent-button);
+  color: var(--accent-button-text);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background: var(--accent-hover);
+  background: var(--accent-button-hover);
   transform: translateY(-1px);
 }
 
@@ -60,12 +60,12 @@
 }
 
 .btn--light {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--accent-button);
+  color: var(--accent-button-text);
 }
 
 .btn--light:hover:not(:disabled) {
-  background: var(--accent-hover);
+  background: var(--accent-button-hover);
   transform: translateY(-2px);
 }
 
@@ -228,7 +228,7 @@
 }
 
 .card--rec {
-  --card-fill: var(--accent);
+  --card-fill: var(--accent-fill);
   color: var(--ink);
 }
 

@@ -83,3 +83,10 @@ class PrivacyPageSettings(SiteSettings):
         proxy = True
         verbose_name = "Політика конфіденційності"
         verbose_name_plural = "Політика конфіденційності"
+
+
+class BrandColorSettings(SiteSettings):
+    class Meta:
+        proxy = True
+        verbose_name = "Колір бренду"
+        verbose_name_plural = "Колір бренду"

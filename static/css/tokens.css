@@ -9,11 +9,15 @@
   --border: #dcd8d2;
   --accent: #dff250;
   --accent-hover: #eaff6b;
+  --accent-button: #dff250;
+  --accent-button-hover: #eaff6b;
+  --accent-button-text: #16181a;
+  --accent-fill: #dff250;
   --accent-mark: #a8bc22;
   --accent-deep: #7e8f1c;
   --accent-link: #5f6e12;
   --accent-soft: rgba(223, 242, 80, 0.28);
-  --on-accent: #16181a;
+  --on-accent: var(--accent-button-text);
   --success: #2e6b52;
   --success-soft: rgba(46, 107, 82, 0.1);
   --error: #a13d3d;
