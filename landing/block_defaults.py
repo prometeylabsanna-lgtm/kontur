@@ -136,7 +136,7 @@ _reg(
     label="Посилання на фон (якщо немає файлу)",
     default=(
         "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-        "?auto=format&fit=crop&w=2000&q=88"
+        "?auto=format&fit=crop&w=1280&q=78"
     ),
     inline=True,
 )
@@ -175,7 +175,7 @@ _reg(
     label="Посилання на фото 1",
     default=(
         "https://images.unsplash.com/photo-1503387762-592deb58ef4e"
-        "?auto=format&fit=crop&w=900&q=90"
+        "?auto=format&fit=crop&w=640&q=78"
     ),
     inline=True,
 )
@@ -185,7 +185,7 @@ _reg(
     label="Посилання на фото 2",
     default=(
         "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6"
-        "?auto=format&fit=crop&w=900&q=90"
+        "?auto=format&fit=crop&w=640&q=78"
     ),
     inline=True,
 )
@@ -287,7 +287,7 @@ _reg(
     "home",
     "faq_image_2_static",
     label="Запасне фото 2 (шлях у сайті)",
-    default="img/advantages/adv-warranty.jpg",
+    default="img/advantages/adv-warranty.webp",
     inline=True,
 )
 

@@ -24,10 +24,10 @@
             <button type="button" class="calc-panel__pkg{% if pkg.is_recommended %} is-active{% endif %}" data-rate="{{ pkg.price }}" data-pkg-name="{{ pkg.name }}"{% if pkg.is_recommended %} data-rec{% endif %}>{{ pkg.name }} <span>{{ pkg.price }} $/м²</span></button>
             {% endfor %}
           </div>
-          <p class="calc-panel__label">Площа, м²</p>
+          <p class="calc-panel__label" id="areaLabel">Площа, м²</p>
           <div class="range-row">
-            <input type="range" id="areaRange" min="{{ site_settings.calc_area_min }}" max="{{ site_settings.calc_area_max }}" value="62" />
-            <input class="range-row__num" type="number" id="areaNum" min="{{ site_settings.calc_area_min }}" max="{{ site_settings.calc_area_max }}" value="62" />
+            <input type="range" id="areaRange" min="{{ site_settings.calc_area_min }}" max="{{ site_settings.calc_area_max }}" value="62" aria-labelledby="areaLabel" />
+            <input class="range-row__num" type="number" id="areaNum" min="{{ site_settings.calc_area_min }}" max="{{ site_settings.calc_area_max }}" value="62" aria-labelledby="areaLabel" />
           </div>
         </div>
       </div>

@@ -1,7 +1,47 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from landing.responsive_images import (
+    is_unsplash_url,
+    responsive_src,
+    responsive_srcset,
+    static_webp_candidate,
+)
+
 CREDIT_URL = "https://www.prometeylabs.com/corporate-website-v2/"
+
+
+class ResponsiveImagesTests(TestCase):
+    def test_unsplash_src_reduces_width(self):
+        url = (
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0"
+            "?auto=format&fit=crop&w=2000&q=90"
+        )
+        out = responsive_src(url, default_w=1280, quality=80)
+        self.assertIn("w=1280", out)
+        self.assertIn("q=80", out)
+        self.assertNotIn("w=2000", out)
+
+    def test_srcset_has_multiple_widths(self):
+        url = (
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0"
+            "?auto=format&fit=crop&w=2000&q=90"
+        )
+        srcset = responsive_srcset(url)
+        self.assertIn("640w", srcset)
+        self.assertIn("1280w", srcset)
+        self.assertTrue(is_unsplash_url(url))
+
+    def test_non_unsplash_passthrough(self):
+        url = "/media/hero/photo.webp"
+        self.assertEqual(responsive_src(url), url)
+        self.assertEqual(responsive_srcset(url), "")
+
+    def test_webp_candidate(self):
+        self.assertEqual(
+            static_webp_candidate("img/advantages/adv-odesa.jpg"),
+            "img/advantages/adv-odesa.webp",
+        )
 
 
 class FooterDeveloperLinkTests(TestCase):
@@ -30,6 +70,26 @@ class CookieConsentTests(TestCase):
     def test_privacy_includes_cookie_consent_banner(self):
         response = self.client.get(reverse("landing:privacy"))
         self.assertContains(response, 'id="cookie-consent"')
+
+
+class HomePerfMarkupTests(TestCase):
+    def test_home_has_lcp_preload_and_deferred_css(self):
+        response = self.client.get(reverse("landing:home"))
+        self.assertContains(response, 'rel="preload"')
+        self.assertContains(response, 'as="image"')
+        self.assertContains(response, 'aria-labelledby="areaLabel"')
+        self.assertContains(response, 'role="group"')
+        self.assertContains(
+            response, 'class="sr-only">Переваги Kontur+</h2>', html=False
+        )
+        self.assertContains(response, "media=\"print\" onload=\"this.media='all'\"")
+
+    def test_home_hero_uses_srcset_when_unsplash(self):
+        response = self.client.get(reverse("landing:home"))
+        content = response.content.decode("utf-8")
+        if "images.unsplash.com" in content:
+            self.assertIn("srcset=", content)
+            self.assertIn("640w", content)
 
 
 class PrivacyLayoutTests(TestCase):

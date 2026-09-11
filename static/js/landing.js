@@ -66,7 +66,9 @@
       el.classList.toggle("is-active", n === heroIndex);
     });
     dots.forEach(function (el, n) {
-      el.classList.toggle("is-active", n === heroIndex);
+      var on = n === heroIndex;
+      el.classList.toggle("is-active", on);
+      el.setAttribute("aria-pressed", on ? "true" : "false");
     });
     syncHeroMedia(heroIndex);
   }
@@ -316,12 +318,19 @@
     var next = root.querySelector("[data-adv-next]");
     if (!track || !prev || !next) return;
 
-    function step() {
+    var cachedStep = 0;
+    var syncScheduled = false;
+
+    function measureStep() {
       var card = track.querySelector(".adv-card");
-      if (!card) return Math.round(track.clientWidth * 0.8);
+      if (!card) {
+        cachedStep = Math.round(track.clientWidth * 0.8);
+        return cachedStep;
+      }
       var styles = window.getComputedStyle(track);
       var gap = parseFloat(styles.columnGap || styles.gap) || 16;
-      return Math.round(card.getBoundingClientRect().width + gap);
+      cachedStep = Math.round(card.getBoundingClientRect().width + gap);
+      return cachedStep;
     }
 
     function sync() {
@@ -331,8 +340,18 @@
       next.disabled = x >= max - 2;
     }
 
+    function scheduleSync() {
+      if (syncScheduled) return;
+      syncScheduled = true;
+      window.requestAnimationFrame(function () {
+        syncScheduled = false;
+        sync();
+      });
+    }
+
     function go(dir) {
-      track.scrollBy({ left: dir * step(), behavior: "smooth" });
+      if (!cachedStep) measureStep();
+      track.scrollBy({ left: dir * cachedStep, behavior: "smooth" });
     }
 
     prev.addEventListener("click", function () {
@@ -341,8 +360,16 @@
     next.addEventListener("click", function () {
       go(1);
     });
-    track.addEventListener("scroll", sync, { passive: true });
-    window.addEventListener("resize", sync, { passive: true });
+    track.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener(
+      "resize",
+      function () {
+        measureStep();
+        scheduleSync();
+      },
+      { passive: true }
+    );
+    measureStep();
     sync();
   }
 
@@ -354,12 +381,19 @@
     var next = root.querySelector("[data-reviews-next]");
     if (!track || !prev || !next) return;
 
-    function step() {
+    var cachedStep = 0;
+    var syncScheduled = false;
+
+    function measureStep() {
       var card = track.querySelector(".review");
-      if (!card) return Math.round(track.clientWidth * 0.8);
+      if (!card) {
+        cachedStep = Math.round(track.clientWidth * 0.8);
+        return cachedStep;
+      }
       var styles = window.getComputedStyle(track);
       var gap = parseFloat(styles.columnGap || styles.gap) || 16;
-      return Math.round(card.getBoundingClientRect().width + gap);
+      cachedStep = Math.round(card.getBoundingClientRect().width + gap);
+      return cachedStep;
     }
 
     function sync() {
@@ -370,8 +404,18 @@
       next.disabled = !canScroll || x >= max - 2;
     }
 
+    function scheduleSync() {
+      if (syncScheduled) return;
+      syncScheduled = true;
+      window.requestAnimationFrame(function () {
+        syncScheduled = false;
+        sync();
+      });
+    }
+
     function go(dir) {
-      track.scrollBy({ left: dir * step(), behavior: "smooth" });
+      if (!cachedStep) measureStep();
+      track.scrollBy({ left: dir * cachedStep, behavior: "smooth" });
     }
 
     prev.addEventListener("click", function () {
@@ -380,11 +424,22 @@
     next.addEventListener("click", function () {
       go(1);
     });
-    track.addEventListener("scroll", sync, { passive: true });
-    window.addEventListener("resize", sync, { passive: true });
+    track.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener(
+      "resize",
+      function () {
+        measureStep();
+        scheduleSync();
+      },
+      { passive: true }
+    );
     if (typeof ResizeObserver !== "undefined") {
-      new ResizeObserver(sync).observe(track);
+      new ResizeObserver(function () {
+        measureStep();
+        scheduleSync();
+      }).observe(track);
     }
+    measureStep();
     sync();
   }
 

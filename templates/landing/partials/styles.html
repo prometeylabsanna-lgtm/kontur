@@ -13,7 +13,17 @@
       {% for item in styles %}
       <li class="styles-grid__item reveal reveal--up">
         <div class="styles-grid__thumb" aria-hidden="true">
-          <img src="{{ item.src }}" alt="" width="900" height="562" loading="lazy" />
+          {% with src=item.src|img_src:'card' srcset=item.src|img_srcset:'card' %}
+          <img
+            src="{{ src }}"
+            {% if srcset %}srcset="{{ srcset }}" sizes="{{ 'card'|img_sizes }}"{% endif %}
+            alt=""
+            width="640"
+            height="400"
+            loading="lazy"
+            decoding="async"
+          />
+          {% endwith %}
         </div>
         <h3>{{ item.title }}</h3>
         <p>{{ item.text }}</p>

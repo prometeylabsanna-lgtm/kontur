@@ -5,6 +5,10 @@
 {% block meta_description %}{{ site_settings.meta_description|default:"Політика конфіденційності Kontur+" }}{% endblock %}
 {% block body_class %}page-solid{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/privacy.css' %}" />
+{% endblock %}
+
 {% block body %}
 {% include "landing/partials/header.html" %}
 

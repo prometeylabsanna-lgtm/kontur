@@ -4,10 +4,24 @@
 
   var header = document.getElementById("siteHeader");
   if (header) {
-    var onScroll = function () {
-      header.classList.toggle("is-scrolled", window.scrollY > 24);
+    var scrolled = false;
+    var ticking = false;
+
+    var applyScrollState = function () {
+      ticking = false;
+      var next = window.scrollY > 24;
+      if (next === scrolled) return;
+      scrolled = next;
+      header.classList.toggle("is-scrolled", scrolled);
     };
-    onScroll();
+
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(applyScrollState);
+    };
+
+    applyScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 

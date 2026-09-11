@@ -6,7 +6,7 @@ DEFAULT_HERO_SLIDES = (
     {
         "image_url": (
             "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0"
-            "?auto=format&fit=crop&w=2000&q=90"
+            "?auto=format&fit=crop&w=1280&q=80"
         ),
         "alt_text": "Інтер’єр після ремонту",
         "sort_order": 0,
@@ -14,7 +14,7 @@ DEFAULT_HERO_SLIDES = (
     {
         "image_url": (
             "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-            "?auto=format&fit=crop&w=2000&q=90"
+            "?auto=format&fit=crop&w=1280&q=80"
         ),
         "alt_text": "Сучасна вітальня",
         "sort_order": 1,
@@ -22,7 +22,7 @@ DEFAULT_HERO_SLIDES = (
     {
         "image_url": (
             "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace"
-            "?auto=format&fit=crop&w=2000&q=90"
+            "?auto=format&fit=crop&w=1280&q=80"
         ),
         "alt_text": "Кухня під ключ",
         "sort_order": 2,

@@ -2,13 +2,36 @@ from __future__ import annotations
 
 from django import template
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.utils.html import escape, format_html
+from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
 from landing.block_defaults import BLOCK_DEFAULTS
 from landing.models import SiteBlock
+from landing.responsive_images import (
+    CARD_DEFAULT_W,
+    CARD_QUALITY,
+    CARD_SIZES,
+    CARD_WIDTHS,
+    HERO_DEFAULT_W,
+    HERO_QUALITY,
+    HERO_SIZES,
+    HERO_WIDTHS,
+    SECTION_DEFAULT_W,
+    SECTION_QUALITY,
+    SECTION_SIZES,
+    SECTION_WIDTHS,
+    responsive_src,
+    responsive_srcset,
+    static_webp_candidate,
+)
 
 register = template.Library()
+
+_PRESET = {
+    "hero": (HERO_WIDTHS, HERO_DEFAULT_W, HERO_QUALITY, HERO_SIZES),
+    "section": (SECTION_WIDTHS, SECTION_DEFAULT_W, SECTION_QUALITY, SECTION_SIZES),
+    "card": (CARD_WIDTHS, CARD_DEFAULT_W, CARD_QUALITY, CARD_SIZES),
+}
 
 
 def _blocks(context) -> dict:
@@ -98,6 +121,34 @@ def media_or_static(item, static_attr: str = "image_static"):
         return image.url
     static_path = getattr(item, static_attr, "") or ""
     if static_path:
+        webp = static_webp_candidate(static_path)
+        if webp:
+            try:
+                if staticfiles_storage.exists(webp):
+                    return staticfiles_storage.url(webp)
+            except Exception:
+                pass
         return staticfiles_storage.url(static_path)
     url = getattr(item, "image_url", "") or getattr(item, "src", "") or ""
     return url
+
+
+@register.filter
+def img_src(url, preset: str = "hero") -> str:
+    widths, default_w, quality_map, _sizes = _PRESET.get(preset, _PRESET["hero"])
+    return responsive_src(
+        url or "",
+        default_w=default_w,
+        quality=quality_map.get(default_w),
+    )
+
+
+@register.filter
+def img_srcset(url, preset: str = "hero") -> str:
+    widths, _default_w, quality_map, _sizes = _PRESET.get(preset, _PRESET["hero"])
+    return responsive_srcset(url or "", widths=widths, quality_map=quality_map)
+
+
+@register.filter
+def img_sizes(preset: str = "hero") -> str:
+    return _PRESET.get(preset, _PRESET["hero"])[3]

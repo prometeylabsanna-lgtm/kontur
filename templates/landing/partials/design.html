@@ -24,10 +24,40 @@
       </div>
       <div class="feature-split__media reveal reveal--right" aria-hidden="true">
         <div class="feature-split__frame">
-          <img src="{% if design_img_1 %}{{ design_img_1 }}{% else %}{% block_plain 'home' 'design_image_1_url' %}{% endif %}" alt="" width="900" height="675" loading="lazy" />
+          {% if design_img_1 %}
+          <img src="{{ design_img_1 }}" alt="" width="640" height="480" loading="lazy" decoding="async" />
+          {% else %}
+          {% block_plain 'home' 'design_image_1_url' as design_url_1 %}
+          {% with src=design_url_1|img_src:'card' srcset=design_url_1|img_srcset:'card' %}
+          <img
+            src="{{ src }}"
+            {% if srcset %}srcset="{{ srcset }}" sizes="{{ 'card'|img_sizes }}"{% endif %}
+            alt=""
+            width="640"
+            height="480"
+            loading="lazy"
+            decoding="async"
+          />
+          {% endwith %}
+          {% endif %}
         </div>
         <div class="feature-split__frame">
-          <img src="{% if design_img_2 %}{{ design_img_2 }}{% else %}{% block_plain 'home' 'design_image_2_url' %}{% endif %}" alt="" width="900" height="675" loading="lazy" />
+          {% if design_img_2 %}
+          <img src="{{ design_img_2 }}" alt="" width="640" height="480" loading="lazy" decoding="async" />
+          {% else %}
+          {% block_plain 'home' 'design_image_2_url' as design_url_2 %}
+          {% with src=design_url_2|img_src:'card' srcset=design_url_2|img_srcset:'card' %}
+          <img
+            src="{{ src }}"
+            {% if srcset %}srcset="{{ srcset }}" sizes="{{ 'card'|img_sizes }}"{% endif %}
+            alt=""
+            width="640"
+            height="480"
+            loading="lazy"
+            decoding="async"
+          />
+          {% endwith %}
+          {% endif %}
         </div>
       </div>
     </div>

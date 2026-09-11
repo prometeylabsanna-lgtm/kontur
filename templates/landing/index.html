@@ -1,5 +1,25 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static kontur_content %}
+
+{% block head_preload %}
+{% if hero_slides %}
+  {% with first=hero_slides.0 %}
+    {% if first.kind == 'image' %}
+      {% with src=first.src|img_src:'hero' srcset=first.src|img_srcset:'hero' %}
+  <link
+    rel="preload"
+    as="image"
+    href="{{ src }}"
+    {% if srcset %}imagesrcset="{{ srcset }}" imagesizes="{{ 'hero'|img_sizes }}"{% endif %}
+    fetchpriority="high"
+  />
+      {% endwith %}
+    {% elif first.poster %}
+  <link rel="preload" as="image" href="{{ first.poster|img_src:'hero' }}" fetchpriority="high" />
+    {% endif %}
+  {% endwith %}
+{% endif %}
+{% endblock %}
 
 {% block body %}
 {% include "landing/partials/header.html" %}

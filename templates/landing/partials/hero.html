@@ -8,7 +8,7 @@
       {% if slide.kind == 'video' %}
       <video
         class="hero__video"
-        {% if slide.poster %}poster="{{ slide.poster }}"{% endif %}
+        {% if slide.poster %}poster="{{ slide.poster|img_src:'hero' }}"{% endif %}
         muted
         loop
         playsinline
@@ -18,13 +18,17 @@
         <source src="{{ slide.src }}" type="video/mp4" />
       </video>
       {% else %}
+      {% with src=slide.src|img_src:'hero' srcset=slide.src|img_srcset:'hero' %}
       <img
-        src="{{ slide.src }}"
+        src="{{ src }}"
+        {% if srcset %}srcset="{{ srcset }}" sizes="{{ 'hero'|img_sizes }}"{% endif %}
         alt="{{ slide.alt }}"
-        width="2000"
-        height="1333"
+        width="1600"
+        height="1067"
+        decoding="{% if forloop.first %}sync{% else %}async{% endif %}"
         {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
       />
+      {% endwith %}
       {% endif %}
     </div>
     {% endfor %}
@@ -43,9 +47,15 @@
         <span>{% block_plain 'home' 'hero_trust_2' %}</span>
         <span>{% block_plain 'home' 'hero_trust_3' %}</span>
       </p>
-      <div class="hero__dots" role="tablist" aria-label="Кадри героя">
+      <div class="hero__dots" role="group" aria-label="Кадри героя">
         {% for slide in hero_slides %}
-        <button class="hero__dot{% if forloop.first %} is-active{% endif %}" type="button" data-hero-dot="{{ forloop.counter0 }}" aria-label="Кадр {{ forloop.counter }}"><i></i></button>
+        <button
+          class="hero__dot{% if forloop.first %} is-active{% endif %}"
+          type="button"
+          data-hero-dot="{{ forloop.counter0 }}"
+          aria-label="Кадр {{ forloop.counter }}"
+          aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+        ><i></i></button>
         {% endfor %}
       </div>
     </div>

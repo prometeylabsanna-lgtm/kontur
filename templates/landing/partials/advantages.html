@@ -3,6 +3,7 @@
 {% if show_adv %}
 <section class="section" id="advantages">
   <div class="container">
+    <h2 class="sr-only">Переваги Kontur+</h2>
     <div class="adv-rail reveal reveal--up" data-adv-rail>
       <button class="adv-rail__btn adv-rail__btn--prev" type="button" aria-label="Попередні переваги" data-adv-prev>
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75">
@@ -36,10 +37,11 @@
               <img
                 src="{{ src }}"
                 alt="{{ item.image_alt }}"
-                width="1200"
-                height="675"
+                width="640"
+                height="360"
                 loading="lazy"
                 decoding="async"
+                sizes="{{ 'card'|img_sizes }}"
               />
             </div>
             {% endif %}
