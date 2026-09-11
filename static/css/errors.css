@@ -32,7 +32,7 @@
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: var(--accent, #dff250);
+  color: var(--accent, #b0a091);
 }
 
 .error-page__title {
@@ -58,7 +58,7 @@
   min-height: 2.75rem;
   padding: 0.65rem 1.35rem;
   border-radius: 999px;
-  background: var(--accent, #dff250);
+  background: var(--accent, #b0a091);
   color: var(--ink, #16181a);
   font-size: 0.875rem;
   font-weight: 600;

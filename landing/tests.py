@@ -34,6 +34,9 @@ class CookieConsentTests(TestCase):
 
 class PrivacyLayoutTests(TestCase):
     def test_privacy_body_renders_headings_from_plain_text(self):
+        from django.core.cache import cache
+
+        from landing.context_processors import SITE_BLOCKS_CACHE_KEY
         from landing.models import SiteBlock
 
         SiteBlock.objects.update_or_create(
@@ -51,6 +54,7 @@ class PrivacyLayoutTests(TestCase):
                 ),
             },
         )
+        cache.delete(SITE_BLOCKS_CACHE_KEY)
         response = self.client.get(reverse("landing:privacy"))
         self.assertContains(response, "<h2>1. Оператор даних</h2>", html=False)
         self.assertContains(response, "<h2>2. Які дані ми збираємо</h2>", html=False)

@@ -138,7 +138,7 @@ class SiteSettings(models.Model):
     color_button = models.CharField(
         "Колір кнопки",
         max_length=7,
-        default="#dff250",
+        default="#b1a091",
         help_text="Заливка акцентних кнопок (формат #RRGGBB)",
     )
     color_button_text = models.CharField(
@@ -150,25 +150,25 @@ class SiteSettings(models.Model):
     color_button_hover = models.CharField(
         "Кнопка · hover",
         max_length=7,
-        default="#eaff6b",
+        default="#b0a091",
         help_text="Колір кнопки при наведенні",
     )
     color_fill = models.CharField(
         "Заливка блоків",
         max_length=7,
-        default="#dff250",
+        default="#b0a091",
         help_text="Салатова заливка карток і акцентних блоків",
     )
     color_accent_icon = models.CharField(
         "Акцент · іконки",
         max_length=7,
-        default="#a8bc22",
+        default="#b19d91",
         help_text="Крапки, лапки, іконки футера",
     )
     color_accent_text = models.CharField(
         "Акцент · текст",
         max_length=7,
-        default="#7e8f1c",
+        default="#806252",
         help_text="Ціни в активному пакеті, посилання, темний акцент тексту",
     )
 

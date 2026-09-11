@@ -45,7 +45,7 @@
     ),
     linear-gradient(
       120deg,
-      rgba(223, 242, 80, 0.28) 0%,
+      color-mix(in srgb, var(--accent-fill) 28%, transparent) 0%,
       transparent 48%
     );
 }
@@ -80,7 +80,7 @@
 }
 
 .packages .card--rec {
-  --card-fill: rgba(223, 242, 80, 0.42);
+  --card-fill: color-mix(in srgb, var(--accent-fill) 42%, transparent);
 }
 
 .packages .card__panel {
@@ -117,7 +117,7 @@
   }
 
   .packages .card--rec {
-    --card-fill: rgba(223, 242, 80, 0.9);
+    --card-fill: color-mix(in srgb, var(--accent-fill) 90%, transparent);
   }
 }
 
@@ -132,7 +132,7 @@
       ),
       linear-gradient(
         160deg,
-        rgba(223, 242, 80, 0.22) 0%,
+        color-mix(in srgb, var(--accent-fill) 22%, transparent) 0%,
         transparent 52%
       );
   }

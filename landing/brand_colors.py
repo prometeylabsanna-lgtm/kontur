@@ -6,12 +6,21 @@ import re
 
 HEX_COLOR_RE = re.compile(r"^#[0-9A-Fa-f]{6}$")
 
-DEFAULT_COLOR_BUTTON = "#dff250"
+DEFAULT_COLOR_BUTTON = "#b1a091"
 DEFAULT_COLOR_BUTTON_TEXT = "#16181a"
-DEFAULT_COLOR_BUTTON_HOVER = "#eaff6b"
-DEFAULT_COLOR_FILL = "#dff250"
-DEFAULT_COLOR_ACCENT_ICON = "#a8bc22"
-DEFAULT_COLOR_ACCENT_TEXT = "#7e8f1c"
+DEFAULT_COLOR_BUTTON_HOVER = "#b0a091"
+DEFAULT_COLOR_FILL = "#b0a091"
+DEFAULT_COLOR_ACCENT_ICON = "#b19d91"
+DEFAULT_COLOR_ACCENT_TEXT = "#806252"
+
+BRAND_COLOR_DEFAULTS = {
+    "color_button": DEFAULT_COLOR_BUTTON,
+    "color_button_text": DEFAULT_COLOR_BUTTON_TEXT,
+    "color_button_hover": DEFAULT_COLOR_BUTTON_HOVER,
+    "color_fill": DEFAULT_COLOR_FILL,
+    "color_accent_icon": DEFAULT_COLOR_ACCENT_ICON,
+    "color_accent_text": DEFAULT_COLOR_ACCENT_TEXT,
+}
 
 
 def normalize_hex(value: str | None, fallback: str) -> str:

@@ -1,4 +1,4 @@
-/* Kontur+ design tokens — Landing v2 lime / cream / pill */
+/* Kontur+ design tokens — Landing v2 taupe / cream / pill */
 :root {
   --canvas: #f7f6f4;
   --surface: #ffffff;
@@ -7,15 +7,15 @@
   --muted: #6b6560;
   --muted-deep: #4a4642;
   --border: #dcd8d2;
-  --accent: #dff250;
-  --accent-hover: #eaff6b;
-  --accent-button: #dff250;
-  --accent-button-hover: #eaff6b;
+  --accent: #b0a091;
+  --accent-hover: #b0a091;
+  --accent-button: #b1a091;
+  --accent-button-hover: #b0a091;
   --accent-button-text: #16181a;
-  --accent-fill: #dff250;
-  --accent-mark: #a8bc22;
-  --accent-deep: #7e8f1c;
-  --accent-link: #5f6e12;
+  --accent-fill: #b0a091;
+  --accent-mark: #b19d91;
+  --accent-deep: #806252;
+  --accent-link: #806252;
   --accent-soft: color-mix(in srgb, var(--accent-fill) 28%, transparent);
   --on-accent: var(--accent-button-text);
   --success: #2e6b52;
