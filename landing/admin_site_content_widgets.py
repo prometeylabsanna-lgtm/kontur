@@ -80,9 +80,15 @@ def cms_control_classes(base_classes) -> list[str]:
     return cleaned
 
 
-class CmsAdminImageWidget(UnfoldAdminImageFieldWidget):
-    """File input з компактним thumbnail лише для вже завантажених Media."""
+def _with_cms_classes(attrs, base_classes) -> dict:
+    attrs = dict(attrs or {})
+    classes = cms_control_classes(base_classes)
+    existing = attrs.get("class", "")
+    attrs["class"] = f"{' '.join(classes)} {existing}".strip()
+    return attrs
 
+
+class CmsAdminImageWidget(UnfoldAdminImageFieldWidget):
     template_name = "admin/landing/widgets/cms_image_input.html"
 
     def __init__(self, attrs=None):
@@ -92,30 +98,17 @@ class CmsAdminImageWidget(UnfoldAdminImageFieldWidget):
 
 class CmsAdminTextInputWidget(AdminTextInputWidget):
     def __init__(self, attrs=None):
-        attrs = dict(attrs or {})
-        classes = cms_control_classes(INPUT_CLASSES)
-        existing = attrs.get("class", "")
-        attrs["class"] = f"{' '.join(classes)} {existing}".strip()
-        super().__init__(attrs=attrs)
+        super().__init__(attrs=_with_cms_classes(attrs, INPUT_CLASSES))
 
 
 class CmsAdminNumberInputWidget(forms.NumberInput):
-    """Number input з тими ж рамкою/фоном, що й текстові CMS-поля."""
-
     def __init__(self, attrs=None):
-        attrs = dict(attrs or {})
-        classes = cms_control_classes(INPUT_CLASSES)
-        existing = attrs.get("class", "")
-        attrs["class"] = f"{' '.join(classes)} {existing}".strip()
-        super().__init__(attrs=attrs)
+        super().__init__(attrs=_with_cms_classes(attrs, INPUT_CLASSES))
 
 
 class CmsAdminTextareaWidget(AdminTextareaWidget):
     def __init__(self, attrs=None):
-        attrs = dict(attrs or {})
-        classes = cms_control_classes(TEXTAREA_CLASSES)
-        existing = attrs.get("class", "")
-        attrs["class"] = f"{' '.join(classes)} {existing}".strip()
+        attrs = _with_cms_classes(attrs, TEXTAREA_CLASSES)
         if "rows" not in attrs:
             attrs["rows"] = 3
         super().__init__(attrs=attrs)

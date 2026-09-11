@@ -1,5 +1,3 @@
-"""Extra ModelForms for CMS sections (calculator formula, Google rating)."""
-
 from __future__ import annotations
 
 from decimal import Decimal

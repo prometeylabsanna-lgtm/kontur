@@ -1,5 +1,3 @@
-"""Brand accent colors — defaults and CSS variable mapping."""
-
 from __future__ import annotations
 
 import re

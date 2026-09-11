@@ -94,26 +94,6 @@ def block_image_src(context, page: str, key: str, fallback_static: str = "", fal
     return ""
 
 
-@register.simple_tag(takes_context=True)
-def block_image(context, page: str, key: str, css_class: str = "", alt: str = "", fallback_static: str = "", fallback_url: str = "", width: str = "", height: str = "", loading: str = "lazy"):
-    src = block_image_src(
-        context, page, key, fallback_static=fallback_static, fallback_url=fallback_url
-    )
-    if not src:
-        return ""
-    attrs = [f'src="{escape(src)}"', f'alt="{escape(alt)}"']
-    if css_class:
-        attrs.append(f'class="{escape(css_class)}"')
-    if width:
-        attrs.append(f'width="{escape(width)}"')
-    if height:
-        attrs.append(f'height="{escape(height)}"')
-    if loading:
-        attrs.append(f'loading="{escape(loading)}"')
-    attrs.append('decoding="async"')
-    return mark_safe(f"<img {' '.join(attrs)} />")
-
-
 @register.filter
 def media_or_static(item, static_attr: str = "image_static"):
     image = getattr(item, "image", None)

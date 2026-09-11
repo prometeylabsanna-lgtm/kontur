@@ -105,22 +105,3 @@ def build_hero_slide_formset(data=None, files=None):
         queryset=qs,
         prefix="hero_slides",
     )
-
-
-def save_hero_slide_formset(formset) -> None:
-    instances = formset.save(commit=False)
-    for obj in formset.deleted_objects:
-        obj.delete()
-    kept = []
-    for form in formset.forms:
-        if not hasattr(form, "cleaned_data") or not form.cleaned_data:
-            continue
-        if form.cleaned_data.get("DELETE"):
-            continue
-        if form.cleaned_data.get("_skip"):
-            continue
-        instance = form.save(commit=False)
-        kept.append(instance)
-    for idx, instance in enumerate(kept):
-        instance.sort_order = idx
-        instance.save()

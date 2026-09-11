@@ -184,7 +184,7 @@ class SiteSettings(models.Model):
         "Заливка блоків",
         max_length=7,
         default="#b0a091",
-        help_text="Салатова заливка карток і акцентних блоків",
+        help_text="Заливка карток і акцентних блоків",
     )
     color_accent_icon = models.CharField(
         "Акцент · іконки",
@@ -216,10 +216,6 @@ class SiteSettings(models.Model):
     def get_solo(cls):
         obj, _ = cls.objects.get_or_create(pk=1)
         return obj
-
-    @classmethod
-    def load(cls):
-        return cls.get_solo()
 
     def brand_theme_css(self) -> str:
         from .brand_colors import build_brand_theme_css

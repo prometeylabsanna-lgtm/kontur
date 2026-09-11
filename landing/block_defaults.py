@@ -1,5 +1,3 @@
-"""Defaults / labels / types for SiteBlock CMS. No model imports."""
-
 from __future__ import annotations
 
 BLOCK_CONTENT_TYPES: dict[tuple[str, str], str] = {}

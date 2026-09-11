@@ -175,7 +175,6 @@
 
   function openModal(trigger) {
     if (!modal) return;
-    fillLeadMeta(trigger || null);
     if (modalDefault) modalDefault.hidden = false;
     if (modalSuccess) modalSuccess.hidden = true;
     if (form) form.reset();
@@ -312,80 +311,17 @@
     });
   }
 
-  function initAdvRail(root) {
-    var track = root.querySelector("[data-adv-track]");
-    var prev = root.querySelector("[data-adv-prev]");
-    var next = root.querySelector("[data-adv-next]");
+  function initRail(root, opts) {
+    var track = root.querySelector(opts.track);
+    var prev = root.querySelector(opts.prev);
+    var next = root.querySelector(opts.next);
     if (!track || !prev || !next) return;
 
     var cachedStep = 0;
     var syncScheduled = false;
 
     function measureStep() {
-      var card = track.querySelector(".adv-card");
-      if (!card) {
-        cachedStep = Math.round(track.clientWidth * 0.8);
-        return cachedStep;
-      }
-      var styles = window.getComputedStyle(track);
-      var gap = parseFloat(styles.columnGap || styles.gap) || 16;
-      cachedStep = Math.round(card.getBoundingClientRect().width + gap);
-      return cachedStep;
-    }
-
-    function sync() {
-      var max = track.scrollWidth - track.clientWidth;
-      var x = track.scrollLeft;
-      prev.disabled = x <= 2;
-      next.disabled = x >= max - 2;
-    }
-
-    function scheduleSync() {
-      if (syncScheduled) return;
-      syncScheduled = true;
-      window.requestAnimationFrame(function () {
-        syncScheduled = false;
-        sync();
-      });
-    }
-
-    function go(dir) {
-      if (!cachedStep) measureStep();
-      track.scrollBy({ left: dir * cachedStep, behavior: "smooth" });
-    }
-
-    prev.addEventListener("click", function () {
-      go(-1);
-    });
-    next.addEventListener("click", function () {
-      go(1);
-    });
-    track.addEventListener("scroll", scheduleSync, { passive: true });
-    window.addEventListener(
-      "resize",
-      function () {
-        measureStep();
-        scheduleSync();
-      },
-      { passive: true }
-    );
-    measureStep();
-    sync();
-  }
-
-  document.querySelectorAll("[data-adv-rail]").forEach(initAdvRail);
-
-  function initReviewsRail(root) {
-    var track = root.querySelector("[data-reviews-track]");
-    var prev = root.querySelector("[data-reviews-prev]");
-    var next = root.querySelector("[data-reviews-next]");
-    if (!track || !prev || !next) return;
-
-    var cachedStep = 0;
-    var syncScheduled = false;
-
-    function measureStep() {
-      var card = track.querySelector(".review");
+      var card = track.querySelector(opts.card);
       if (!card) {
         cachedStep = Math.round(track.clientWidth * 0.8);
         return cachedStep;
@@ -443,7 +379,22 @@
     sync();
   }
 
-  document.querySelectorAll("[data-reviews-rail]").forEach(initReviewsRail);
+  document.querySelectorAll("[data-adv-rail]").forEach(function (root) {
+    initRail(root, {
+      track: "[data-adv-track]",
+      prev: "[data-adv-prev]",
+      next: "[data-adv-next]",
+      card: ".adv-card",
+    });
+  });
+  document.querySelectorAll("[data-reviews-rail]").forEach(function (root) {
+    initRail(root, {
+      track: "[data-reviews-track]",
+      prev: "[data-reviews-prev]",
+      next: "[data-reviews-next]",
+      card: ".review",
+    });
+  });
 
   document.querySelectorAll("[data-google-reviews]").forEach(function (link) {
     link.addEventListener("click", function (e) {

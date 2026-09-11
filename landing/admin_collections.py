@@ -6,7 +6,7 @@ from django import forms
 from django.forms import BaseModelFormSet, modelformset_factory
 
 from .admin_guidelines import get_image_hint
-from .admin_hero_slides import build_hero_slide_formset, save_hero_slide_formset
+from .admin_hero_slides import build_hero_slide_formset
 from .admin_site_content_widgets import (
     CmsAdminImageWidget,
     CmsAdminTextInputWidget,
@@ -411,7 +411,7 @@ SECTION_COLLECTIONS: dict[str, tuple[dict, ...]] = {
             "hint": "Додавайте фото, змінюйте порядок. Можна файл або посилання.",
             "add_label": "Додати фото",
             "build": build_hero_slide_formset,
-            "save": save_hero_slide_formset,
+            "save": _save_ordered_formset,
         },
     ),
     "advantages": (

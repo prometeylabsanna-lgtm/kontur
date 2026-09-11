@@ -40,7 +40,6 @@ def _is_placeholder_url(url: str) -> bool:
 
 
 def ensure_default_hero_slides(*, repair_placeholders: bool = True) -> int:
-    """Create defaults if empty; optionally replace example.com placeholders."""
     if not HeroSlide.objects.exists():
         created = 0
         for item in DEFAULT_HERO_SLIDES:
