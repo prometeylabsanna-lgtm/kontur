@@ -15,9 +15,11 @@ from .brand_colors import (
     DEFAULT_COLOR_BUTTON,
     DEFAULT_COLOR_BUTTON_HOVER,
     DEFAULT_COLOR_BUTTON_TEXT,
+    DEFAULT_COLOR_FAVICON,
     DEFAULT_COLOR_FILL,
     HEX_COLOR_RE,
 )
+from .favicon import clear_favicon_render_cache
 from .models_proxies import BrandColorSettings
 
 
@@ -41,6 +43,7 @@ _COLOR_DEFAULTS = {
     "color_fill": DEFAULT_COLOR_FILL,
     "color_accent_icon": DEFAULT_COLOR_ACCENT_ICON,
     "color_accent_text": DEFAULT_COLOR_ACCENT_TEXT,
+    "color_favicon": DEFAULT_COLOR_FAVICON,
 }
 
 
@@ -75,6 +78,9 @@ class BrandColorForm(forms.ModelForm):
 
     def clean_color_accent_text(self):
         return self._clean_hex("color_accent_text", DEFAULT_COLOR_ACCENT_TEXT)
+
+    def clean_color_favicon(self):
+        return self._clean_hex("color_favicon", DEFAULT_COLOR_FAVICON)
 
     def _clean_hex(self, field_name: str, fallback: str) -> str:
         value = (self.cleaned_data.get(field_name) or "").strip()
@@ -117,7 +123,18 @@ class BrandColorSettingsAdmin(
                 ),
             },
         ),
+        (
+            "Фавіконка",
+            {
+                "description": "Колір знака K+ у вкладці браузера (сайт і адмінка). Фон іконки лишається чорним.",
+                "fields": ("color_favicon",),
+            },
+        ),
     )
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        clear_favicon_render_cache()
 
     class Media:
         css = {"all": ("css/admin/brand_colors.css",)}

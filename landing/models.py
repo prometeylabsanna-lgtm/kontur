@@ -198,6 +198,12 @@ class SiteSettings(models.Model):
         default="#806252",
         help_text="Ціни в активному пакеті, посилання, темний акцент тексту",
     )
+    color_favicon = models.CharField(
+        "Колір фавіконки",
+        max_length=7,
+        default="#92817c",
+        help_text="Колір знака K+ у вкладці браузера (фон лишається чорним)",
+    )
 
     class Meta:
         verbose_name = "Налаштування сайту"

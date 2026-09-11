@@ -1,9 +1,10 @@
 import json
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_POST
 
+from .favicon import render_favicon_ico, render_favicon_png, resolve_favicon_color
 from .forms import LeadForm
 from .google_places import public_reviews_queryset
 from .hero_slides import get_hero_slides
@@ -57,6 +58,24 @@ def home(request):
 @require_GET
 def privacy(request):
     return render(request, "landing/privacy.html")
+
+
+@require_GET
+def favicon_png(request, size: int):
+    color = resolve_favicon_color()
+    payload = render_favicon_png(color, size)
+    response = HttpResponse(payload, content_type="image/png")
+    response["Cache-Control"] = "public, max-age=604800, immutable"
+    return response
+
+
+@require_GET
+def favicon_ico(request):
+    color = resolve_favicon_color()
+    payload = render_favicon_ico(color)
+    response = HttpResponse(payload, content_type="image/x-icon")
+    response["Cache-Control"] = "public, max-age=604800, immutable"
+    return response
 
 
 def bad_request(request, exception=None):

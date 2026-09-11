@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-from django.templatetags.static import static
 from django.urls import reverse_lazy
 from decouple import Csv, config
 
@@ -214,6 +213,22 @@ def _sidebar_navigation(request=None):
     ]
 
 
+def _brand_favicon_href(size: int | None = None):
+    """Динамічна фавіконка з color_favicon (кеш-бастинг у query)."""
+
+    def _href(request):
+        from django.urls import reverse
+
+        from landing.favicon import favicon_cache_bust
+
+        v = favicon_cache_bust()
+        if size is None:
+            return f"{reverse('landing:favicon_ico')}?v={v}"
+        return f"{reverse('landing:favicon_png', kwargs={'size': size})}?v={v}"
+
+    return _href
+
+
 UNFOLD = {
     "SITE_TITLE": "Kontur+",
     "SITE_HEADER": "Kontur+",
@@ -222,24 +237,24 @@ UNFOLD = {
             "rel": "icon",
             "sizes": "32x32",
             "type": "image/png",
-            "href": lambda request: static("img/favicon-32x32.png"),
+            "href": _brand_favicon_href(32),
         },
         {
             "rel": "icon",
             "sizes": "16x16",
             "type": "image/png",
-            "href": lambda request: static("img/favicon-16x16.png"),
+            "href": _brand_favicon_href(16),
         },
         {
             "rel": "apple-touch-icon",
             "sizes": "180x180",
             "type": "image/png",
-            "href": lambda request: static("img/apple-touch-icon.png"),
+            "href": _brand_favicon_href(180),
         },
         {
             "rel": "shortcut icon",
             "type": "image/x-icon",
-            "href": lambda request: static("img/favicon.ico"),
+            "href": _brand_favicon_href(),
         },
     ],
     "COLORS": {

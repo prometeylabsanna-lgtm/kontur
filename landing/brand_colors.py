@@ -12,6 +12,8 @@ DEFAULT_COLOR_BUTTON_HOVER = "#b0a091"
 DEFAULT_COLOR_FILL = "#b0a091"
 DEFAULT_COLOR_ACCENT_ICON = "#b19d91"
 DEFAULT_COLOR_ACCENT_TEXT = "#806252"
+# Поточний taupe «K+» у static/img/favicon.png
+DEFAULT_COLOR_FAVICON = "#92817c"
 
 BRAND_COLOR_DEFAULTS = {
     "color_button": DEFAULT_COLOR_BUTTON,
@@ -20,6 +22,7 @@ BRAND_COLOR_DEFAULTS = {
     "color_fill": DEFAULT_COLOR_FILL,
     "color_accent_icon": DEFAULT_COLOR_ACCENT_ICON,
     "color_accent_text": DEFAULT_COLOR_ACCENT_TEXT,
+    "color_favicon": DEFAULT_COLOR_FAVICON,
 }
 
 
@@ -49,6 +52,9 @@ def build_brand_theme_css(settings_obj) -> str:
     accent_text = normalize_hex(
         getattr(settings_obj, "color_accent_text", None), DEFAULT_COLOR_ACCENT_TEXT
     )
+    favicon = normalize_hex(
+        getattr(settings_obj, "color_favicon", None), DEFAULT_COLOR_FAVICON
+    )
     return (
         f"--accent-button:{button};"
         f"--accent-button-hover:{hover};"
@@ -60,4 +66,5 @@ def build_brand_theme_css(settings_obj) -> str:
         f"--accent-deep:{accent_text};"
         f"--accent-link:{accent_text};"
         f"--accent-hover:{hover};"
+        f"--favicon-mark:{favicon};"
     )

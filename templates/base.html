@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{% block title %}Kontur+ — ремонт під ключ в Одесі{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}Ремонт квартир під ключ в Одесі з фіксованою ціною за м². Пакети, дизайн, калькулятор вартості.{% endblock %}" />
-  <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}" />
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}" />
-  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}" />
+  <link rel="icon" href="{% url 'landing:favicon_ico' %}?v={{ site_settings.color_favicon|cut:'#' }}" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{% url 'landing:favicon_png' size=32 %}?v={{ site_settings.color_favicon|cut:'#' }}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{% url 'landing:favicon_png' size=16 %}?v={{ site_settings.color_favicon|cut:'#' }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% url 'landing:favicon_png' size=180 %}?v={{ site_settings.color_favicon|cut:'#' }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />

@@ -132,3 +132,34 @@ class AdminUrlHardeningTests(TestCase):
     def test_custom_cms_url_is_reachable(self):
         response = self.client.get("/kontur-plus-cms/")
         self.assertIn(response.status_code, (200, 302))
+
+
+class FaviconColorTests(TestCase):
+    def test_home_links_dynamic_favicon(self):
+        from landing.models import SiteSettings
+
+        settings_obj = SiteSettings.get_solo()
+        settings_obj.color_favicon = "#c4a484"
+        settings_obj.save(update_fields=["color_favicon"])
+
+        response = self.client.get(reverse("landing:home"))
+        self.assertContains(response, "/favicon-32.png?v=c4a484")
+        self.assertContains(response, "/favicon.ico?v=c4a484")
+
+    def test_favicon_png_is_colored_png(self):
+        from landing.models import SiteSettings
+
+        settings_obj = SiteSettings.get_solo()
+        settings_obj.color_favicon = "#aabbcc"
+        settings_obj.save(update_fields=["color_favicon"])
+
+        response = self.client.get(reverse("landing:favicon_png", kwargs={"size": 32}))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "image/png")
+        self.assertTrue(response.content.startswith(b"\x89PNG"))
+
+    def test_favicon_ico_ok(self):
+        response = self.client.get(reverse("landing:favicon_ico"))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("image/", response["Content-Type"])
+        self.assertGreater(len(response.content), 64)
