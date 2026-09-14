@@ -27,13 +27,13 @@ class HexColorInput(forms.TextInput):
     input_type = "color"
     template_name = "admin/landing/widgets/cms_color_input.html"
 
-    def __init__(self, attrs=None, default_color="#b1a091"):
+    def __init__(self, attrs=None, default_color="#f2cfaa"):
         base = {
             "class": "cms-color-input__picker",
         }
         if attrs:
             base.update(attrs)
-        self.default_color = (default_color or "#b1a091").lower()
+        self.default_color = (default_color or "#f2cfaa").lower()
         super().__init__(attrs=base)
 
     def get_context(self, name, value, attrs):

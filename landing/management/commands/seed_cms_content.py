@@ -23,12 +23,12 @@ from landing.brand_colors import BRAND_COLOR_DEFAULTS
 from landing.site_content_registry import all_registry_block_keys
 
 _LEGACY_LIME_COLORS = {
-    "color_button": {"#dff250"},
+    "color_button": {"#dff250", "#b1a091"},
     "color_button_text": set(),
-    "color_button_hover": {"#eaff6b"},
-    "color_fill": {"#dff250"},
-    "color_accent_icon": {"#a8bc22"},
-    "color_accent_text": {"#7e8f1c", "#5f6e12"},
+    "color_button_hover": {"#eaff6b", "#b0a091"},
+    "color_fill": {"#dff250", "#b0a091"},
+    "color_accent_icon": {"#a8bc22", "#b19d91"},
+    "color_accent_text": {"#7e8f1c", "#5f6e12", "#806252"},
 }
 
 
@@ -45,7 +45,7 @@ def seed_site_settings() -> None:
         updates["city"] = "Одеса"
     if not obj.work_hours:
         updates["work_hours"] = "Пн–Сб · 09:00–19:00"
-    # Migrate old lime defaults → taupe once; do not overwrite custom admin colors.
+    # Migrate old lime/taupe defaults → peach once; do not overwrite custom admin colors.
     for key, value in BRAND_COLOR_DEFAULTS.items():
         current = (getattr(obj, key, None) or "").strip().lower()
         legacy = {c.lower() for c in _LEGACY_LIME_COLORS.get(key, set())}
