@@ -22,6 +22,9 @@ from landing.responsive_images import (
     SECTION_WIDTHS,
     responsive_src,
     responsive_srcset,
+    static_path_stem,
+    static_responsive_src,
+    static_responsive_srcset,
     static_webp_candidate,
 )
 
@@ -101,16 +104,40 @@ def media_or_static(item, static_attr: str = "image_static"):
         return image.url
     static_path = getattr(item, static_attr, "") or ""
     if static_path:
+        stem = static_path_stem(static_path)
+        if stem:
+            local = static_responsive_src(
+                stem, default_w=CARD_DEFAULT_W, widths=CARD_WIDTHS
+            )
+            if local:
+                return local
         webp = static_webp_candidate(static_path)
         if webp:
-            try:
-                if staticfiles_storage.exists(webp):
-                    return staticfiles_storage.url(webp)
-            except Exception:
-                pass
+            from django.contrib.staticfiles import finders
+
+            if finders.find(webp):
+                return staticfiles_storage.url(webp)
         return staticfiles_storage.url(static_path)
     url = getattr(item, "image_url", "") or getattr(item, "src", "") or ""
-    return url
+    return responsive_src(
+        url, default_w=CARD_DEFAULT_W, quality=CARD_QUALITY.get(CARD_DEFAULT_W), widths=CARD_WIDTHS
+    )
+
+
+@register.filter
+def media_srcset(item, preset: str = "card") -> str:
+    """Srcset для image_static / URL; порожньо для завантаженого ImageField."""
+    image = getattr(item, "image", None)
+    if image:
+        return ""
+    widths, default_w, quality_map, _sizes = _PRESET.get(preset, _PRESET["card"])
+    static_path = getattr(item, "image_static", "") or ""
+    if static_path:
+        stem = static_path_stem(static_path)
+        if stem:
+            return static_responsive_srcset(stem, widths=widths)
+    url = getattr(item, "image_url", "") or getattr(item, "src", "") or ""
+    return responsive_srcset(url, widths=widths, quality_map=quality_map)
 
 
 @register.filter
@@ -120,6 +147,7 @@ def img_src(url, preset: str = "hero") -> str:
         url or "",
         default_w=default_w,
         quality=quality_map.get(default_w),
+        widths=widths,
     )
 
 

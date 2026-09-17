@@ -3,6 +3,7 @@ from django.urls import reverse
 
 from landing.responsive_images import (
     is_unsplash_url,
+    local_stem_for_url,
     responsive_src,
     responsive_srcset,
     static_webp_candidate,
@@ -14,7 +15,7 @@ CREDIT_URL = "https://www.prometeylabs.com/corporate-website-v2/"
 class ResponsiveImagesTests(TestCase):
     def test_unsplash_src_reduces_width(self):
         url = (
-            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0"
+            "https://images.unsplash.com/photo-9999999999999-ffffffffffff"
             "?auto=format&fit=crop&w=2000&q=90"
         )
         out = responsive_src(url, default_w=1280, quality=80)
@@ -24,13 +25,27 @@ class ResponsiveImagesTests(TestCase):
 
     def test_srcset_has_multiple_widths(self):
         url = (
-            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0"
+            "https://images.unsplash.com/photo-9999999999999-ffffffffffff"
             "?auto=format&fit=crop&w=2000&q=90"
         )
         srcset = responsive_srcset(url)
         self.assertIn("640w", srcset)
         self.assertIn("1280w", srcset)
         self.assertTrue(is_unsplash_url(url))
+
+    def test_known_unsplash_maps_to_local_stem(self):
+        url = (
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0"
+            "?auto=format&fit=crop&w=2000&q=90"
+        )
+        self.assertEqual(local_stem_for_url(url), "img/hero/hero-01")
+        out = responsive_src(url, default_w=960)
+        self.assertIn("hero-01", out)
+        self.assertNotIn("images.unsplash.com", out)
+        srcset = responsive_srcset(url)
+        self.assertIn("640w", srcset)
+        self.assertIn("960w", srcset)
+        self.assertIn("hero-01-640", srcset)
 
     def test_non_unsplash_passthrough(self):
         url = "/media/hero/photo.webp"
@@ -87,9 +102,11 @@ class HomePerfMarkupTests(TestCase):
     def test_home_hero_uses_srcset_when_unsplash(self):
         response = self.client.get(reverse("landing:home"))
         content = response.content.decode("utf-8")
-        if "images.unsplash.com" in content:
-            self.assertIn("srcset=", content)
-            self.assertIn("640w", content)
+        self.assertIn("srcset=", content)
+        self.assertIn("640w", content)
+        self.assertIn("hero-01", content)
+        self.assertNotIn("fonts.googleapis.com", content)
+        self.assertIn("css/fonts.css", content)
 
 
 class PrivacyLayoutTests(TestCase):

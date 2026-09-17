@@ -31,17 +31,17 @@
               <h3 class="adv-card__title">{{ item.title }}</h3>
               <p class="adv-card__text">{{ item.text }}</p>
             </div>
-            {% with src=item|media_or_static %}
+            {% with src=item|media_or_static srcset=item|media_srcset:'card' %}
             {% if src %}
             <div class="adv-card__media">
               <img
                 src="{{ src }}"
+                {% if srcset %}srcset="{{ srcset }}" sizes="{{ 'card'|img_sizes }}"{% endif %}
                 alt="{{ item.image_alt }}"
                 width="640"
                 height="360"
                 loading="lazy"
                 decoding="async"
-                sizes="{{ 'card'|img_sizes }}"
               />
             </div>
             {% endif %}

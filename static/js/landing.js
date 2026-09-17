@@ -114,7 +114,6 @@
   });
 
   var modal = document.getElementById("leadModal");
-  var modalCtx = document.getElementById("modalCtx");
   var modalDefault = document.getElementById("modalDefault");
   var modalSuccess = document.getElementById("modalSuccess");
   var form = document.getElementById("leadForm");
@@ -170,7 +169,6 @@
     setHidden("leadContext", ctx);
     setHidden("leadPackage", pkg);
     applyUtmFields();
-    if (modalCtx) modalCtx.textContent = "Контекст: " + ctx;
   }
 
   function openModal(trigger) {

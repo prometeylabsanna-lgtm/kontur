@@ -86,6 +86,7 @@
       <p class="site-footer__privacy">
         <a href="{% url 'landing:privacy' %}">Політика конфіденційності</a>
       </p>
+      {# Credit is hardcoded — not a SiteBlock; cannot be removed via admin CMS. #}
       <p class="site-footer__credit">
         Розробка —
         {% if request.resolver_match.url_name == 'home' %}

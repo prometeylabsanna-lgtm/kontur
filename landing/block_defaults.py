@@ -132,10 +132,7 @@ _reg(
     "home",
     "packages_bg_url",
     label="Посилання на фон (якщо немає файлу)",
-    default=(
-        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-        "?auto=format&fit=crop&w=1280&q=78"
-    ),
+    default="img/packages/packages-bg.webp",
     inline=True,
 )
 
@@ -171,20 +168,14 @@ _reg(
     "home",
     "design_image_1_url",
     label="Посилання на фото 1",
-    default=(
-        "https://images.unsplash.com/photo-1503387762-592deb58ef4e"
-        "?auto=format&fit=crop&w=640&q=78"
-    ),
+    default="img/design/design-01.webp",
     inline=True,
 )
 _reg(
     "home",
     "design_image_2_url",
     label="Посилання на фото 2",
-    default=(
-        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6"
-        "?auto=format&fit=crop&w=640&q=78"
-    ),
+    default="img/design/design-02.webp",
     inline=True,
 )
 
