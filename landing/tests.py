@@ -151,6 +151,61 @@ class AdminUrlHardeningTests(TestCase):
         self.assertIn(response.status_code, (200, 302))
 
 
+class AdminAccountPagesTests(TestCase):
+    def setUp(self):
+        from django.contrib.auth import get_user_model
+
+        User = get_user_model()
+        self.user = User.objects.create_superuser(
+            username="cms-admin",
+            email="admin@example.com",
+            password="OldPass123!",
+        )
+        self.client.force_login(self.user)
+
+    def test_password_change_page(self):
+        response = self.client.get(reverse("admin:password_change"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "old_password")
+        self.assertContains(response, "new_password1")
+
+    def test_password_change_keeps_session(self):
+        response = self.client.post(
+            reverse("admin:password_change"),
+            {
+                "old_password": "OldPass123!",
+                "new_password1": "NewPass456!",
+                "new_password2": "NewPass456!",
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        follow = self.client.get(reverse("admin:index"))
+        self.assertEqual(follow.status_code, 200)
+
+    def test_recent_actions_page(self):
+        from django.contrib.admin.models import CHANGE, LogEntry
+        from django.contrib.contenttypes.models import ContentType
+
+        LogEntry.objects.log_action(
+            user_id=self.user.pk,
+            content_type_id=ContentType.objects.get_for_model(self.user).pk,
+            object_id=str(self.user.pk),
+            object_repr="cms-admin",
+            action_flag=CHANGE,
+            change_message="test",
+        )
+        response = self.client.get(reverse("admin:recent_actions"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Недавні дії")
+        self.assertContains(response, "cms-admin")
+
+    def test_index_has_no_recent_actions_sidebar(self):
+        response = self.client.get(reverse("admin:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'id="content-related"')
+        self.assertNotContains(response, 'id="recent-actions-module"')
+
+
 class FaviconColorTests(TestCase):
     def test_home_links_dynamic_favicon(self):
         from landing.models import SiteSettings

@@ -9,3 +9,6 @@ class LandingConfig(AppConfig):
     def ready(self):
         from . import models_proxies  # noqa: F401
         from . import signals  # noqa: F401
+        from .admin_recent_actions import register_recent_actions_url
+
+        register_recent_actions_url()

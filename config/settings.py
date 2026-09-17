@@ -237,6 +237,16 @@ def _sidebar_navigation(request=None):
                         "admin:landing_brandcolorsettings_changelist"
                     ),
                 },
+                {
+                    "title": "Змінити пароль",
+                    "icon": "lock",
+                    "link": reverse_lazy("admin:password_change"),
+                },
+                {
+                    "title": "Недавні дії",
+                    "icon": "history",
+                    "link": reverse_lazy("admin:recent_actions"),
+                },
             ],
         },
         {

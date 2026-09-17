@@ -1,0 +1,44 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div id="content-main" class="min-w-0">
+    <div id="recent-actions-page" class="module max-w-3xl">
+        {% if entries %}
+            <ul class="actionlist space-y-3">
+                {% for entry in entries %}
+                    <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %} border border-base-200 bg-white p-3 rounded-default shadow-xs dark:bg-base-900 dark:border-base-800">
+                        <div class="mb-3 overflow-hidden text-ellipsis whitespace-nowrap text-base-900 dark:text-base-100">
+                            {% if entry.is_deletion or not entry.get_admin_url %}
+                                {{ entry.object_repr }}
+                            {% else %}
+                                <a href="{{ entry.get_admin_url }}" class="text-primary-600 hover:underline dark:text-primary-400">
+                                    {{ entry.object_repr }}
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        <div class="border-base-100 border-t flex flex-wrap gap-2 pt-3 text-sm text-base-500 dark:border-base-800 dark:text-base-400">
+                            <div>
+                                {% if entry.content_type %}
+                                    {% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}
+                                {% else %}
+                                    {% translate 'Unknown content' %}
+                                {% endif %}
+                            </div>
+                            <div class="ml-auto tabular-nums">
+                                {{ entry.action_time }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-base-500 dark:text-base-400">
+                Поки немає записаних дій для вашого облікового запису.
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
