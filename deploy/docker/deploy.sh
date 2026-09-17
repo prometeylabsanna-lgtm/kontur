@@ -12,7 +12,8 @@ if [[ ! -f "${APP_DIR}/.env" ]]; then
   exit 1
 fi
 
-if grep -q 'DROPLET_IP' "${APP_DIR}/.env"; then
+# Only flag real values, not comments that mention the token DROPLET_IP.
+if grep -E '^[[:space:]]*[^#[:space:]].*DROPLET_IP' "${APP_DIR}/.env" >/dev/null; then
   echo "FATAL: replace DROPLET_IP in .env with the real IPv4 (68.183.210.146)."
   exit 1
 fi
