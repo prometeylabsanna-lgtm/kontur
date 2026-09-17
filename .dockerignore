@@ -1,0 +1,25 @@
+.git
+.gitignore
+.venv
+venv
+env
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.cursor
+.idea
+.vscode
+.DS_Store
+.env
+.vercel
+media
+staticfiles
+*.sqlite3
+db.sqlite3
+*.log
+node_modules
+Kontur+ Landing створення
+design/mockups

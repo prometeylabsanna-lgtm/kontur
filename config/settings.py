@@ -30,6 +30,7 @@ ALLOWED_HOSTS = list(
 CSRF_TRUSTED_ORIGINS = list(
     config("CSRF_TRUSTED_ORIGINS", default="", cast=Csv())
 )
+USE_X_FORWARDED_HOST = True
 
 if IS_VERCEL:
     if ".vercel.app" not in ALLOWED_HOSTS:
@@ -156,13 +157,56 @@ GOOGLE_PLACE_ID = config("GOOGLE_PLACE_ID", default="")
 
 
 if not DEBUG:
+    # TLS terminates in nginx. Gunicorn stays on HTTP so /healthz/ is not 301.
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)
-    SECURE_HSTS_SECONDS = config("SECURE_HSTS_SECONDS", default=31536000, cast=int)
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SESSION_COOKIE_SECURE = config(
+        "SESSION_COOKIE_SECURE", default=IS_VERCEL, cast=bool
+    )
+    CSRF_COOKIE_SECURE = config(
+        "CSRF_COOKIE_SECURE", default=IS_VERCEL, cast=bool
+    )
+    SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=False, cast=bool)
+    SECURE_HSTS_SECONDS = config(
+        "SECURE_HSTS_SECONDS",
+        default=31536000 if IS_VERCEL else 0,
+        cast=int,
+    )
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = config(
+        "SECURE_HSTS_INCLUDE_SUBDOMAINS",
+        default=IS_VERCEL,
+        cast=bool,
+    )
     SECURE_CONTENT_TYPE_NOSNIFF = True
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {"handlers": ["console"], "level": "WARNING"},
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
 
 TINYMCE_DEFAULT_CONFIG = {
     "height": 360,

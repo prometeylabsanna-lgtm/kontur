@@ -3,9 +3,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from landing.views import decoy_admin
+from landing.views import decoy_admin, healthz
 
 urlpatterns = [
+    path("healthz/", healthz),
     path("kontur-plus-cms/", admin.site.urls),
     path("admin", decoy_admin),
     path("admin/", decoy_admin),

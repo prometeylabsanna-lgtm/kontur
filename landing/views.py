@@ -78,6 +78,11 @@ def favicon_ico(request):
     return response
 
 
+@require_GET
+def healthz(request):
+    return HttpResponse("ok", content_type="text/plain")
+
+
 def bad_request(request, exception=None):
     return render(request, "errors/400.html", status=400)
 
