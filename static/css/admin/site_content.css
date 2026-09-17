@@ -165,8 +165,19 @@
   border-radius: 0.35rem;
 }
 
+.cms-image-preview-caption {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: #6b7280;
+}
+
 .dark .cms-image-preview {
   border-color: #374151;
+}
+
+.dark .cms-image-preview-caption {
+  color: #9ca3af;
 }
 
 @media (max-width: 767px) {

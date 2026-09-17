@@ -7,6 +7,7 @@ from django.forms import BaseModelFormSet, modelformset_factory
 
 from .admin_guidelines import get_image_hint
 from .admin_hero_slides import build_hero_slide_formset
+from .admin_image_preview import cms_preview_caption_for, cms_preview_url_for
 from .admin_site_content_widgets import (
     CmsAdminImageWidget,
     CmsAdminTextInputWidget,
@@ -113,6 +114,11 @@ class AdvantageForm(forms.ModelForm):
         self.fields["image"].required = False
         self.fields["image"].help_text = get_image_hint("advantage")
         self.fields["is_active"].label = "Показувати"
+        preview = cms_preview_url_for(self.instance)
+        self.fields["image"].widget = CmsAdminImageWidget(
+            preview_url=preview,
+            preview_caption=cms_preview_caption_for(self.instance, preview),
+        )
 
     def clean(self):
         cleaned = super().clean()

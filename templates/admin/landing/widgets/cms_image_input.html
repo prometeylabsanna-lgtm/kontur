@@ -6,6 +6,15 @@
       <img class="cms-image-preview" src="{{ widget.value.url }}" alt="{% trans 'Image preview' %}" width="160" height="120" loading="lazy" />
     </a>
   </div>
+{% elif widget.preview_url %}
+  <div class="cms-image-preview-wrap">
+    <a href="{{ widget.preview_url }}" target="_blank" rel="noopener">
+      <img class="cms-image-preview" src="{{ widget.preview_url }}" alt="{% trans 'Image preview' %}" width="160" height="120" loading="lazy" />
+    </a>
+    {% if widget.preview_caption %}
+      <p class="cms-image-preview-caption">{{ widget.preview_caption }}</p>
+    {% endif %}
+  </div>
 {% endif %}
 
 <div class="{{ widget.file_wrapper_class }}">

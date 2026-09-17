@@ -180,3 +180,30 @@ class FaviconColorTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("image/", response["Content-Type"])
         self.assertGreater(len(response.content), 64)
+
+
+class CmsImagePreviewTests(TestCase):
+    def test_hero_preview_from_image_url(self):
+        from landing.admin_image_preview import cms_preview_url_for
+        from landing.models import HeroSlide
+
+        slide = HeroSlide(
+            image_url=(
+                "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0"
+                "?auto=format&fit=crop&w=960&q=76"
+            )
+        )
+        url = cms_preview_url_for(slide)
+        self.assertIn("hero-01", url)
+
+    def test_advantage_preview_from_image_static(self):
+        from landing.admin_image_preview import cms_preview_caption_for, cms_preview_url_for
+        from landing.models import AdvantageItem
+
+        item = AdvantageItem(
+            title="Test",
+            image_static="img/advantages/adv-odesa.webp",
+        )
+        url = cms_preview_url_for(item)
+        self.assertIn("adv-odesa", url)
+        self.assertEqual(cms_preview_caption_for(item, url), "Поточне фото зі static")

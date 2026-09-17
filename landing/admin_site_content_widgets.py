@@ -91,9 +91,18 @@ def _with_cms_classes(attrs, base_classes) -> dict:
 class CmsAdminImageWidget(UnfoldAdminImageFieldWidget):
     template_name = "admin/landing/widgets/cms_image_input.html"
 
-    def __init__(self, attrs=None):
+    def __init__(self, attrs=None, *, preview_url: str = "", preview_caption: str = ""):
         attrs = {**(attrs or {}), "accept": "image/*"}
+        self.preview_url = preview_url or ""
+        self.preview_caption = preview_caption or ""
         super().__init__(attrs=attrs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context["widget"]["preview_url"] = self.preview_url
+        context["widget"]["preview_caption"] = self.preview_caption
+        return context
+
 
 
 class CmsAdminTextInputWidget(AdminTextInputWidget):
